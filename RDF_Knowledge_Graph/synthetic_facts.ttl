@@ -1,0 +1,682 @@
+# Produced by: python -m dataset.build_kg
+# Generated from dataset/input CSV files. Do not edit by hand.
+@prefix academicdata: <https://orca.example.org/data/AcademicDataCategory/> .
+@prefix adminperm: <https://orca.example.org/data/AdminPermission/> .
+@prefix agent: <https://orca.example.org/data/AIAgent/> .
+@prefix communicationdata: <https://orca.example.org/data/CommunicationDataCategory/> .
+@prefix control: <https://orca.example.org/data/SecurityControl/> .
+@prefix database: <https://orca.example.org/data/Database/> .
+@prefix filestore: <https://orca.example.org/data/FileStore/> .
+@prefix financialdata: <https://orca.example.org/data/FinancialDataCategory/> .
+@prefix healthdata: <https://orca.example.org/data/HealthDataCategory/> .
+@prefix mailbox: <https://orca.example.org/data/Mailbox/> .
+@prefix orca: <https://orca.example.org/ontology#> .
+@prefix personaldata: <https://orca.example.org/data/PersonalDataCategory/> .
+@prefix policy: <https://orca.example.org/data/SecurityPolicy/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix readperm: <https://orca.example.org/data/ReadPermission/> .
+@prefix role: <https://orca.example.org/data/Role/> .
+@prefix sendperm: <https://orca.example.org/data/SendPermission/> .
+@prefix task: <https://orca.example.org/data/Task/> .
+@prefix tool: <https://orca.example.org/data/Tool/> .
+@prefix user: <https://orca.example.org/data/HumanUser/> .
+@prefix webcontent: <https://orca.example.org/data/WebContent/> .
+@prefix writeperm: <https://orca.example.org/data/WritePermission/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+agent:AdmissionsFAQBot a orca:AIAgent ;
+    rdfs:label "Admissions FAQ Bot" ;
+    rdfs:comment "Fictional chatbot that answers prospective students' admissions questions from public web pages." ;
+    orca:assignedTask task:AnswerAdmissionsFAQ ;
+    orca:hasRole role:AdmissionsStaffRole ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:supervisedBy user:AminaRahman ;
+    orca:usesTool tool:FAQSearchTool .
+
+agent:AdmissionsReviewAgent a orca:AIAgent ;
+    rdfs:label "Admissions Review Agent" ;
+    rdfs:comment "Fictional agent that pre-screens applications for the admissions office." ;
+    orca:assignedTask task:ReviewApplications ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:supervisedBy user:TomasSilva ;
+    orca:usesTool tool:FinanceLedgerTool .
+
+agent:AdvisingAgent a orca:AIAgent ;
+    rdfs:label "Advising Agent" ;
+    rdfs:comment "Fictional academic advising agent that recommends courses to students." ;
+    orca:assignedTask task:RecommendCourses ;
+    orca:hasRole role:AcademicAdvisorRole ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:supervisedBy user:TomasSilva ;
+    orca:usesTool tool:CourseCatalogTool,
+        tool:StudentRecordsTool .
+
+agent:CampusEventsBot a orca:AIAgent ;
+    rdfs:label "Campus Events Bot" ;
+    rdfs:comment "Fictional agent that announces public campus events." ;
+    orca:assignedTask task:AnnounceCampusEvents ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:supervisedBy user:AminaRahman ;
+    orca:usesTool tool:CampusEventsTool .
+
+agent:FeeReminderAgent a orca:AIAgent ;
+    rdfs:label "Fee Reminder Agent" ;
+    rdfs:comment "Fictional finance agent that emails students about unpaid fee balances." ;
+    orca:assignedTask task:SendFeeReminders ;
+    orca:hasRole role:FinanceAssistantRole ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:supervisedBy user:DanielOkafor ;
+    orca:usesTool tool:EmailTool,
+        tool:FinanceLedgerTool .
+
+agent:GradingAssistant a orca:AIAgent ;
+    rdfs:label "Grading Assistant" ;
+    rdfs:comment "Fictional agent that records assignment grades for course instructors." ;
+    orca:assignedTask task:GradeAssignments ;
+    orca:hasPermission writeperm:WriteStudentGrades ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:supervisedBy user:TomasSilva ;
+    orca:usesTool tool:RubricTool .
+
+agent:HelpdeskAgent a orca:AIAgent ;
+    rdfs:label "Helpdesk Agent" ;
+    rdfs:comment "Fictional IT helpdesk agent that resets student account passwords." ;
+    orca:assignedTask task:ResetStudentPasswords ;
+    orca:hasRole role:ITSupportRole ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:supervisedBy user:LeilaHartmann ;
+    orca:usesTool tool:PasswordResetTool .
+
+agent:LibraryHelpBot a orca:AIAgent ;
+    rdfs:label "Library Help Bot" ;
+    rdfs:comment "Fictional library chatbot that renews students' library loans." ;
+    orca:assignedTask task:RenewLibraryLoans ;
+    orca:hasRole role:LibraryAssistantRole ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:supervisedBy user:LeilaHartmann ;
+    orca:usesTool tool:LibraryTool .
+
+agent:ResearchSummaryAgent a orca:AIAgent ;
+    rdfs:label "Research Summary Agent" ;
+    rdfs:comment "Fictional research assistant that summarises papers from the library catalogue." ;
+    orca:assignedTask task:SummarizePapers ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:supervisedBy user:LeilaHartmann ;
+    orca:usesTool tool:ClinicSchedulerTool,
+        tool:HRDirectoryTool,
+        tool:PaperSearchTool .
+
+agent:TimetableAssistant a orca:AIAgent ;
+    rdfs:label "Timetable Assistant" ;
+    rdfs:comment "Fictional agent that prepares and publishes the exam timetable." ;
+    orca:assignedTask task:PublishExamTimetable ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:supervisedBy user:TomasSilva ;
+    orca:usesTool tool:CourseCatalogTool .
+
+adminperm:ManageUserAccounts a orca:AdminPermission ;
+    rdfs:label "Manage user accounts" ;
+    rdfs:comment "Create or disable user accounts in the account directory." ;
+    orca:accessMode "admin" ;
+    orca:accessesResource database:AccountDirectory ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+role:SecurityAuditorRole a orca:Role ;
+    rdfs:label "Security auditor role" ;
+    rdfs:comment "Role for staff who review account access logs." ;
+    orca:hasPermission readperm:ReadAccessLogs ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+task:AuditAccessLogs a orca:Task ;
+    rdfs:label "Audit access logs" ;
+    rdfs:comment "Review account access logs for unusual activity; currently assigned to staff only." ;
+    orca:governedByPolicy policy:ActivityMonitoringPolicy ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:requiresPermission readperm:ReadAccessLogs .
+
+task:ProcessRefunds a orca:Task ;
+    rdfs:label "Process refunds" ;
+    rdfs:comment "Approve fee refunds for eligible students; currently assigned to staff only." ;
+    orca:governedByPolicy policy:HumanOversightPolicy ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:requiresPermission readperm:ReadFeeBalances,
+        writeperm:ApproveRefunds .
+
+tool:ExamTimetableTool a orca:Tool ;
+    rdfs:label "Exam timetable tool" ;
+    rdfs:comment "Connector that reads and writes the exam timetable file store." ;
+    orca:hasPermission readperm:ReadExamTimetable,
+        writeperm:WriteExamTimetable ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+tool:FAQEditorTool a orca:Tool ;
+    rdfs:label "FAQ editor tool" ;
+    rdfs:comment "Connector that edits the public admissions FAQ pages." ;
+    orca:hasPermission writeperm:UpdateAdmissionsFAQ ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+writeperm:WriteCourseCatalog a orca:WritePermission ;
+    rdfs:label "Write course catalog" ;
+    rdfs:comment "Change course entries in the course catalogue." ;
+    orca:accessMode "write" ;
+    orca:accessesResource database:CourseCatalogDB ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+academicdata:AcademicRecord a orca:AcademicDataCategory ;
+    rdfs:label "Academic record" ;
+    rdfs:comment "Students' grades and academic history." ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:sensitivityLevel 3 .
+
+communicationdata:ConfidentialEmail a orca:CommunicationDataCategory ;
+    rdfs:label "Confidential email" ;
+    rdfs:comment "Private email correspondence with students." ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:sensitivityLevel 3 .
+
+database:HRRecordsDB a orca:Database ;
+    rdfs:label "HR records database" ;
+    rdfs:comment "Database of employee personal records." ;
+    orca:containsSensitiveData personaldata:EmployeePII ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+database:HealthCentreDB a orca:Database ;
+    rdfs:label "Health centre database" ;
+    rdfs:comment "Database of student health centre appointments and visit notes." ;
+    orca:containsSensitiveData healthdata:HealthInformation ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+database:LibraryCatalogDB a orca:Database ;
+    rdfs:label "Library catalog database" ;
+    rdfs:comment "Database of library books and research papers." ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+database:LibraryLoansDB a orca:Database ;
+    rdfs:label "Library loans database" ;
+    rdfs:comment "Database of library loans linked to named students." ;
+    orca:containsSensitiveData personaldata:StudentPII ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+filestore:ApplicantDocumentStore a orca:FileStore ;
+    rdfs:label "Applicant document store" ;
+    rdfs:comment "File store of documents uploaded by admission applicants." ;
+    orca:containsSensitiveData personaldata:StudentPII ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+filestore:MarkingRubricStore a orca:FileStore ;
+    rdfs:label "Marking rubric store" ;
+    rdfs:comment "File store of course marking rubrics." ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+financialdata:FinancialRecord a orca:FinancialDataCategory ;
+    rdfs:label "Financial record" ;
+    rdfs:comment "Students' fee balances and payment history." ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:sensitivityLevel 4 .
+
+healthdata:HealthInformation a orca:HealthDataCategory ;
+    rdfs:label "Health information" ;
+    rdfs:comment "Students' health appointments and medical notes." ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:sensitivityLevel 5 .
+
+user:DanielOkafor a orca:HumanUser ;
+    rdfs:label "Daniel Okafor" ;
+    rdfs:comment "Fictional university finance manager who supervises finance-related agents." ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+mailbox:StudentMailbox a orca:Mailbox ;
+    rdfs:label "Student mailbox" ;
+    rdfs:comment "University email mailboxes of students." ;
+    orca:containsSensitiveData communicationdata:ConfidentialEmail ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+personaldata:EmployeePII a orca:PersonalDataCategory ;
+    rdfs:label "Employee PII" ;
+    rdfs:comment "Personally identifiable information about university employees." ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:sensitivityLevel 4 .
+
+readperm:ReadApplicantDocuments a orca:ReadPermission ;
+    rdfs:label "Read applicant documents" ;
+    rdfs:comment "Read documents uploaded by admission applicants." ;
+    orca:accessMode "read" ;
+    orca:accessesResource filestore:ApplicantDocumentStore ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+readperm:ReadClinicAppointments a orca:ReadPermission ;
+    rdfs:label "Read clinic appointments" ;
+    rdfs:comment "Read appointments and visit notes in the health centre database." ;
+    orca:accessMode "read" ;
+    orca:accessesResource database:HealthCentreDB ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+readperm:ReadExamTimetable a orca:ReadPermission ;
+    rdfs:label "Read exam timetable" ;
+    rdfs:comment "Read the exam timetable." ;
+    orca:accessMode "read" ;
+    orca:accessesResource filestore:ExamTimetableStore ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+readperm:ReadStaffRecords a orca:ReadPermission ;
+    rdfs:label "Read staff records" ;
+    rdfs:comment "Read employee records in the HR records database." ;
+    orca:accessMode "read" ;
+    orca:accessesResource database:HRRecordsDB ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+readperm:ReadStudentContactInfo a orca:ReadPermission ;
+    rdfs:label "Read student contact info" ;
+    rdfs:comment "Read students' addresses and phone numbers in the student records database." ;
+    orca:accessMode "read" ;
+    orca:accessesResource database:StudentRecordsDB ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+role:AcademicAdvisorRole a orca:Role ;
+    rdfs:label "Academic advisor role" ;
+    rdfs:comment "Role for course advising helpers." ;
+    orca:hasPermission readperm:ReadCourseCatalog ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+role:AdmissionsStaffRole a orca:Role ;
+    rdfs:label "Admissions staff role" ;
+    rdfs:comment "Role for admissions office helpers." ;
+    orca:hasPermission readperm:ReadAdmissionsFAQ ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+role:FinanceAssistantRole a orca:Role ;
+    rdfs:label "Finance assistant role" ;
+    rdfs:comment "Role for finance office helpers." ;
+    orca:hasPermission readperm:ReadFeeBalances,
+        writeperm:ApproveRefunds ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+role:ITSupportRole a orca:Role ;
+    rdfs:label "IT support role" ;
+    rdfs:comment "Role for IT helpdesk helpers." ;
+    orca:hasPermission adminperm:ExportStudentData,
+        adminperm:ResetPassword ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+role:LibraryAssistantRole a orca:Role ;
+    rdfs:label "Library assistant role" ;
+    rdfs:comment "Role for library service helpers." ;
+    orca:hasPermission readperm:ReadLibraryLoans ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+policy:NoBulkDataExportPolicy a orca:SecurityPolicy ;
+    rdfs:label "No bulk data export policy" ;
+    rdfs:comment "Agents must not hold permissions that bulk-export student data." ;
+    orca:implementsControl control:OWASP_LLM06-ExcessiveFunctionality,
+        control:OWASP_LLM06-ExcessivePermissions ;
+    orca:prohibitsPermission adminperm:ExportStudentData ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+task:AnnounceCampusEvents a orca:Task ;
+    rdfs:label "Announce campus events" ;
+    rdfs:comment "Post announcements about upcoming public campus events." ;
+    orca:governedByPolicy policy:ActivityMonitoringPolicy ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:requiresPermission readperm:ReadCampusEvents,
+        writeperm:PostCampusAnnouncement .
+
+task:AnswerAdmissionsFAQ a orca:Task ;
+    rdfs:label "Answer admissions FAQ" ;
+    rdfs:comment "Answer common admissions questions using the public admissions web pages." ;
+    orca:governedByPolicy policy:AgentIdentityPolicy ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:requiresPermission readperm:ReadAdmissionsFAQ .
+
+task:GradeAssignments a orca:Task ;
+    rdfs:label "Grade assignments" ;
+    rdfs:comment "Record assignment grades using the course marking rubrics." ;
+    orca:governedByPolicy policy:HumanOversightPolicy,
+        policy:StudentDataProtectionPolicy ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:requiresPermission readperm:ReadMarkingRubrics,
+        writeperm:WriteStudentGrades .
+
+task:PublishExamTimetable a orca:Task ;
+    rdfs:label "Publish exam timetable" ;
+    rdfs:comment "Build the exam timetable from the course catalogue and publish it." ;
+    orca:governedByPolicy policy:ActivityMonitoringPolicy ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:requiresPermission readperm:ReadCourseCatalog,
+        writeperm:WriteExamTimetable .
+
+task:RecommendCourses a orca:Task ;
+    rdfs:label "Recommend courses" ;
+    rdfs:comment "Recommend next-term courses to a student based on the catalogue and the student's grades." ;
+    orca:governedByPolicy policy:LeastPrivilegePolicy ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:requiresPermission readperm:ReadCourseCatalog,
+        readperm:ReadStudentGrades .
+
+task:RenewLibraryLoans a orca:Task ;
+    rdfs:label "Renew library loans" ;
+    rdfs:comment "Renew a student's current library loans." ;
+    orca:governedByPolicy policy:StudentDataProtectionPolicy ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:requiresPermission readperm:ReadLibraryLoans .
+
+task:ResetStudentPasswords a orca:Task ;
+    rdfs:label "Reset student passwords" ;
+    rdfs:comment "Reset the password of a student account on request." ;
+    orca:governedByPolicy policy:AgentIdentityPolicy,
+        policy:NoBulkDataExportPolicy ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:requiresPermission adminperm:ResetPassword .
+
+task:ReviewApplications a orca:Task ;
+    rdfs:label "Review applications" ;
+    rdfs:comment "Pre-screen admission applications by reading the applicant documents." ;
+    orca:governedByPolicy policy:LeastPrivilegePolicy,
+        policy:StudentDataProtectionPolicy ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:requiresPermission readperm:ReadApplicantDocuments .
+
+task:SendFeeReminders a orca:Task ;
+    rdfs:label "Send fee reminders" ;
+    rdfs:comment "Email students who have an outstanding fee balance." ;
+    orca:governedByPolicy policy:HumanOversightPolicy,
+        policy:StudentDataProtectionPolicy ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:requiresPermission readperm:ReadFeeBalances,
+        sendperm:SendStudentEmail .
+
+task:SummarizePapers a orca:Task ;
+    rdfs:label "Summarize papers" ;
+    rdfs:comment "Find and summarise research papers listed in the library catalogue." ;
+    orca:governedByPolicy policy:LeastPrivilegePolicy ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:requiresPermission readperm:ReadLibraryCatalog .
+
+tool:CampusEventsTool a orca:Tool ;
+    rdfs:label "Campus events tool" ;
+    rdfs:comment "Connector that reads and posts entries on the campus events pages." ;
+    orca:hasPermission readperm:ReadCampusEvents,
+        writeperm:PostCampusAnnouncement ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+tool:ClinicSchedulerTool a orca:Tool ;
+    rdfs:label "Clinic scheduler tool" ;
+    rdfs:comment "Connector to the health centre appointment system." ;
+    orca:hasPermission readperm:ReadClinicAppointments ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+tool:EmailTool a orca:Tool ;
+    rdfs:label "Email tool" ;
+    rdfs:comment "Connector that sends email to student mailboxes." ;
+    orca:hasPermission sendperm:SendStudentEmail ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+tool:FAQSearchTool a orca:Tool ;
+    rdfs:label "FAQ search tool" ;
+    rdfs:comment "Search connector over the public admissions web pages." ;
+    orca:hasPermission readperm:ReadAdmissionsFAQ ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+tool:HRDirectoryTool a orca:Tool ;
+    rdfs:label "HR directory tool" ;
+    rdfs:comment "Connector to the human-resources staff records." ;
+    orca:hasPermission readperm:ReadStaffRecords ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+tool:LibraryTool a orca:Tool ;
+    rdfs:label "Library tool" ;
+    rdfs:comment "Connector to the library loans system." ;
+    orca:hasPermission readperm:ReadLibraryLoans ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+tool:PaperSearchTool a orca:Tool ;
+    rdfs:label "Paper search tool" ;
+    rdfs:comment "Search connector over the library catalogue of research papers." ;
+    orca:hasPermission readperm:ReadLibraryCatalog ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+tool:PasswordResetTool a orca:Tool ;
+    rdfs:label "Password reset tool" ;
+    rdfs:comment "Connector that resets passwords in the account directory." ;
+    orca:hasPermission adminperm:ResetPassword ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+tool:RubricTool a orca:Tool ;
+    rdfs:label "Rubric tool" ;
+    rdfs:comment "Connector that reads course marking rubrics." ;
+    orca:hasPermission readperm:ReadMarkingRubrics ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+tool:StudentRecordsTool a orca:Tool ;
+    rdfs:label "Student records tool" ;
+    rdfs:comment "Connector to the student records database for grades and contact details." ;
+    orca:hasPermission readperm:ReadStudentContactInfo,
+        readperm:ReadStudentGrades,
+        writeperm:WriteStudentGrades ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+writeperm:UpdateAdmissionsFAQ a orca:WritePermission ;
+    rdfs:label "Update admissions FAQ" ;
+    rdfs:comment "Edit the public admissions FAQ web pages." ;
+    orca:accessMode "write" ;
+    orca:accessesResource webcontent:AdmissionsWebPages ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+adminperm:ExportStudentData a orca:AdminPermission ;
+    rdfs:label "Export student data" ;
+    rdfs:comment "Bulk-export complete student records from the student records database." ;
+    orca:accessMode "admin" ;
+    orca:accessesResource database:StudentRecordsDB ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+database:CourseCatalogDB a orca:Database ;
+    rdfs:label "Course catalog database" ;
+    rdfs:comment "Database of course descriptions and schedules." ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+database:FinanceLedgerDB a orca:Database ;
+    rdfs:label "Finance ledger database" ;
+    rdfs:comment "Database of student fee balances and payments." ;
+    orca:containsSensitiveData financialdata:FinancialRecord ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+filestore:ExamTimetableStore a orca:FileStore ;
+    rdfs:label "Exam timetable store" ;
+    rdfs:comment "File store holding exam timetable documents." ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+user:AminaRahman a orca:HumanUser ;
+    rdfs:label "Amina Rahman" ;
+    rdfs:comment "Fictional head of student services who supervises student-facing agents." ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+readperm:ReadAccessLogs a orca:ReadPermission ;
+    rdfs:label "Read access logs" ;
+    rdfs:comment "Read sign-in and access logs of the account directory." ;
+    orca:accessMode "read" ;
+    orca:accessesResource database:AccountDirectory ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+readperm:ReadCampusEvents a orca:ReadPermission ;
+    rdfs:label "Read campus events" ;
+    rdfs:comment "Read the campus events pages." ;
+    orca:accessMode "read" ;
+    orca:accessesResource webcontent:CampusEventsPages ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+readperm:ReadLibraryCatalog a orca:ReadPermission ;
+    rdfs:label "Read library catalog" ;
+    rdfs:comment "Search the library catalogue of books and papers." ;
+    orca:accessMode "read" ;
+    orca:accessesResource database:LibraryCatalogDB ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+readperm:ReadMarkingRubrics a orca:ReadPermission ;
+    rdfs:label "Read marking rubrics" ;
+    rdfs:comment "Read the marking rubrics of a course." ;
+    orca:accessMode "read" ;
+    orca:accessesResource filestore:MarkingRubricStore ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+readperm:ReadStudentGrades a orca:ReadPermission ;
+    rdfs:label "Read student grades" ;
+    rdfs:comment "Read students' course grades in the student records database." ;
+    orca:accessMode "read" ;
+    orca:accessesResource database:StudentRecordsDB ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+policy:AgentIdentityPolicy a orca:SecurityPolicy ;
+    rdfs:label "Agent identity policy" ;
+    rdfs:comment "Every agent must have its own managed identity and credentials." ;
+    orca:implementsControl control:CSF_PRAA-01,
+        control:ENTRA_AgentIdentities,
+        control:ENTRA_Authorization,
+        control:ENTRA_GrantAccessM365 ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+sendperm:SendStudentEmail a orca:SendPermission ;
+    rdfs:label "Send student email" ;
+    rdfs:comment "Send email messages to student mailboxes." ;
+    orca:accessMode "send" ;
+    orca:accessesResource mailbox:StudentMailbox ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+tool:CourseCatalogTool a orca:Tool ;
+    rdfs:label "Course catalog tool" ;
+    rdfs:comment "Read-only connector to the course catalogue database." ;
+    orca:hasPermission readperm:ReadCourseCatalog ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+tool:FinanceLedgerTool a orca:Tool ;
+    rdfs:label "Finance ledger tool" ;
+    rdfs:comment "Connector to the finance ledger that shows student fee balances." ;
+    orca:hasPermission readperm:ReadFeeBalances ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+webcontent:AdmissionsWebPages a orca:WebContent ;
+    rdfs:label "Admissions web pages" ;
+    rdfs:comment "Public web pages with admissions information and FAQs." ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+webcontent:CampusEventsPages a orca:WebContent ;
+    rdfs:label "Campus events pages" ;
+    rdfs:comment "Public web pages listing campus events." ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+writeperm:ApproveRefunds a orca:WritePermission ;
+    rdfs:label "Approve refunds" ;
+    rdfs:comment "Approve fee refunds in the finance ledger." ;
+    orca:accessMode "write" ;
+    orca:accessesResource database:FinanceLedgerDB ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+writeperm:PostCampusAnnouncement a orca:WritePermission ;
+    rdfs:label "Post campus announcement" ;
+    rdfs:comment "Post a new announcement on the campus events pages." ;
+    orca:accessMode "write" ;
+    orca:accessesResource webcontent:CampusEventsPages ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+writeperm:WriteExamTimetable a orca:WritePermission ;
+    rdfs:label "Write exam timetable" ;
+    rdfs:comment "Create or change the exam timetable." ;
+    orca:accessMode "write" ;
+    orca:accessesResource filestore:ExamTimetableStore ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+adminperm:ResetPassword a orca:AdminPermission ;
+    rdfs:label "Reset password" ;
+    rdfs:comment "Reset the password of a user account in the account directory." ;
+    orca:accessMode "admin" ;
+    orca:accessesResource database:AccountDirectory ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+database:AccountDirectory a orca:Database ;
+    rdfs:label "Account directory" ;
+    rdfs:comment "Directory of user accounts and their sign-in logs." ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+user:LeilaHartmann a orca:HumanUser ;
+    rdfs:label "Leila Hartmann" ;
+    rdfs:comment "Fictional IT security lead who supervises IT and library agents." ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+personaldata:StudentPII a orca:PersonalDataCategory ;
+    rdfs:label "Student PII" ;
+    rdfs:comment "Personally identifiable information about students such as names and contact details." ;
+    orca:provenanceLabel "Synthetic_Fact" ;
+    orca:sensitivityLevel 4 .
+
+readperm:ReadAdmissionsFAQ a orca:ReadPermission ;
+    rdfs:label "Read admissions FAQ" ;
+    rdfs:comment "Read the public admissions FAQ web pages." ;
+    orca:accessMode "read" ;
+    orca:accessesResource webcontent:AdmissionsWebPages ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+readperm:ReadLibraryLoans a orca:ReadPermission ;
+    rdfs:label "Read library loans" ;
+    rdfs:comment "Read and renew a student's library loans." ;
+    orca:accessMode "read" ;
+    orca:accessesResource database:LibraryLoansDB ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+policy:ActivityMonitoringPolicy a orca:SecurityPolicy ;
+    rdfs:label "Activity monitoring policy" ;
+    rdfs:comment "Agent use of tools and data must be logged and monitored." ;
+    orca:implementsControl control:CSF_DECM-03,
+        control:RMF_MEASURE-2-7 ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+policy:HumanOversightPolicy a orca:SecurityPolicy ;
+    rdfs:label "Human oversight policy" ;
+    rdfs:comment "Every agent must have a named human supervisor who can stop it." ;
+    orca:implementsControl control:RMF_MANAGE-2-4,
+        control:RMF_MAP-3-5 ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+policy:LeastPrivilegePolicy a orca:SecurityPolicy ;
+    rdfs:label "Least privilege policy" ;
+    rdfs:comment "An agent may hold only the permissions its assigned tasks require." ;
+    orca:implementsControl control:CSF_PRAA-05 ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+writeperm:WriteStudentGrades a orca:WritePermission ;
+    rdfs:label "Write student grades" ;
+    rdfs:comment "Enter or change students' course grades." ;
+    orca:accessMode "write" ;
+    orca:accessesResource database:StudentRecordsDB ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+database:StudentRecordsDB a orca:Database ;
+    rdfs:label "Student records database" ;
+    rdfs:comment "Database of student identities and contact details and grades." ;
+    orca:containsSensitiveData academicdata:AcademicRecord,
+        personaldata:StudentPII ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+user:TomasSilva a orca:HumanUser ;
+    rdfs:label "Tomas Silva" ;
+    rdfs:comment "Fictional academic registrar who supervises academic and admissions agents." ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+readperm:ReadCourseCatalog a orca:ReadPermission ;
+    rdfs:label "Read course catalog" ;
+    rdfs:comment "Read course descriptions and schedules in the course catalogue." ;
+    orca:accessMode "read" ;
+    orca:accessesResource database:CourseCatalogDB ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+readperm:ReadFeeBalances a orca:ReadPermission ;
+    rdfs:label "Read fee balances" ;
+    rdfs:comment "Read students' outstanding fee balances in the finance ledger." ;
+    orca:accessMode "read" ;
+    orca:accessesResource database:FinanceLedgerDB ;
+    orca:provenanceLabel "Synthetic_Fact" .
+
+policy:StudentDataProtectionPolicy a orca:SecurityPolicy ;
+    rdfs:label "Student data protection policy" ;
+    rdfs:comment "Access to student personal and academic data must be limited and recorded." ;
+    orca:implementsControl control:CSF_GVPO-01,
+        control:CSF_IDAM-07 ;
+    orca:provenanceLabel "Synthetic_Fact" .
+

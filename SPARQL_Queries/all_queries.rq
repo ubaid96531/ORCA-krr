@@ -1,0 +1,370 @@
+# ORCA - all 13 SPARQL queries (one section per competency question).
+# Run one query at a time in the GraphDB SPARQL tab: copy one section.
+
+# ==============================================================================
+# QUERY q01_cq1_indirect_sensitive_access
+# ==============================================================================
+# Purpose: Sensitive data categories that agent:AdvisingAgent can reach indirectly, with the exact route (tool, role or direct), the tool or role, the permission and the resource of each access path.
+# CQ: CQ1
+# Features: BGP, UNION, chain of 4 triple patterns (agent -> tool -> permission -> resource -> category), BIND
+# Compare-asserted: no
+PREFIX orca: <https://orca.example.org/ontology#>
+PREFIX agent: <https://orca.example.org/data/AIAgent/>
+
+SELECT DISTINCT ?category ?route ?tool_or_role ?permission ?resource
+WHERE {
+  {
+    # Tool route: agent -> usesTool -> Tool -> hasPermission -> Permission
+    agent:AdvisingAgent orca:usesTool ?tool_or_role .
+    ?tool_or_role orca:hasPermission ?permission .
+    ?permission orca:accessesResource ?resource .
+    ?resource orca:containsSensitiveData ?category .
+    BIND ("tool" AS ?route)
+  }
+  UNION
+  {
+    # Role route: agent -> hasRole -> Role -> hasPermission -> Permission
+    agent:AdvisingAgent orca:hasRole ?tool_or_role .
+    ?tool_or_role orca:hasPermission ?permission .
+    ?permission orca:accessesResource ?resource .
+    ?resource orca:containsSensitiveData ?category .
+    BIND ("role" AS ?route)
+  }
+  UNION
+  {
+    # Direct route: agent -> hasPermission -> Permission
+    agent:AdvisingAgent orca:hasPermission ?permission .
+    ?permission orca:accessesResource ?resource .
+    ?resource orca:containsSensitiveData ?category .
+    BIND ("direct" AS ?route)
+    BIND (agent:AdvisingAgent AS ?tool_or_role)
+  }
+}
+ORDER BY ?category ?route ?tool_or_role ?permission ?resource
+
+# ==============================================================================
+# QUERY q02_cq2_excessive_permissions
+# ==============================================================================
+# Purpose: For every AI agent, each excessive permission (available through a tool, a role or directly, but required by none of the agent's assigned tasks), the sensitive resources that permission opens, and the additional sensitive resources reachable only through it (not through a held, task-required permission). Uses asserted facts only; no inferred property is read.
+# CQ: CQ2
+# Features: BGP, UNION, FILTER NOT EXISTS, OPTIONAL, aggregate (GROUP_CONCAT) with GROUP BY, chain of 4 triple patterns (agent -> tool -> permission -> resource -> category)
+# Compare-asserted: no
+PREFIX orca: <https://orca.example.org/ontology#>
+
+SELECT ?agent ?permission
+       (GROUP_CONCAT(DISTINCT STR(?resource); separator=" ") AS ?exposed_resources)
+       (GROUP_CONCAT(DISTINCT STR(?additional_resource); separator=" ") AS ?additional_resources)
+WHERE {
+  ?agent a orca:AIAgent .
+
+  # Available permission through the tool, role or direct route (asserted facts).
+  {
+    ?agent orca:usesTool ?via .
+    ?via orca:hasPermission ?permission .
+  }
+  UNION
+  {
+    ?agent orca:hasRole ?via .
+    ?via orca:hasPermission ?permission .
+  }
+  UNION
+  {
+    ?agent orca:hasPermission ?permission .
+  }
+
+  # Excessive: no assigned task of the agent requires the permission.
+  FILTER NOT EXISTS {
+    ?agent orca:assignedTask ?task .
+    ?task orca:requiresPermission ?permission .
+  }
+
+  # Sensitive resources the excessive permission opens.
+  OPTIONAL {
+    ?permission orca:accessesResource ?resource .
+    ?resource orca:containsSensitiveData ?category .
+  }
+
+  # Sensitive resources that no held, task-required permission of the agent opens.
+  OPTIONAL {
+    ?permission orca:accessesResource ?additional_resource .
+    ?additional_resource orca:containsSensitiveData ?additional_category .
+    FILTER NOT EXISTS {
+      ?agent orca:assignedTask ?req_task .
+      ?req_task orca:requiresPermission ?req_perm .
+      ?req_perm orca:accessesResource ?additional_resource .
+      {
+        ?agent orca:usesTool ?req_via .
+        ?req_via orca:hasPermission ?req_perm .
+      }
+      UNION
+      {
+        ?agent orca:hasRole ?req_via .
+        ?req_via orca:hasPermission ?req_perm .
+      }
+      UNION
+      {
+        ?agent orca:hasPermission ?req_perm .
+      }
+    }
+  }
+}
+GROUP BY ?agent ?permission
+ORDER BY ?agent ?permission
+
+# ==============================================================================
+# QUERY q03_cq3_excess_and_category_count
+# ==============================================================================
+# Purpose: AI agents that hold at least one excessive permission, with the number of distinct sensitive data categories each can reach through its available permissions.
+# CQ: CQ3
+# Features: BGP, FILTER EXISTS, OPTIONAL, aggregate (COUNT DISTINCT) with GROUP BY, chain of 4 triple patterns (agent -> permission -> resource -> category), inferred properties hasExcessivePermission and hasAvailablePermission
+# Compare-asserted: no
+PREFIX orca: <https://orca.example.org/ontology#>
+
+SELECT ?agent (COUNT(DISTINCT ?category) AS ?category_count)
+WHERE {
+  ?agent a orca:AIAgent .
+  FILTER EXISTS { ?agent orca:hasExcessivePermission ?excessive . }
+  OPTIONAL {
+    ?agent orca:hasAvailablePermission ?permission .
+    ?permission orca:accessesResource ?resource .
+    ?resource orca:containsSensitiveData ?category .
+  }
+}
+GROUP BY ?agent
+ORDER BY ?agent
+
+# ==============================================================================
+# QUERY q04_missing_required_permissions
+# ==============================================================================
+# Purpose: AI agents that are assigned a task but hold, through no tool, role or direct grant, a permission that the task requires; one row per (agent, task, missing permission).
+# CQ: CQ4
+# Features: BGP, FILTER NOT EXISTS, UNION
+# Compare-asserted: no
+PREFIX orca: <https://orca.example.org/ontology#>
+
+SELECT DISTINCT ?agent ?task ?permission
+WHERE {
+  ?agent a orca:AIAgent .
+  ?agent orca:assignedTask ?task .
+  ?task orca:requiresPermission ?permission .
+  FILTER NOT EXISTS {
+    {
+      ?agent orca:usesTool ?via .
+      ?via orca:hasPermission ?permission .
+    }
+    UNION
+    {
+      ?agent orca:hasRole ?via .
+      ?via orca:hasPermission ?permission .
+    }
+    UNION
+    {
+      ?agent orca:hasPermission ?permission .
+    }
+  }
+}
+ORDER BY ?agent ?task ?permission
+
+# ==============================================================================
+# QUERY q05_studentpii_via_tool
+# ==============================================================================
+# Purpose: AI agents that reach StudentPII through a tool they use, and the tool that gives the access.
+# CQ: CQ5
+# Features: BGP, property path (hasPermission/accessesResource/containsSensitiveData)
+# Compare-asserted: no
+PREFIX orca: <https://orca.example.org/ontology#>
+PREFIX personaldata: <https://orca.example.org/data/PersonalDataCategory/>
+
+SELECT DISTINCT ?agent ?tool
+WHERE {
+  ?agent a orca:AIAgent .
+  ?agent orca:usesTool ?tool .
+  ?tool orca:hasPermission/orca:accessesResource/orca:containsSensitiveData personaldata:StudentPII .
+}
+ORDER BY ?agent ?tool
+
+# ==============================================================================
+# QUERY q06_policy_violations_with_controls
+# ==============================================================================
+# Purpose: AI agents that violate a security policy governing one of their assigned tasks, with the task, the policy and each official control the policy implements (with its source and section).
+# CQ: CQ6
+# Features: BGP, OPTIONAL, inferred property violatesPolicy
+# Compare-asserted: no
+PREFIX orca: <https://orca.example.org/ontology#>
+
+SELECT DISTINCT ?agent ?task ?policy ?control ?source ?section
+WHERE {
+  ?agent a orca:AIAgent .
+  ?agent orca:assignedTask ?task .
+  ?task orca:governedByPolicy ?policy .
+  ?agent orca:violatesPolicy ?policy .
+  OPTIONAL {
+    ?policy orca:implementsControl ?control .
+    OPTIONAL { ?control orca:sourceName ?source . }
+    OPTIONAL { ?control orca:sourceSection ?section . }
+  }
+}
+ORDER BY ?agent ?task ?policy ?control
+
+# ==============================================================================
+# QUERY q07_permission_grants_category
+# ==============================================================================
+# Purpose: Permissions that grant access to sensitive data categories, read from the inferred property grantsAccessTo (property chain accessesResource o containsSensitiveData). Returns rows on asserted plus inferred data and zero rows on asserted data alone; both results are saved.
+# CQ: CQ7
+# Features: BGP, inferred property grantsAccessTo
+# Compare-asserted: yes
+PREFIX orca: <https://orca.example.org/ontology#>
+
+SELECT DISTINCT ?permission ?category
+WHERE {
+  ?permission orca:grantsAccessTo ?category .
+}
+ORDER BY ?permission ?category
+
+# ==============================================================================
+# QUERY q08_agents_per_category
+# ==============================================================================
+# Purpose: Count how many AI agents can reach each sensitive data category (inferred canReachSensitiveData, ORCA Rule C).
+# CQ: CQ8
+# Features: BGP, property path (rdf:type/rdfs:subClassOf*), aggregate COUNT with GROUP BY
+# Compare-asserted: no
+PREFIX orca: <https://orca.example.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?category (COUNT(DISTINCT ?agent) AS ?agent_count)
+WHERE {
+  ?agent a orca:AIAgent .
+  ?agent orca:canReachSensitiveData ?category .
+  ?category a/rdfs:subClassOf* orca:SensitiveDataCategory .
+}
+GROUP BY ?category
+ORDER BY DESC(?agent_count) ?category
+
+# ==============================================================================
+# QUERY q09_supervisors_of_financial_access
+# ==============================================================================
+# Purpose: Find the human supervisor of every AI agent whose available permissions reach FinancialRecord data.
+# CQ: CQ9
+# Features: BGP, chain of 3 triple patterns (hasAvailablePermission -> accessesResource -> containsSensitiveData), DISTINCT
+# Compare-asserted: no
+PREFIX orca: <https://orca.example.org/ontology#>
+PREFIX financialdata: <https://orca.example.org/data/FinancialDataCategory/>
+
+SELECT DISTINCT ?agent ?supervisor
+WHERE {
+  ?agent orca:hasAvailablePermission ?permission .
+  ?permission orca:accessesResource ?resource .
+  ?resource orca:containsSensitiveData financialdata:FinancialRecord .
+  ?agent orca:supervisedBy ?supervisor .
+}
+ORDER BY ?agent ?supervisor
+
+# ==============================================================================
+# QUERY q10_roles_with_unneeded_permissions
+# ==============================================================================
+# Purpose: Find roles that grant at least one permission that is excessive (not required by any assigned task) for an agent holding the role, and count those permissions.
+# CQ: CQ10
+# Features: BGP, aggregate COUNT with GROUP BY
+# Compare-asserted: no
+PREFIX orca: <https://orca.example.org/ontology#>
+
+SELECT ?role (COUNT(DISTINCT ?permission) AS ?unneeded_permission_count)
+WHERE {
+  ?agent orca:hasRole ?role .
+  ?role orca:hasPermission ?permission .
+  ?agent orca:hasExcessivePermission ?permission .
+}
+GROUP BY ?role
+ORDER BY ?role
+
+# ==============================================================================
+# QUERY q11_controls_for_agent_tasks
+# ==============================================================================
+# Purpose: List the official NIST or OWASP controls implemented by the security policies that govern AdvisingAgent's assigned tasks.
+# CQ: CQ11
+# Features: BGP, chain of 4 triple patterns (assignedTask -> governedByPolicy -> implementsControl -> sourceName), UNION, FILTER (STRSTARTS), OPTIONAL, DISTINCT
+# Compare-asserted: no
+PREFIX orca: <https://orca.example.org/ontology#>
+PREFIX agent: <https://orca.example.org/data/AIAgent/>
+
+SELECT DISTINCT ?control ?source ?section
+WHERE {
+  agent:AdvisingAgent orca:assignedTask ?task .
+  ?task orca:governedByPolicy ?policy .
+  ?policy orca:implementsControl ?control .
+  {
+    ?control orca:sourceName ?source .
+    FILTER (STRSTARTS(STR(?source), "NIST"))
+  }
+  UNION
+  {
+    ?control orca:sourceName ?source .
+    FILTER (STRSTARTS(STR(?source), "OWASP LLM06:2025"))
+  }
+  OPTIONAL { ?control orca:sourceSection ?section . }
+}
+ORDER BY ?control ?source ?section
+
+# ==============================================================================
+# QUERY q12_high_sensitivity_reach
+# ==============================================================================
+# Purpose: Find AI agents that can reach a sensitive data category with sensitivity level 4 or higher, and the resource through which they reach it.
+# CQ: CQ12
+# Features: BGP, UNION (tool, role and direct routes), chain of 5 triple patterns (usesTool -> hasPermission -> accessesResource -> containsSensitiveData -> sensitivityLevel), FILTER, DISTINCT
+# Compare-asserted: no
+PREFIX orca: <https://orca.example.org/ontology#>
+
+SELECT DISTINCT ?agent ?resource ?category
+WHERE {
+  {
+    # Tool route: agent -> tool -> permission -> resource -> category -> level
+    ?agent orca:usesTool ?via .
+    ?via orca:hasPermission ?permission .
+    ?permission orca:accessesResource ?resource .
+    ?resource orca:containsSensitiveData ?category .
+    ?category orca:sensitivityLevel ?level .
+  }
+  UNION
+  {
+    # Role route: agent -> role -> permission -> resource -> category -> level
+    ?agent orca:hasRole ?via .
+    ?via orca:hasPermission ?permission .
+    ?permission orca:accessesResource ?resource .
+    ?resource orca:containsSensitiveData ?category .
+    ?category orca:sensitivityLevel ?level .
+  }
+  UNION
+  {
+    # Direct route: agent -> permission -> resource -> category -> level
+    ?agent a orca:AIAgent .
+    ?agent orca:hasPermission ?permission .
+    ?permission orca:accessesResource ?resource .
+    ?resource orca:containsSensitiveData ?category .
+    ?category orca:sensitivityLevel ?level .
+  }
+  FILTER (?level >= 4)
+}
+ORDER BY ?agent ?resource ?category
+
+# ==============================================================================
+# QUERY q13_agents_with_unneeded_tools
+# ==============================================================================
+# Purpose: Find AI agents that use two or more tools whose permissions are all excessive (not required by any of the agent's assigned tasks).
+# CQ: CQ13
+# Features: BGP, FILTER NOT EXISTS (nested), aggregate COUNT with GROUP BY and HAVING
+# Compare-asserted: no
+PREFIX orca: <https://orca.example.org/ontology#>
+
+SELECT ?agent (COUNT(DISTINCT ?tool) AS ?unneeded_tool_count)
+WHERE {
+  ?agent orca:usesTool ?tool .
+  ?tool orca:hasPermission ?some_permission .
+  # Keep the tool only if none of its permissions is a non-excessive one for this agent.
+  FILTER NOT EXISTS {
+    ?tool orca:hasPermission ?permission .
+    FILTER NOT EXISTS { ?agent orca:hasExcessivePermission ?permission . }
+  }
+}
+GROUP BY ?agent
+HAVING (COUNT(DISTINCT ?tool) >= 2)
+ORDER BY ?agent

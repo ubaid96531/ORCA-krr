@@ -1,0 +1,312 @@
+# ORCA ontology (T-Box): Ontology-based Resource Control and Authorization for AI Agents.
+# Schema terms only; this file contains no individuals (Req 2.10).
+
+@prefix orca: <https://orca.example.org/ontology#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<https://orca.example.org/ontology> a owl:Ontology ;
+    rdfs:label "ORCA ontology"@en ;
+    rdfs:comment "Vocabulary for AI agents, tasks, tools, roles, permissions, resources, sensitive data categories and security policies of a synthetic university, used to check agent authorization and least privilege."@en ;
+    owl:versionInfo "1.0" .
+
+#################################################################
+#    Classes
+#################################################################
+
+orca:PermissionHolder a owl:Class ;
+    rdfs:label "Permission holder"@en ;
+    rdfs:comment "Anything that can hold a permission in ORCA: an AI agent, a tool or a role. It is the domain of hasPermission."@en .
+
+orca:AIAgent a owl:Class ;
+    rdfs:subClassOf orca:PermissionHolder ;
+    owl:disjointWith orca:HumanUser ;
+    rdfs:label "AI agent"@en ;
+    rdfs:comment "An AI agent acting on behalf of the university, for example an advising or helpdesk agent, that uses tools and performs assigned tasks."@en .
+
+orca:HumanUser a owl:Class ;
+    rdfs:label "Human user"@en ;
+    rdfs:comment "A human staff member of the university who supervises one or more AI agents. No individual can be both a human user and an AI agent."@en .
+
+orca:Task a owl:Class ;
+    rdfs:label "Task"@en ;
+    rdfs:comment "A unit of work assigned to an AI agent, such as recommending courses, which requires certain permissions and may be governed by security policies."@en .
+
+orca:Tool a owl:Class ;
+    rdfs:subClassOf orca:PermissionHolder ;
+    rdfs:label "Tool"@en ;
+    rdfs:comment "A connector or plug-in that an AI agent calls to act on university systems; each tool holds the permissions it needs to work."@en .
+
+orca:Role a owl:Class ;
+    rdfs:subClassOf orca:PermissionHolder ;
+    rdfs:label "Role"@en ;
+    rdfs:comment "A named bundle of permissions that can be assigned to an AI agent, for example a finance assistant role."@en .
+
+orca:Permission a owl:Class ;
+    rdfs:label "Permission"@en ;
+    rdfs:comment "The right to perform one action, such as read or write, on a university resource."@en .
+
+orca:ReadPermission a owl:Class ;
+    rdfs:subClassOf orca:Permission ;
+    rdfs:label "Read permission"@en ;
+    rdfs:comment "A permission that allows reading data from a resource without changing it."@en .
+
+orca:WritePermission a owl:Class ;
+    rdfs:subClassOf orca:Permission ;
+    rdfs:label "Write permission"@en ;
+    rdfs:comment "A permission that allows creating or changing data in a resource."@en .
+
+orca:SendPermission a owl:Class ;
+    rdfs:subClassOf orca:Permission ;
+    rdfs:label "Send permission"@en ;
+    rdfs:comment "A permission that allows sending messages or data out of a resource, for example sending email to students."@en .
+
+orca:AdminPermission a owl:Class ;
+    rdfs:subClassOf orca:Permission ;
+    rdfs:label "Admin permission"@en ;
+    rdfs:comment "A permission that allows administrative actions on a resource, such as resetting passwords, approving refunds or exporting data."@en .
+
+orca:Resource a owl:Class ;
+    rdfs:label "Resource"@en ;
+    rdfs:comment "A university data store or system that permissions give access to and that may contain sensitive data."@en .
+
+orca:Database a owl:Class ;
+    rdfs:subClassOf orca:Resource ;
+    rdfs:label "Database"@en ;
+    rdfs:comment "A structured university database, for example the student records database."@en .
+
+orca:FileStore a owl:Class ;
+    rdfs:subClassOf orca:Resource ;
+    rdfs:label "File store"@en ;
+    rdfs:comment "A shared document or file repository, for example a store of admission application documents."@en .
+
+orca:Mailbox a owl:Class ;
+    rdfs:subClassOf orca:Resource ;
+    rdfs:label "Mailbox"@en ;
+    rdfs:comment "An email mailbox or messaging system of the university."@en .
+
+orca:WebContent a owl:Class ;
+    rdfs:subClassOf orca:Resource ;
+    rdfs:label "Web content"@en ;
+    rdfs:comment "Web pages or published content, for example the public course catalog or exam timetable."@en .
+
+orca:SensitiveDataCategory a owl:Class ;
+    rdfs:label "Sensitive data category"@en ;
+    rdfs:comment "A category of sensitive data, with a sensitivity level from 1 to 5, that a resource may contain."@en .
+
+orca:PersonalDataCategory a owl:Class ;
+    rdfs:subClassOf orca:SensitiveDataCategory ;
+    rdfs:label "Personal data category"@en ;
+    rdfs:comment "Sensitive data that identifies a person, such as student contact details or staff records."@en .
+
+orca:AcademicDataCategory a owl:Class ;
+    rdfs:subClassOf orca:SensitiveDataCategory ;
+    rdfs:label "Academic data category"@en ;
+    rdfs:comment "Sensitive data about academic performance, such as student grades or application documents."@en .
+
+orca:FinancialDataCategory a owl:Class ;
+    rdfs:subClassOf orca:SensitiveDataCategory ;
+    rdfs:label "Financial data category"@en ;
+    rdfs:comment "Sensitive financial data, such as fee balances or refund records."@en .
+
+orca:HealthDataCategory a owl:Class ;
+    rdfs:subClassOf orca:SensitiveDataCategory ;
+    rdfs:label "Health data category"@en ;
+    rdfs:comment "Sensitive health data, such as clinic appointments or health information held by the health centre."@en .
+
+orca:CommunicationDataCategory a owl:Class ;
+    rdfs:subClassOf orca:SensitiveDataCategory ;
+    rdfs:label "Communication data category"@en ;
+    rdfs:comment "Sensitive content of communications, such as the contents of email messages."@en .
+
+orca:SecurityPolicy a owl:Class ;
+    rdfs:label "Security policy"@en ;
+    rdfs:comment "A synthetic university security policy that governs tasks, may prohibit permissions and implements official security controls."@en .
+
+orca:SecurityControl a owl:Class ;
+    rdfs:label "Security control"@en ;
+    rdfs:comment "An official control or guideline item from NIST CSF 2.0, NIST AI RMF 1.0, OWASP LLM06:2025 or Microsoft Entra Agent ID documentation."@en .
+
+orca:AuthorizationDecision a owl:Class ;
+    rdfs:label "Authorization decision"@en ;
+    rdfs:comment "The result of checking whether an AI agent is authorized for a task. Instances appear in API results, not in stored data."@en .
+
+orca:AccessPath a owl:Class ;
+    rdfs:label "Access path"@en ;
+    rdfs:comment "A chain of facts showing how an AI agent can reach a resource or sensitive data category. Instances appear in API results, not in stored data."@en .
+
+orca:Evidence a owl:Class ;
+    rdfs:label "Evidence"@en ;
+    rdfs:comment "The set of explicit and inferred facts and rules that support a reasoning result. Instances appear in API results, not in stored data."@en .
+
+#################################################################
+#    Object properties
+#################################################################
+
+orca:usesTool a owl:ObjectProperty ;
+    rdfs:domain orca:AIAgent ;
+    rdfs:range orca:Tool ;
+    rdfs:label "uses tool"@en ;
+    rdfs:comment "Links an AI agent to a tool that it can call."@en .
+
+orca:assignedTask a owl:ObjectProperty ;
+    rdfs:domain orca:AIAgent ;
+    rdfs:range orca:Task ;
+    rdfs:label "assigned task"@en ;
+    rdfs:comment "Links an AI agent to a task it is assigned to perform."@en .
+
+orca:isAssignedTo a owl:ObjectProperty ;
+    owl:inverseOf orca:assignedTask ;
+    rdfs:domain orca:Task ;
+    rdfs:range orca:AIAgent ;
+    rdfs:label "is assigned to"@en ;
+    rdfs:comment "Links a task to the AI agent that performs it; the inverse of assignedTask."@en .
+
+orca:hasRole a owl:ObjectProperty ;
+    rdfs:domain orca:AIAgent ;
+    rdfs:range orca:Role ;
+    rdfs:label "has role"@en ;
+    rdfs:comment "Links an AI agent to a role whose permissions the agent receives."@en .
+
+orca:hasPermission a owl:ObjectProperty ;
+    rdfs:domain orca:PermissionHolder ;
+    rdfs:range orca:Permission ;
+    rdfs:label "has permission"@en ;
+    rdfs:comment "Links an AI agent, tool or role to a permission it holds directly."@en .
+
+orca:accessesResource a owl:ObjectProperty ;
+    rdfs:domain orca:Permission ;
+    rdfs:range orca:Resource ;
+    rdfs:label "accesses resource"@en ;
+    rdfs:comment "Links a permission to the resource on which it allows an action."@en .
+
+orca:containsSensitiveData a owl:ObjectProperty ;
+    rdfs:domain orca:Resource ;
+    rdfs:range orca:SensitiveDataCategory ;
+    rdfs:label "contains sensitive data"@en ;
+    rdfs:comment "Links a resource to a category of sensitive data stored in it."@en .
+
+orca:grantsAccessTo a owl:ObjectProperty ;
+    owl:propertyChainAxiom ( orca:accessesResource orca:containsSensitiveData ) ;
+    rdfs:domain orca:Permission ;
+    rdfs:range orca:SensitiveDataCategory ;
+    rdfs:label "grants access to"@en ;
+    rdfs:comment "Links a permission to a sensitive data category it exposes; inferred by the chain accessesResource followed by containsSensitiveData."@en .
+
+orca:requiresPermission a owl:ObjectProperty ;
+    rdfs:domain orca:Task ;
+    rdfs:range orca:Permission ;
+    rdfs:label "requires permission"@en ;
+    rdfs:comment "Links a task to a permission that is needed to perform it."@en .
+
+orca:governedByPolicy a owl:ObjectProperty ;
+    rdfs:domain orca:Task ;
+    rdfs:range orca:SecurityPolicy ;
+    rdfs:label "governed by policy"@en ;
+    rdfs:comment "Links a task to a security policy that applies while the task is performed."@en .
+
+orca:prohibitsPermission a owl:ObjectProperty ;
+    rdfs:domain orca:SecurityPolicy ;
+    rdfs:range orca:Permission ;
+    rdfs:label "prohibits permission"@en ;
+    rdfs:comment "Links a security policy to a permission that agents performing governed tasks must not have available (input to rule ORCA-E)."@en .
+
+orca:implementsControl a owl:ObjectProperty ;
+    rdfs:domain orca:SecurityPolicy ;
+    rdfs:range orca:SecurityControl ;
+    rdfs:label "implements control"@en ;
+    rdfs:comment "Links a synthetic university security policy to the official security control it is based on."@en .
+
+orca:supervisedBy a owl:ObjectProperty ;
+    rdfs:domain orca:AIAgent ;
+    rdfs:range orca:HumanUser ;
+    rdfs:label "supervised by"@en ;
+    rdfs:comment "Links an AI agent to the human user responsible for overseeing it (human oversight, NIST AI RMF MAP 3.5)."@en .
+
+orca:violatesPolicy a owl:ObjectProperty ;
+    rdfs:domain orca:AIAgent ;
+    rdfs:range orca:SecurityPolicy ;
+    rdfs:label "violates policy"@en ;
+    rdfs:comment "Links an AI agent to a security policy it breaks; asserted or inferred by rule ORCA-E."@en .
+
+orca:hasAccessPath a owl:ObjectProperty ;
+    rdfs:domain orca:AIAgent ;
+    rdfs:range orca:AccessPath ;
+    rdfs:label "has access path"@en ;
+    rdfs:comment "Links an AI agent to an access path by which it can reach a resource or sensitive data category (result vocabulary)."@en .
+
+orca:hasAvailablePermission a owl:ObjectProperty ;
+    rdfs:domain orca:AIAgent ;
+    rdfs:range orca:Permission ;
+    rdfs:label "has available permission"@en ;
+    rdfs:comment "Links an AI agent to a permission it can use through a tool, a role or a direct grant; inferred by rules ORCA-A and ORCA-B."@en .
+
+orca:canReachSensitiveData a owl:ObjectProperty ;
+    rdfs:domain orca:AIAgent ;
+    rdfs:range orca:SensitiveDataCategory ;
+    rdfs:label "can reach sensitive data"@en ;
+    rdfs:comment "Links an AI agent to a sensitive data category it can reach through an available permission; inferred by rule ORCA-C."@en .
+
+orca:hasExcessivePermission a owl:ObjectProperty ;
+    rdfs:domain orca:AIAgent ;
+    rdfs:range orca:Permission ;
+    rdfs:label "has excessive permission"@en ;
+    rdfs:comment "Links an AI agent to an available permission that none of its assigned tasks requires; inferred by rule ORCA-D."@en .
+
+#################################################################
+#    Datatype properties
+#################################################################
+
+orca:sensitivityLevel a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain orca:SensitiveDataCategory ;
+    rdfs:range xsd:integer ;
+    rdfs:label "sensitivity level"@en ;
+    rdfs:comment "The sensitivity of a data category as an integer from 1 (low) to 5 (very high). Functional: each category has at most one level."@en .
+
+orca:accessMode a owl:DatatypeProperty ;
+    rdfs:domain orca:Permission ;
+    rdfs:range xsd:string ;
+    rdfs:label "access mode"@en ;
+    rdfs:comment "The kind of action a permission allows: read, write, send or admin."@en .
+
+orca:sourceName a owl:DatatypeProperty ;
+    rdfs:domain orca:SecurityControl ;
+    rdfs:range xsd:string ;
+    rdfs:label "source name"@en ;
+    rdfs:comment "The name of the official source document a security control comes from, for example NIST CSF 2.0."@en .
+
+orca:sourceURL a owl:DatatypeProperty ;
+    rdfs:domain orca:SecurityControl ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "source URL"@en ;
+    rdfs:comment "The public URL of the official source document a security control comes from."@en .
+
+orca:sourceSection a owl:DatatypeProperty ;
+    rdfs:domain orca:SecurityControl ;
+    rdfs:range xsd:string ;
+    rdfs:label "source section"@en ;
+    rdfs:comment "The section or identifier of a security control within its official source, for example PR.AA-05."@en .
+
+orca:excerptText a owl:DatatypeProperty ;
+    rdfs:domain orca:SecurityControl ;
+    rdfs:range xsd:string ;
+    rdfs:label "excerpt text"@en ;
+    rdfs:comment "A short excerpt from the official source that states the security control."@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+orca:provenanceLabel a owl:AnnotationProperty ;
+    rdfs:label "provenance label"@en ;
+    rdfs:comment "Marks where a fact comes from: Official_Fact, Synthetic_Fact or Inferred_Fact."@en .
+
+orca:derivedBy a owl:AnnotationProperty ;
+    rdfs:label "derived by"@en ;
+    rdfs:comment "On an inference record, names the ORCA rule id or OWL construct that produced the inferred fact."@en .
+
+orca:derivedFrom a owl:AnnotationProperty ;
+    rdfs:label "derived from"@en ;
+    rdfs:comment "On an inference record, one derivation of the inferred fact: the rule id or OWL construct on the first line, then each source triple in N-Triples syntax on its own line."@en .

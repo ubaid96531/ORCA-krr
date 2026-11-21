@@ -1,0 +1,2461 @@
+# Produced by: python -m reasoning.infer
+# Executed at: 2026-11-10T22:57:32
+@prefix academicdata: <https://orca.example.org/data/AcademicDataCategory/> .
+@prefix adminperm: <https://orca.example.org/data/AdminPermission/> .
+@prefix agent: <https://orca.example.org/data/AIAgent/> .
+@prefix communicationdata: <https://orca.example.org/data/CommunicationDataCategory/> .
+@prefix database: <https://orca.example.org/data/Database/> .
+@prefix filestore: <https://orca.example.org/data/FileStore/> .
+@prefix financialdata: <https://orca.example.org/data/FinancialDataCategory/> .
+@prefix healthdata: <https://orca.example.org/data/HealthDataCategory/> .
+@prefix inference: <https://orca.example.org/data/InferenceRecord/> .
+@prefix mailbox: <https://orca.example.org/data/Mailbox/> .
+@prefix orca: <https://orca.example.org/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix perm: <https://orca.example.org/data/Permission/> .
+@prefix personaldata: <https://orca.example.org/data/PersonalDataCategory/> .
+@prefix policy: <https://orca.example.org/data/SecurityPolicy/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix readperm: <https://orca.example.org/data/ReadPermission/> .
+@prefix role: <https://orca.example.org/data/Role/> .
+@prefix sendperm: <https://orca.example.org/data/SendPermission/> .
+@prefix task: <https://orca.example.org/data/Task/> .
+@prefix tool: <https://orca.example.org/data/Tool/> .
+@prefix webcontent: <https://orca.example.org/data/WebContent/> .
+@prefix writeperm: <https://orca.example.org/data/WritePermission/> .
+
+agent:AdmissionsFAQBot
+    a orca:PermissionHolder ;
+    orca:hasAvailablePermission readperm:ReadAdmissionsFAQ .
+
+agent:AdmissionsReviewAgent
+    a orca:PermissionHolder ;
+    orca:canReachSensitiveData financialdata:FinancialRecord ;
+    orca:hasAvailablePermission readperm:ReadFeeBalances ;
+    orca:hasExcessivePermission readperm:ReadFeeBalances .
+
+agent:AdvisingAgent
+    a orca:PermissionHolder ;
+    orca:canReachSensitiveData academicdata:AcademicRecord ,
+        personaldata:StudentPII ;
+    orca:hasAvailablePermission readperm:ReadCourseCatalog ,
+        readperm:ReadStudentContactInfo ,
+        readperm:ReadStudentGrades ,
+        writeperm:WriteStudentGrades ;
+    orca:hasExcessivePermission readperm:ReadStudentContactInfo ,
+        writeperm:WriteStudentGrades .
+
+agent:CampusEventsBot
+    a orca:PermissionHolder ;
+    orca:hasAvailablePermission readperm:ReadCampusEvents ,
+        writeperm:PostCampusAnnouncement .
+
+agent:FeeReminderAgent
+    a orca:PermissionHolder ;
+    orca:canReachSensitiveData communicationdata:ConfidentialEmail ,
+        financialdata:FinancialRecord ;
+    orca:hasAvailablePermission readperm:ReadFeeBalances ,
+        sendperm:SendStudentEmail ,
+        writeperm:ApproveRefunds ;
+    orca:hasExcessivePermission writeperm:ApproveRefunds .
+
+agent:GradingAssistant
+    a orca:PermissionHolder ;
+    orca:canReachSensitiveData academicdata:AcademicRecord ,
+        personaldata:StudentPII ;
+    orca:hasAvailablePermission readperm:ReadMarkingRubrics ,
+        writeperm:WriteStudentGrades .
+
+agent:HelpdeskAgent
+    a orca:PermissionHolder ;
+    orca:canReachSensitiveData academicdata:AcademicRecord ,
+        personaldata:StudentPII ;
+    orca:hasAvailablePermission adminperm:ExportStudentData ,
+        adminperm:ResetPassword ;
+    orca:hasExcessivePermission adminperm:ExportStudentData ;
+    orca:violatesPolicy policy:NoBulkDataExportPolicy .
+
+agent:LibraryHelpBot
+    a orca:PermissionHolder ;
+    orca:canReachSensitiveData personaldata:StudentPII ;
+    orca:hasAvailablePermission readperm:ReadLibraryLoans .
+
+agent:ResearchSummaryAgent
+    a orca:PermissionHolder ;
+    orca:canReachSensitiveData healthdata:HealthInformation ,
+        personaldata:EmployeePII ;
+    orca:hasAvailablePermission readperm:ReadClinicAppointments ,
+        readperm:ReadLibraryCatalog ,
+        readperm:ReadStaffRecords ;
+    orca:hasExcessivePermission readperm:ReadClinicAppointments ,
+        readperm:ReadStaffRecords .
+
+agent:TimetableAssistant
+    a orca:PermissionHolder ;
+    orca:hasAvailablePermission readperm:ReadCourseCatalog .
+
+academicdata:AcademicRecord
+    a orca:SensitiveDataCategory .
+
+adminperm:ExportStudentData
+    a orca:Permission ;
+    orca:grantsAccessTo academicdata:AcademicRecord ,
+        personaldata:StudentPII .
+
+adminperm:ManageUserAccounts
+    a orca:Permission .
+
+adminperm:ResetPassword
+    a orca:Permission .
+
+communicationdata:ConfidentialEmail
+    a orca:SensitiveDataCategory .
+
+database:AccountDirectory
+    a orca:Resource .
+
+database:CourseCatalogDB
+    a orca:Resource .
+
+database:FinanceLedgerDB
+    a orca:Resource .
+
+database:HRRecordsDB
+    a orca:Resource .
+
+database:HealthCentreDB
+    a orca:Resource .
+
+database:LibraryCatalogDB
+    a orca:Resource .
+
+database:LibraryLoansDB
+    a orca:Resource .
+
+database:StudentRecordsDB
+    a orca:Resource .
+
+filestore:ApplicantDocumentStore
+    a orca:Resource .
+
+filestore:ExamTimetableStore
+    a orca:Resource .
+
+filestore:MarkingRubricStore
+    a orca:Resource .
+
+financialdata:FinancialRecord
+    a orca:SensitiveDataCategory .
+
+healthdata:HealthInformation
+    a orca:SensitiveDataCategory .
+
+inference:AcademicAdvisorRole_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject role:AcademicAdvisorRole ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Role/AcademicAdvisorRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadCourseCatalog> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Role/AcademicAdvisorRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Role> .
+<https://orca.example.org/ontology#Role> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AcademicRecord_type_SensitiveDataCategory
+    rdf:object orca:SensitiveDataCategory ;
+    rdf:predicate rdf:type ;
+    rdf:subject academicdata:AcademicRecord ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/AcademicDataCategory/AcademicRecord> <https://orca.example.org/ontology#sensitivityLevel> "3"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<https://orca.example.org/ontology#sensitivityLevel> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/AdminPermission/ExportStudentData> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadStudentGrades> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/WritePermission/WriteStudentGrades> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/AcademicDataCategory/AcademicRecord> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#AcademicDataCategory> .
+<https://orca.example.org/ontology#AcademicDataCategory> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AccountDirectory_type_Resource
+    rdf:object orca:Resource ;
+    rdf:predicate rdf:type ;
+    rdf:subject database:AccountDirectory ;
+    orca:derivedBy "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:range
+<https://orca.example.org/data/AdminPermission/ManageUserAccounts> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/AccountDirectory> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/AdminPermission/ResetPassword> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/AccountDirectory> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadAccessLogs> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/AccountDirectory> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Database/AccountDirectory> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Database> .
+<https://orca.example.org/ontology#Database> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Resource> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdmissionsFAQBot_hasAvailablePermission_ReadAdmissionsFAQ
+    rdf:object readperm:ReadAdmissionsFAQ ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:AdmissionsFAQBot ;
+    orca:derivedBy "ORCA-A" ,
+        "ORCA-B" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/AdmissionsFAQBot> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/FAQSearchTool> .
+<https://orca.example.org/data/Tool/FAQSearchTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadAdmissionsFAQ> .""" ,
+        """ORCA-B
+<https://orca.example.org/data/AIAgent/AdmissionsFAQBot> <https://orca.example.org/ontology#hasRole> <https://orca.example.org/data/Role/AdmissionsStaffRole> .
+<https://orca.example.org/data/Role/AdmissionsStaffRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadAdmissionsFAQ> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdmissionsFAQBot_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject agent:AdmissionsFAQBot ;
+    orca:derivedBy "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:subClassOf
+<https://orca.example.org/data/AIAgent/AdmissionsFAQBot> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#AIAgent> .
+<https://orca.example.org/ontology#AIAgent> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdmissionsReviewAgent_canReachSensitiveData_FinancialRecord
+    rdf:object financialdata:FinancialRecord ;
+    rdf:predicate orca:canReachSensitiveData ;
+    rdf:subject agent:AdmissionsReviewAgent ;
+    orca:derivedBy "ORCA-C" ;
+    orca:derivedFrom """ORCA-C
+<https://orca.example.org/data/AIAgent/AdmissionsReviewAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/ReadPermission/ReadFeeBalances> .
+<https://orca.example.org/data/ReadPermission/ReadFeeBalances> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/FinanceLedgerDB> .
+<https://orca.example.org/data/Database/FinanceLedgerDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/FinancialDataCategory/FinancialRecord> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdmissionsReviewAgent_hasAvailablePermission_ReadFeeBalances
+    rdf:object readperm:ReadFeeBalances ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:AdmissionsReviewAgent ;
+    orca:derivedBy "ORCA-A" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/AdmissionsReviewAgent> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/FinanceLedgerTool> .
+<https://orca.example.org/data/Tool/FinanceLedgerTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadFeeBalances> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdmissionsReviewAgent_hasExcessivePermission_ReadFeeBalances
+    rdf:object readperm:ReadFeeBalances ;
+    rdf:predicate orca:hasExcessivePermission ;
+    rdf:subject agent:AdmissionsReviewAgent ;
+    orca:derivedBy "ORCA-D" ;
+    orca:derivedFrom """ORCA-D
+<https://orca.example.org/data/AIAgent/AdmissionsReviewAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/ReadPermission/ReadFeeBalances> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdmissionsReviewAgent_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject agent:AdmissionsReviewAgent ;
+    orca:derivedBy "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:subClassOf
+<https://orca.example.org/data/AIAgent/AdmissionsReviewAgent> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#AIAgent> .
+<https://orca.example.org/ontology#AIAgent> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdmissionsStaffRole_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject role:AdmissionsStaffRole ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Role/AdmissionsStaffRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadAdmissionsFAQ> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Role/AdmissionsStaffRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Role> .
+<https://orca.example.org/ontology#Role> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdmissionsWebPages_type_Resource
+    rdf:object orca:Resource ;
+    rdf:predicate rdf:type ;
+    rdf:subject webcontent:AdmissionsWebPages ;
+    orca:derivedBy "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadAdmissionsFAQ> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/WebContent/AdmissionsWebPages> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/WritePermission/UpdateAdmissionsFAQ> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/WebContent/AdmissionsWebPages> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/WebContent/AdmissionsWebPages> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#WebContent> .
+<https://orca.example.org/ontology#WebContent> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Resource> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdvisingAgent_canReachSensitiveData_AcademicRecord
+    rdf:object academicdata:AcademicRecord ;
+    rdf:predicate orca:canReachSensitiveData ;
+    rdf:subject agent:AdvisingAgent ;
+    orca:derivedBy "ORCA-C" ;
+    orca:derivedFrom """ORCA-C
+<https://orca.example.org/data/AIAgent/AdvisingAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> .
+<https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .""" ,
+        """ORCA-C
+<https://orca.example.org/data/AIAgent/AdvisingAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/ReadPermission/ReadStudentGrades> .
+<https://orca.example.org/data/ReadPermission/ReadStudentGrades> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .""" ,
+        """ORCA-C
+<https://orca.example.org/data/AIAgent/AdvisingAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/WritePermission/WriteStudentGrades> .
+<https://orca.example.org/data/WritePermission/WriteStudentGrades> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdvisingAgent_canReachSensitiveData_StudentPII
+    rdf:object personaldata:StudentPII ;
+    rdf:predicate orca:canReachSensitiveData ;
+    rdf:subject agent:AdvisingAgent ;
+    orca:derivedBy "ORCA-C" ;
+    orca:derivedFrom """ORCA-C
+<https://orca.example.org/data/AIAgent/AdvisingAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> .
+<https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .""" ,
+        """ORCA-C
+<https://orca.example.org/data/AIAgent/AdvisingAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/ReadPermission/ReadStudentGrades> .
+<https://orca.example.org/data/ReadPermission/ReadStudentGrades> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .""" ,
+        """ORCA-C
+<https://orca.example.org/data/AIAgent/AdvisingAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/WritePermission/WriteStudentGrades> .
+<https://orca.example.org/data/WritePermission/WriteStudentGrades> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdvisingAgent_hasAvailablePermission_ReadCourseCatalog
+    rdf:object readperm:ReadCourseCatalog ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:AdvisingAgent ;
+    orca:derivedBy "ORCA-A" ,
+        "ORCA-B" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/AdvisingAgent> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/CourseCatalogTool> .
+<https://orca.example.org/data/Tool/CourseCatalogTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadCourseCatalog> .""" ,
+        """ORCA-B
+<https://orca.example.org/data/AIAgent/AdvisingAgent> <https://orca.example.org/ontology#hasRole> <https://orca.example.org/data/Role/AcademicAdvisorRole> .
+<https://orca.example.org/data/Role/AcademicAdvisorRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadCourseCatalog> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdvisingAgent_hasAvailablePermission_ReadStudentContactInfo
+    rdf:object readperm:ReadStudentContactInfo ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:AdvisingAgent ;
+    orca:derivedBy "ORCA-A" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/AdvisingAgent> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/StudentRecordsTool> .
+<https://orca.example.org/data/Tool/StudentRecordsTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdvisingAgent_hasAvailablePermission_ReadStudentGrades
+    rdf:object readperm:ReadStudentGrades ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:AdvisingAgent ;
+    orca:derivedBy "ORCA-A" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/AdvisingAgent> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/StudentRecordsTool> .
+<https://orca.example.org/data/Tool/StudentRecordsTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadStudentGrades> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdvisingAgent_hasAvailablePermission_WriteStudentGrades
+    rdf:object writeperm:WriteStudentGrades ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:AdvisingAgent ;
+    orca:derivedBy "ORCA-A" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/AdvisingAgent> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/StudentRecordsTool> .
+<https://orca.example.org/data/Tool/StudentRecordsTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/WriteStudentGrades> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdvisingAgent_hasExcessivePermission_ReadStudentContactInfo
+    rdf:object readperm:ReadStudentContactInfo ;
+    rdf:predicate orca:hasExcessivePermission ;
+    rdf:subject agent:AdvisingAgent ;
+    orca:derivedBy "ORCA-D" ;
+    orca:derivedFrom """ORCA-D
+<https://orca.example.org/data/AIAgent/AdvisingAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdvisingAgent_hasExcessivePermission_WriteStudentGrades
+    rdf:object writeperm:WriteStudentGrades ;
+    rdf:predicate orca:hasExcessivePermission ;
+    rdf:subject agent:AdvisingAgent ;
+    orca:derivedBy "ORCA-D" ;
+    orca:derivedFrom """ORCA-D
+<https://orca.example.org/data/AIAgent/AdvisingAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/WritePermission/WriteStudentGrades> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AdvisingAgent_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject agent:AdvisingAgent ;
+    orca:derivedBy "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:subClassOf
+<https://orca.example.org/data/AIAgent/AdvisingAgent> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#AIAgent> .
+<https://orca.example.org/ontology#AIAgent> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AnnounceCampusEvents_isAssignedTo_CampusEventsBot
+    rdf:object agent:CampusEventsBot ;
+    rdf:predicate orca:isAssignedTo ;
+    rdf:subject task:AnnounceCampusEvents ;
+    orca:derivedBy "owl:inverseOf" ;
+    orca:derivedFrom """owl:inverseOf
+<https://orca.example.org/data/AIAgent/CampusEventsBot> <https://orca.example.org/ontology#assignedTask> <https://orca.example.org/data/Task/AnnounceCampusEvents> .
+<https://orca.example.org/ontology#isAssignedTo> <http://www.w3.org/2002/07/owl#inverseOf> <https://orca.example.org/ontology#assignedTask> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:AnswerAdmissionsFAQ_isAssignedTo_AdmissionsFAQBot
+    rdf:object agent:AdmissionsFAQBot ;
+    rdf:predicate orca:isAssignedTo ;
+    rdf:subject task:AnswerAdmissionsFAQ ;
+    orca:derivedBy "owl:inverseOf" ;
+    orca:derivedFrom """owl:inverseOf
+<https://orca.example.org/data/AIAgent/AdmissionsFAQBot> <https://orca.example.org/ontology#assignedTask> <https://orca.example.org/data/Task/AnswerAdmissionsFAQ> .
+<https://orca.example.org/ontology#isAssignedTo> <http://www.w3.org/2002/07/owl#inverseOf> <https://orca.example.org/ontology#assignedTask> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ApplicantDocumentStore_type_Resource
+    rdf:object orca:Resource ;
+    rdf:predicate rdf:type ;
+    rdf:subject filestore:ApplicantDocumentStore ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/FileStore/ApplicantDocumentStore> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadApplicantDocuments> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/FileStore/ApplicantDocumentStore> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/FileStore/ApplicantDocumentStore> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#FileStore> .
+<https://orca.example.org/ontology#FileStore> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Resource> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ApproveRefunds_grantsAccessTo_FinancialRecord
+    rdf:object financialdata:FinancialRecord ;
+    rdf:predicate orca:grantsAccessTo ;
+    rdf:subject writeperm:ApproveRefunds ;
+    orca:derivedBy "owl:propertyChainAxiom" ;
+    orca:derivedFrom """owl:propertyChainAxiom
+<https://orca.example.org/data/WritePermission/ApproveRefunds> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/FinanceLedgerDB> .
+<https://orca.example.org/data/Database/FinanceLedgerDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/FinancialDataCategory/FinancialRecord> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ApproveRefunds_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject writeperm:ApproveRefunds ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/WritePermission/ApproveRefunds> <https://orca.example.org/ontology#accessMode> "write" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/WritePermission/ApproveRefunds> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/FinanceLedgerDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/WritePermission/ApproveRefunds> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/FinancialDataCategory/FinancialRecord> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Role/FinanceAssistantRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/ApproveRefunds> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/ProcessRefunds> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/WritePermission/ApproveRefunds> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/WritePermission/ApproveRefunds> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#WritePermission> .
+<https://orca.example.org/ontology#WritePermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:CampusEventsBot_hasAvailablePermission_PostCampusAnnouncement
+    rdf:object writeperm:PostCampusAnnouncement ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:CampusEventsBot ;
+    orca:derivedBy "ORCA-A" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/CampusEventsBot> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/CampusEventsTool> .
+<https://orca.example.org/data/Tool/CampusEventsTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/PostCampusAnnouncement> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:CampusEventsBot_hasAvailablePermission_ReadCampusEvents
+    rdf:object readperm:ReadCampusEvents ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:CampusEventsBot ;
+    orca:derivedBy "ORCA-A" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/CampusEventsBot> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/CampusEventsTool> .
+<https://orca.example.org/data/Tool/CampusEventsTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadCampusEvents> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:CampusEventsBot_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject agent:CampusEventsBot ;
+    orca:derivedBy "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:subClassOf
+<https://orca.example.org/data/AIAgent/CampusEventsBot> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#AIAgent> .
+<https://orca.example.org/ontology#AIAgent> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:CampusEventsPages_type_Resource
+    rdf:object orca:Resource ;
+    rdf:predicate rdf:type ;
+    rdf:subject webcontent:CampusEventsPages ;
+    orca:derivedBy "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadCampusEvents> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/WebContent/CampusEventsPages> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/WritePermission/PostCampusAnnouncement> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/WebContent/CampusEventsPages> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/WebContent/CampusEventsPages> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#WebContent> .
+<https://orca.example.org/ontology#WebContent> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Resource> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:CampusEventsTool_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject tool:CampusEventsTool ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Tool/CampusEventsTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadCampusEvents> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/Tool/CampusEventsTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/PostCampusAnnouncement> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Tool/CampusEventsTool> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Tool> .
+<https://orca.example.org/ontology#Tool> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ClinicSchedulerTool_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject tool:ClinicSchedulerTool ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Tool/ClinicSchedulerTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadClinicAppointments> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Tool/ClinicSchedulerTool> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Tool> .
+<https://orca.example.org/ontology#Tool> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ConfidentialEmail_type_SensitiveDataCategory
+    rdf:object orca:SensitiveDataCategory ;
+    rdf:predicate rdf:type ;
+    rdf:subject communicationdata:ConfidentialEmail ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/CommunicationDataCategory/ConfidentialEmail> <https://orca.example.org/ontology#sensitivityLevel> "3"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<https://orca.example.org/ontology#sensitivityLevel> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Mailbox/StudentMailbox> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/CommunicationDataCategory/ConfidentialEmail> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/SendPermission/SendStudentEmail> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/CommunicationDataCategory/ConfidentialEmail> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/CommunicationDataCategory/ConfidentialEmail> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#CommunicationDataCategory> .
+<https://orca.example.org/ontology#CommunicationDataCategory> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:CourseCatalogDB_type_Resource
+    rdf:object orca:Resource ;
+    rdf:predicate rdf:type ;
+    rdf:subject database:CourseCatalogDB ;
+    orca:derivedBy "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadCourseCatalog> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/CourseCatalogDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/WritePermission/WriteCourseCatalog> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/CourseCatalogDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Database/CourseCatalogDB> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Database> .
+<https://orca.example.org/ontology#Database> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Resource> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:CourseCatalogTool_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject tool:CourseCatalogTool ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Tool/CourseCatalogTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadCourseCatalog> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Tool/CourseCatalogTool> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Tool> .
+<https://orca.example.org/ontology#Tool> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:EmailTool_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject tool:EmailTool ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Tool/EmailTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/SendPermission/SendStudentEmail> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Tool/EmailTool> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Tool> .
+<https://orca.example.org/ontology#Tool> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:EmployeePII_type_SensitiveDataCategory
+    rdf:object orca:SensitiveDataCategory ;
+    rdf:predicate rdf:type ;
+    rdf:subject personaldata:EmployeePII ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/PersonalDataCategory/EmployeePII> <https://orca.example.org/ontology#sensitivityLevel> "4"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<https://orca.example.org/ontology#sensitivityLevel> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Database/HRRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/EmployeePII> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadStaffRecords> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/PersonalDataCategory/EmployeePII> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/PersonalDataCategory/EmployeePII> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#PersonalDataCategory> .
+<https://orca.example.org/ontology#PersonalDataCategory> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ExamTimetableStore_type_Resource
+    rdf:object orca:Resource ;
+    rdf:predicate rdf:type ;
+    rdf:subject filestore:ExamTimetableStore ;
+    orca:derivedBy "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadExamTimetable> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/FileStore/ExamTimetableStore> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/WritePermission/WriteExamTimetable> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/FileStore/ExamTimetableStore> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/FileStore/ExamTimetableStore> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#FileStore> .
+<https://orca.example.org/ontology#FileStore> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Resource> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ExamTimetableTool_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject tool:ExamTimetableTool ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Tool/ExamTimetableTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadExamTimetable> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/Tool/ExamTimetableTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/WriteExamTimetable> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Tool/ExamTimetableTool> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Tool> .
+<https://orca.example.org/ontology#Tool> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ExportStudentData_grantsAccessTo_AcademicRecord
+    rdf:object academicdata:AcademicRecord ;
+    rdf:predicate orca:grantsAccessTo ;
+    rdf:subject adminperm:ExportStudentData ;
+    orca:derivedBy "owl:propertyChainAxiom" ;
+    orca:derivedFrom """owl:propertyChainAxiom
+<https://orca.example.org/data/AdminPermission/ExportStudentData> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ExportStudentData_grantsAccessTo_StudentPII
+    rdf:object personaldata:StudentPII ;
+    rdf:predicate orca:grantsAccessTo ;
+    rdf:subject adminperm:ExportStudentData ;
+    orca:derivedBy "owl:propertyChainAxiom" ;
+    orca:derivedFrom """owl:propertyChainAxiom
+<https://orca.example.org/data/AdminPermission/ExportStudentData> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ExportStudentData_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject adminperm:ExportStudentData ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/AdminPermission/ExportStudentData> <https://orca.example.org/ontology#accessMode> "admin" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/AdminPermission/ExportStudentData> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/AdminPermission/ExportStudentData> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/AdminPermission/ExportStudentData> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Role/ITSupportRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/AdminPermission/ExportStudentData> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/SecurityPolicy/NoBulkDataExportPolicy> <https://orca.example.org/ontology#prohibitsPermission> <https://orca.example.org/data/AdminPermission/ExportStudentData> .
+<https://orca.example.org/ontology#prohibitsPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/AdminPermission/ExportStudentData> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#AdminPermission> .
+<https://orca.example.org/ontology#AdminPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:FAQEditorTool_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject tool:FAQEditorTool ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Tool/FAQEditorTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/UpdateAdmissionsFAQ> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Tool/FAQEditorTool> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Tool> .
+<https://orca.example.org/ontology#Tool> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:FAQSearchTool_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject tool:FAQSearchTool ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Tool/FAQSearchTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadAdmissionsFAQ> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Tool/FAQSearchTool> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Tool> .
+<https://orca.example.org/ontology#Tool> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:FeeReminderAgent_canReachSensitiveData_ConfidentialEmail
+    rdf:object communicationdata:ConfidentialEmail ;
+    rdf:predicate orca:canReachSensitiveData ;
+    rdf:subject agent:FeeReminderAgent ;
+    orca:derivedBy "ORCA-C" ;
+    orca:derivedFrom """ORCA-C
+<https://orca.example.org/data/AIAgent/FeeReminderAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/SendPermission/SendStudentEmail> .
+<https://orca.example.org/data/SendPermission/SendStudentEmail> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Mailbox/StudentMailbox> .
+<https://orca.example.org/data/Mailbox/StudentMailbox> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/CommunicationDataCategory/ConfidentialEmail> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:FeeReminderAgent_canReachSensitiveData_FinancialRecord
+    rdf:object financialdata:FinancialRecord ;
+    rdf:predicate orca:canReachSensitiveData ;
+    rdf:subject agent:FeeReminderAgent ;
+    orca:derivedBy "ORCA-C" ;
+    orca:derivedFrom """ORCA-C
+<https://orca.example.org/data/AIAgent/FeeReminderAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/ReadPermission/ReadFeeBalances> .
+<https://orca.example.org/data/ReadPermission/ReadFeeBalances> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/FinanceLedgerDB> .
+<https://orca.example.org/data/Database/FinanceLedgerDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/FinancialDataCategory/FinancialRecord> .""" ,
+        """ORCA-C
+<https://orca.example.org/data/AIAgent/FeeReminderAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/WritePermission/ApproveRefunds> .
+<https://orca.example.org/data/WritePermission/ApproveRefunds> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/FinanceLedgerDB> .
+<https://orca.example.org/data/Database/FinanceLedgerDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/FinancialDataCategory/FinancialRecord> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:FeeReminderAgent_hasAvailablePermission_ApproveRefunds
+    rdf:object writeperm:ApproveRefunds ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:FeeReminderAgent ;
+    orca:derivedBy "ORCA-B" ;
+    orca:derivedFrom """ORCA-B
+<https://orca.example.org/data/AIAgent/FeeReminderAgent> <https://orca.example.org/ontology#hasRole> <https://orca.example.org/data/Role/FinanceAssistantRole> .
+<https://orca.example.org/data/Role/FinanceAssistantRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/ApproveRefunds> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:FeeReminderAgent_hasAvailablePermission_ReadFeeBalances
+    rdf:object readperm:ReadFeeBalances ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:FeeReminderAgent ;
+    orca:derivedBy "ORCA-A" ,
+        "ORCA-B" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/FeeReminderAgent> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/FinanceLedgerTool> .
+<https://orca.example.org/data/Tool/FinanceLedgerTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadFeeBalances> .""" ,
+        """ORCA-B
+<https://orca.example.org/data/AIAgent/FeeReminderAgent> <https://orca.example.org/ontology#hasRole> <https://orca.example.org/data/Role/FinanceAssistantRole> .
+<https://orca.example.org/data/Role/FinanceAssistantRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadFeeBalances> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:FeeReminderAgent_hasAvailablePermission_SendStudentEmail
+    rdf:object sendperm:SendStudentEmail ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:FeeReminderAgent ;
+    orca:derivedBy "ORCA-A" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/FeeReminderAgent> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/EmailTool> .
+<https://orca.example.org/data/Tool/EmailTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/SendPermission/SendStudentEmail> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:FeeReminderAgent_hasExcessivePermission_ApproveRefunds
+    rdf:object writeperm:ApproveRefunds ;
+    rdf:predicate orca:hasExcessivePermission ;
+    rdf:subject agent:FeeReminderAgent ;
+    orca:derivedBy "ORCA-D" ;
+    orca:derivedFrom """ORCA-D
+<https://orca.example.org/data/AIAgent/FeeReminderAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/WritePermission/ApproveRefunds> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:FeeReminderAgent_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject agent:FeeReminderAgent ;
+    orca:derivedBy "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:subClassOf
+<https://orca.example.org/data/AIAgent/FeeReminderAgent> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#AIAgent> .
+<https://orca.example.org/ontology#AIAgent> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:FinanceAssistantRole_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject role:FinanceAssistantRole ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Role/FinanceAssistantRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadFeeBalances> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/Role/FinanceAssistantRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/ApproveRefunds> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Role/FinanceAssistantRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Role> .
+<https://orca.example.org/ontology#Role> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:FinanceLedgerDB_type_Resource
+    rdf:object orca:Resource ;
+    rdf:predicate rdf:type ;
+    rdf:subject database:FinanceLedgerDB ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Database/FinanceLedgerDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/FinancialDataCategory/FinancialRecord> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadFeeBalances> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/FinanceLedgerDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/WritePermission/ApproveRefunds> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/FinanceLedgerDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Database/FinanceLedgerDB> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Database> .
+<https://orca.example.org/ontology#Database> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Resource> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:FinanceLedgerTool_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject tool:FinanceLedgerTool ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Tool/FinanceLedgerTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadFeeBalances> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Tool/FinanceLedgerTool> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Tool> .
+<https://orca.example.org/ontology#Tool> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:FinancialRecord_type_SensitiveDataCategory
+    rdf:object orca:SensitiveDataCategory ;
+    rdf:predicate rdf:type ;
+    rdf:subject financialdata:FinancialRecord ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/FinancialDataCategory/FinancialRecord> <https://orca.example.org/ontology#sensitivityLevel> "4"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<https://orca.example.org/ontology#sensitivityLevel> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Database/FinanceLedgerDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/FinancialDataCategory/FinancialRecord> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadFeeBalances> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/FinancialDataCategory/FinancialRecord> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/WritePermission/ApproveRefunds> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/FinancialDataCategory/FinancialRecord> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/FinancialDataCategory/FinancialRecord> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#FinancialDataCategory> .
+<https://orca.example.org/ontology#FinancialDataCategory> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:GradeAssignments_isAssignedTo_GradingAssistant
+    rdf:object agent:GradingAssistant ;
+    rdf:predicate orca:isAssignedTo ;
+    rdf:subject task:GradeAssignments ;
+    orca:derivedBy "owl:inverseOf" ;
+    orca:derivedFrom """owl:inverseOf
+<https://orca.example.org/data/AIAgent/GradingAssistant> <https://orca.example.org/ontology#assignedTask> <https://orca.example.org/data/Task/GradeAssignments> .
+<https://orca.example.org/ontology#isAssignedTo> <http://www.w3.org/2002/07/owl#inverseOf> <https://orca.example.org/ontology#assignedTask> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:GradingAssistant_canReachSensitiveData_AcademicRecord
+    rdf:object academicdata:AcademicRecord ;
+    rdf:predicate orca:canReachSensitiveData ;
+    rdf:subject agent:GradingAssistant ;
+    orca:derivedBy "ORCA-C" ;
+    orca:derivedFrom """ORCA-C
+<https://orca.example.org/data/AIAgent/GradingAssistant> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/WritePermission/WriteStudentGrades> .
+<https://orca.example.org/data/WritePermission/WriteStudentGrades> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:GradingAssistant_canReachSensitiveData_StudentPII
+    rdf:object personaldata:StudentPII ;
+    rdf:predicate orca:canReachSensitiveData ;
+    rdf:subject agent:GradingAssistant ;
+    orca:derivedBy "ORCA-C" ;
+    orca:derivedFrom """ORCA-C
+<https://orca.example.org/data/AIAgent/GradingAssistant> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/WritePermission/WriteStudentGrades> .
+<https://orca.example.org/data/WritePermission/WriteStudentGrades> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:GradingAssistant_hasAvailablePermission_ReadMarkingRubrics
+    rdf:object readperm:ReadMarkingRubrics ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:GradingAssistant ;
+    orca:derivedBy "ORCA-A" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/GradingAssistant> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/RubricTool> .
+<https://orca.example.org/data/Tool/RubricTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadMarkingRubrics> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:GradingAssistant_hasAvailablePermission_WriteStudentGrades
+    rdf:object writeperm:WriteStudentGrades ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:GradingAssistant ;
+    orca:derivedBy "ORCA-B" ;
+    orca:derivedFrom """ORCA-B
+<https://orca.example.org/data/AIAgent/GradingAssistant> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#AIAgent> .
+<https://orca.example.org/data/AIAgent/GradingAssistant> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/WriteStudentGrades> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:GradingAssistant_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject agent:GradingAssistant ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/AIAgent/GradingAssistant> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/WriteStudentGrades> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/AIAgent/GradingAssistant> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#AIAgent> .
+<https://orca.example.org/ontology#AIAgent> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:HRDirectoryTool_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject tool:HRDirectoryTool ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Tool/HRDirectoryTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadStaffRecords> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Tool/HRDirectoryTool> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Tool> .
+<https://orca.example.org/ontology#Tool> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:HRRecordsDB_type_Resource
+    rdf:object orca:Resource ;
+    rdf:predicate rdf:type ;
+    rdf:subject database:HRRecordsDB ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Database/HRRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/EmployeePII> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadStaffRecords> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/HRRecordsDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Database/HRRecordsDB> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Database> .
+<https://orca.example.org/ontology#Database> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Resource> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:HealthCentreDB_type_Resource
+    rdf:object orca:Resource ;
+    rdf:predicate rdf:type ;
+    rdf:subject database:HealthCentreDB ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Database/HealthCentreDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/HealthDataCategory/HealthInformation> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadClinicAppointments> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/HealthCentreDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Database/HealthCentreDB> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Database> .
+<https://orca.example.org/ontology#Database> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Resource> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:HealthInformation_type_SensitiveDataCategory
+    rdf:object orca:SensitiveDataCategory ;
+    rdf:predicate rdf:type ;
+    rdf:subject healthdata:HealthInformation ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/HealthDataCategory/HealthInformation> <https://orca.example.org/ontology#sensitivityLevel> "5"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<https://orca.example.org/ontology#sensitivityLevel> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Database/HealthCentreDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/HealthDataCategory/HealthInformation> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadClinicAppointments> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/HealthDataCategory/HealthInformation> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/HealthDataCategory/HealthInformation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#HealthDataCategory> .
+<https://orca.example.org/ontology#HealthDataCategory> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:HelpdeskAgent_canReachSensitiveData_AcademicRecord
+    rdf:object academicdata:AcademicRecord ;
+    rdf:predicate orca:canReachSensitiveData ;
+    rdf:subject agent:HelpdeskAgent ;
+    orca:derivedBy "ORCA-C" ;
+    orca:derivedFrom """ORCA-C
+<https://orca.example.org/data/AIAgent/HelpdeskAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/AdminPermission/ExportStudentData> .
+<https://orca.example.org/data/AdminPermission/ExportStudentData> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:HelpdeskAgent_canReachSensitiveData_StudentPII
+    rdf:object personaldata:StudentPII ;
+    rdf:predicate orca:canReachSensitiveData ;
+    rdf:subject agent:HelpdeskAgent ;
+    orca:derivedBy "ORCA-C" ;
+    orca:derivedFrom """ORCA-C
+<https://orca.example.org/data/AIAgent/HelpdeskAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/AdminPermission/ExportStudentData> .
+<https://orca.example.org/data/AdminPermission/ExportStudentData> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:HelpdeskAgent_hasAvailablePermission_ExportStudentData
+    rdf:object adminperm:ExportStudentData ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:HelpdeskAgent ;
+    orca:derivedBy "ORCA-B" ;
+    orca:derivedFrom """ORCA-B
+<https://orca.example.org/data/AIAgent/HelpdeskAgent> <https://orca.example.org/ontology#hasRole> <https://orca.example.org/data/Role/ITSupportRole> .
+<https://orca.example.org/data/Role/ITSupportRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/AdminPermission/ExportStudentData> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:HelpdeskAgent_hasAvailablePermission_ResetPassword
+    rdf:object adminperm:ResetPassword ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:HelpdeskAgent ;
+    orca:derivedBy "ORCA-A" ,
+        "ORCA-B" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/HelpdeskAgent> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/PasswordResetTool> .
+<https://orca.example.org/data/Tool/PasswordResetTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/AdminPermission/ResetPassword> .""" ,
+        """ORCA-B
+<https://orca.example.org/data/AIAgent/HelpdeskAgent> <https://orca.example.org/ontology#hasRole> <https://orca.example.org/data/Role/ITSupportRole> .
+<https://orca.example.org/data/Role/ITSupportRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/AdminPermission/ResetPassword> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:HelpdeskAgent_hasExcessivePermission_ExportStudentData
+    rdf:object adminperm:ExportStudentData ;
+    rdf:predicate orca:hasExcessivePermission ;
+    rdf:subject agent:HelpdeskAgent ;
+    orca:derivedBy "ORCA-D" ;
+    orca:derivedFrom """ORCA-D
+<https://orca.example.org/data/AIAgent/HelpdeskAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/AdminPermission/ExportStudentData> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:HelpdeskAgent_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject agent:HelpdeskAgent ;
+    orca:derivedBy "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:subClassOf
+<https://orca.example.org/data/AIAgent/HelpdeskAgent> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#AIAgent> .
+<https://orca.example.org/ontology#AIAgent> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:HelpdeskAgent_violatesPolicy_NoBulkDataExportPolicy
+    rdf:object policy:NoBulkDataExportPolicy ;
+    rdf:predicate orca:violatesPolicy ;
+    rdf:subject agent:HelpdeskAgent ;
+    orca:derivedBy "ORCA-E" ;
+    orca:derivedFrom """ORCA-E
+<https://orca.example.org/data/AIAgent/HelpdeskAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/AdminPermission/ExportStudentData> .
+<https://orca.example.org/data/SecurityPolicy/NoBulkDataExportPolicy> <https://orca.example.org/ontology#prohibitsPermission> <https://orca.example.org/data/AdminPermission/ExportStudentData> .
+<https://orca.example.org/data/AIAgent/HelpdeskAgent> <https://orca.example.org/ontology#assignedTask> <https://orca.example.org/data/Task/ResetStudentPasswords> .
+<https://orca.example.org/data/Task/ResetStudentPasswords> <https://orca.example.org/ontology#governedByPolicy> <https://orca.example.org/data/SecurityPolicy/NoBulkDataExportPolicy> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ITSupportRole_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject role:ITSupportRole ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Role/ITSupportRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/AdminPermission/ExportStudentData> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/Role/ITSupportRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/AdminPermission/ResetPassword> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Role/ITSupportRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Role> .
+<https://orca.example.org/ontology#Role> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:LibraryAssistantRole_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject role:LibraryAssistantRole ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Role/LibraryAssistantRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadLibraryLoans> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Role/LibraryAssistantRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Role> .
+<https://orca.example.org/ontology#Role> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:LibraryCatalogDB_type_Resource
+    rdf:object orca:Resource ;
+    rdf:predicate rdf:type ;
+    rdf:subject database:LibraryCatalogDB ;
+    orca:derivedBy "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadLibraryCatalog> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/LibraryCatalogDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Database/LibraryCatalogDB> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Database> .
+<https://orca.example.org/ontology#Database> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Resource> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:LibraryHelpBot_canReachSensitiveData_StudentPII
+    rdf:object personaldata:StudentPII ;
+    rdf:predicate orca:canReachSensitiveData ;
+    rdf:subject agent:LibraryHelpBot ;
+    orca:derivedBy "ORCA-C" ;
+    orca:derivedFrom """ORCA-C
+<https://orca.example.org/data/AIAgent/LibraryHelpBot> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/ReadPermission/ReadLibraryLoans> .
+<https://orca.example.org/data/ReadPermission/ReadLibraryLoans> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/LibraryLoansDB> .
+<https://orca.example.org/data/Database/LibraryLoansDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:LibraryHelpBot_hasAvailablePermission_ReadLibraryLoans
+    rdf:object readperm:ReadLibraryLoans ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:LibraryHelpBot ;
+    orca:derivedBy "ORCA-A" ,
+        "ORCA-B" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/LibraryHelpBot> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/LibraryTool> .
+<https://orca.example.org/data/Tool/LibraryTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadLibraryLoans> .""" ,
+        """ORCA-B
+<https://orca.example.org/data/AIAgent/LibraryHelpBot> <https://orca.example.org/ontology#hasRole> <https://orca.example.org/data/Role/LibraryAssistantRole> .
+<https://orca.example.org/data/Role/LibraryAssistantRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadLibraryLoans> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:LibraryHelpBot_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject agent:LibraryHelpBot ;
+    orca:derivedBy "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:subClassOf
+<https://orca.example.org/data/AIAgent/LibraryHelpBot> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#AIAgent> .
+<https://orca.example.org/ontology#AIAgent> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:LibraryLoansDB_type_Resource
+    rdf:object orca:Resource ;
+    rdf:predicate rdf:type ;
+    rdf:subject database:LibraryLoansDB ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Database/LibraryLoansDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadLibraryLoans> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/LibraryLoansDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Database/LibraryLoansDB> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Database> .
+<https://orca.example.org/ontology#Database> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Resource> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:LibraryTool_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject tool:LibraryTool ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Tool/LibraryTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadLibraryLoans> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Tool/LibraryTool> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Tool> .
+<https://orca.example.org/ontology#Tool> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ManageUserAccounts_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject adminperm:ManageUserAccounts ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/AdminPermission/ManageUserAccounts> <https://orca.example.org/ontology#accessMode> "admin" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/AdminPermission/ManageUserAccounts> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/AccountDirectory> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/AdminPermission/ManageUserAccounts> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#AdminPermission> .
+<https://orca.example.org/ontology#AdminPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:MarkingRubricStore_type_Resource
+    rdf:object orca:Resource ;
+    rdf:predicate rdf:type ;
+    rdf:subject filestore:MarkingRubricStore ;
+    orca:derivedBy "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadMarkingRubrics> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/FileStore/MarkingRubricStore> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/FileStore/MarkingRubricStore> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#FileStore> .
+<https://orca.example.org/ontology#FileStore> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Resource> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:PaperSearchTool_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject tool:PaperSearchTool ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Tool/PaperSearchTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadLibraryCatalog> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Tool/PaperSearchTool> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Tool> .
+<https://orca.example.org/ontology#Tool> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:PasswordResetTool_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject tool:PasswordResetTool ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Tool/PasswordResetTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/AdminPermission/ResetPassword> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Tool/PasswordResetTool> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Tool> .
+<https://orca.example.org/ontology#Tool> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:PostCampusAnnouncement_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject writeperm:PostCampusAnnouncement ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/WritePermission/PostCampusAnnouncement> <https://orca.example.org/ontology#accessMode> "write" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/WritePermission/PostCampusAnnouncement> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/WebContent/CampusEventsPages> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/AnnounceCampusEvents> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/WritePermission/PostCampusAnnouncement> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/CampusEventsTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/PostCampusAnnouncement> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/WritePermission/PostCampusAnnouncement> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#WritePermission> .
+<https://orca.example.org/ontology#WritePermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:PublishExamTimetable_isAssignedTo_TimetableAssistant
+    rdf:object agent:TimetableAssistant ;
+    rdf:predicate orca:isAssignedTo ;
+    rdf:subject task:PublishExamTimetable ;
+    orca:derivedBy "owl:inverseOf" ;
+    orca:derivedFrom """owl:inverseOf
+<https://orca.example.org/data/AIAgent/TimetableAssistant> <https://orca.example.org/ontology#assignedTask> <https://orca.example.org/data/Task/PublishExamTimetable> .
+<https://orca.example.org/ontology#isAssignedTo> <http://www.w3.org/2002/07/owl#inverseOf> <https://orca.example.org/ontology#assignedTask> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadAccessLogs_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject readperm:ReadAccessLogs ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadAccessLogs> <https://orca.example.org/ontology#accessMode> "read" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadAccessLogs> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/AccountDirectory> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Role/SecurityAuditorRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadAccessLogs> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/AuditAccessLogs> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/ReadPermission/ReadAccessLogs> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/ReadPermission/ReadAccessLogs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#ReadPermission> .
+<https://orca.example.org/ontology#ReadPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadAdmissionsFAQ_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject readperm:ReadAdmissionsFAQ ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadAdmissionsFAQ> <https://orca.example.org/ontology#accessMode> "read" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadAdmissionsFAQ> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/WebContent/AdmissionsWebPages> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Role/AdmissionsStaffRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadAdmissionsFAQ> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/AnswerAdmissionsFAQ> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/ReadPermission/ReadAdmissionsFAQ> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/FAQSearchTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadAdmissionsFAQ> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/ReadPermission/ReadAdmissionsFAQ> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#ReadPermission> .
+<https://orca.example.org/ontology#ReadPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadApplicantDocuments_grantsAccessTo_StudentPII
+    rdf:object personaldata:StudentPII ;
+    rdf:predicate orca:grantsAccessTo ;
+    rdf:subject readperm:ReadApplicantDocuments ;
+    orca:derivedBy "owl:propertyChainAxiom" ;
+    orca:derivedFrom """owl:propertyChainAxiom
+<https://orca.example.org/data/ReadPermission/ReadApplicantDocuments> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/FileStore/ApplicantDocumentStore> .
+<https://orca.example.org/data/FileStore/ApplicantDocumentStore> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadApplicantDocuments_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject readperm:ReadApplicantDocuments ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadApplicantDocuments> <https://orca.example.org/ontology#accessMode> "read" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadApplicantDocuments> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/FileStore/ApplicantDocumentStore> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadApplicantDocuments> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/ReviewApplications> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/ReadPermission/ReadApplicantDocuments> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/ReadPermission/ReadApplicantDocuments> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#ReadPermission> .
+<https://orca.example.org/ontology#ReadPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadCampusEvents_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject readperm:ReadCampusEvents ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadCampusEvents> <https://orca.example.org/ontology#accessMode> "read" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadCampusEvents> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/WebContent/CampusEventsPages> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/AnnounceCampusEvents> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/ReadPermission/ReadCampusEvents> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/CampusEventsTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadCampusEvents> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/ReadPermission/ReadCampusEvents> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#ReadPermission> .
+<https://orca.example.org/ontology#ReadPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadClinicAppointments_grantsAccessTo_HealthInformation
+    rdf:object healthdata:HealthInformation ;
+    rdf:predicate orca:grantsAccessTo ;
+    rdf:subject readperm:ReadClinicAppointments ;
+    orca:derivedBy "owl:propertyChainAxiom" ;
+    orca:derivedFrom """owl:propertyChainAxiom
+<https://orca.example.org/data/ReadPermission/ReadClinicAppointments> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/HealthCentreDB> .
+<https://orca.example.org/data/Database/HealthCentreDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/HealthDataCategory/HealthInformation> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadClinicAppointments_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject readperm:ReadClinicAppointments ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadClinicAppointments> <https://orca.example.org/ontology#accessMode> "read" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadClinicAppointments> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/HealthCentreDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadClinicAppointments> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/HealthDataCategory/HealthInformation> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/ClinicSchedulerTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadClinicAppointments> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/ReadPermission/ReadClinicAppointments> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#ReadPermission> .
+<https://orca.example.org/ontology#ReadPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadCourseCatalog_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject readperm:ReadCourseCatalog ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadCourseCatalog> <https://orca.example.org/ontology#accessMode> "read" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadCourseCatalog> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/CourseCatalogDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Role/AcademicAdvisorRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadCourseCatalog> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/PublishExamTimetable> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/ReadPermission/ReadCourseCatalog> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/RecommendCourses> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/ReadPermission/ReadCourseCatalog> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/CourseCatalogTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadCourseCatalog> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/ReadPermission/ReadCourseCatalog> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#ReadPermission> .
+<https://orca.example.org/ontology#ReadPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadExamTimetable_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject readperm:ReadExamTimetable ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadExamTimetable> <https://orca.example.org/ontology#accessMode> "read" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadExamTimetable> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/FileStore/ExamTimetableStore> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/ExamTimetableTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadExamTimetable> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/ReadPermission/ReadExamTimetable> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#ReadPermission> .
+<https://orca.example.org/ontology#ReadPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadFeeBalances_grantsAccessTo_FinancialRecord
+    rdf:object financialdata:FinancialRecord ;
+    rdf:predicate orca:grantsAccessTo ;
+    rdf:subject readperm:ReadFeeBalances ;
+    orca:derivedBy "owl:propertyChainAxiom" ;
+    orca:derivedFrom """owl:propertyChainAxiom
+<https://orca.example.org/data/ReadPermission/ReadFeeBalances> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/FinanceLedgerDB> .
+<https://orca.example.org/data/Database/FinanceLedgerDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/FinancialDataCategory/FinancialRecord> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadFeeBalances_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject readperm:ReadFeeBalances ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadFeeBalances> <https://orca.example.org/ontology#accessMode> "read" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadFeeBalances> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/FinanceLedgerDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadFeeBalances> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/FinancialDataCategory/FinancialRecord> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Role/FinanceAssistantRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadFeeBalances> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/ProcessRefunds> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/ReadPermission/ReadFeeBalances> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/SendFeeReminders> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/ReadPermission/ReadFeeBalances> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/FinanceLedgerTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadFeeBalances> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/ReadPermission/ReadFeeBalances> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#ReadPermission> .
+<https://orca.example.org/ontology#ReadPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadLibraryCatalog_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject readperm:ReadLibraryCatalog ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadLibraryCatalog> <https://orca.example.org/ontology#accessMode> "read" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadLibraryCatalog> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/LibraryCatalogDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/SummarizePapers> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/ReadPermission/ReadLibraryCatalog> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/PaperSearchTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadLibraryCatalog> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/ReadPermission/ReadLibraryCatalog> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#ReadPermission> .
+<https://orca.example.org/ontology#ReadPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadLibraryLoans_grantsAccessTo_StudentPII
+    rdf:object personaldata:StudentPII ;
+    rdf:predicate orca:grantsAccessTo ;
+    rdf:subject readperm:ReadLibraryLoans ;
+    orca:derivedBy "owl:propertyChainAxiom" ;
+    orca:derivedFrom """owl:propertyChainAxiom
+<https://orca.example.org/data/ReadPermission/ReadLibraryLoans> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/LibraryLoansDB> .
+<https://orca.example.org/data/Database/LibraryLoansDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadLibraryLoans_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject readperm:ReadLibraryLoans ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadLibraryLoans> <https://orca.example.org/ontology#accessMode> "read" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadLibraryLoans> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/LibraryLoansDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadLibraryLoans> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Role/LibraryAssistantRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadLibraryLoans> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/RenewLibraryLoans> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/ReadPermission/ReadLibraryLoans> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/LibraryTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadLibraryLoans> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/ReadPermission/ReadLibraryLoans> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#ReadPermission> .
+<https://orca.example.org/ontology#ReadPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadMarkingRubrics_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject readperm:ReadMarkingRubrics ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadMarkingRubrics> <https://orca.example.org/ontology#accessMode> "read" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadMarkingRubrics> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/FileStore/MarkingRubricStore> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/GradeAssignments> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/ReadPermission/ReadMarkingRubrics> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/RubricTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadMarkingRubrics> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/ReadPermission/ReadMarkingRubrics> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#ReadPermission> .
+<https://orca.example.org/ontology#ReadPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadStaffRecords_grantsAccessTo_EmployeePII
+    rdf:object personaldata:EmployeePII ;
+    rdf:predicate orca:grantsAccessTo ;
+    rdf:subject readperm:ReadStaffRecords ;
+    orca:derivedBy "owl:propertyChainAxiom" ;
+    orca:derivedFrom """owl:propertyChainAxiom
+<https://orca.example.org/data/ReadPermission/ReadStaffRecords> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/HRRecordsDB> .
+<https://orca.example.org/data/Database/HRRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/EmployeePII> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadStaffRecords_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject readperm:ReadStaffRecords ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadStaffRecords> <https://orca.example.org/ontology#accessMode> "read" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadStaffRecords> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/HRRecordsDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadStaffRecords> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/PersonalDataCategory/EmployeePII> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/HRDirectoryTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadStaffRecords> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/ReadPermission/ReadStaffRecords> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#ReadPermission> .
+<https://orca.example.org/ontology#ReadPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadStudentContactInfo_grantsAccessTo_AcademicRecord
+    rdf:object academicdata:AcademicRecord ;
+    rdf:predicate orca:grantsAccessTo ;
+    rdf:subject readperm:ReadStudentContactInfo ;
+    orca:derivedBy "owl:propertyChainAxiom" ;
+    orca:derivedFrom """owl:propertyChainAxiom
+<https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadStudentContactInfo_grantsAccessTo_StudentPII
+    rdf:object personaldata:StudentPII ;
+    rdf:predicate orca:grantsAccessTo ;
+    rdf:subject readperm:ReadStudentContactInfo ;
+    orca:derivedBy "owl:propertyChainAxiom" ;
+    orca:derivedFrom """owl:propertyChainAxiom
+<https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadStudentContactInfo_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject readperm:ReadStudentContactInfo ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> <https://orca.example.org/ontology#accessMode> "read" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/StudentRecordsTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#ReadPermission> .
+<https://orca.example.org/ontology#ReadPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadStudentGrades_grantsAccessTo_AcademicRecord
+    rdf:object academicdata:AcademicRecord ;
+    rdf:predicate orca:grantsAccessTo ;
+    rdf:subject readperm:ReadStudentGrades ;
+    orca:derivedBy "owl:propertyChainAxiom" ;
+    orca:derivedFrom """owl:propertyChainAxiom
+<https://orca.example.org/data/ReadPermission/ReadStudentGrades> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadStudentGrades_grantsAccessTo_StudentPII
+    rdf:object personaldata:StudentPII ;
+    rdf:predicate orca:grantsAccessTo ;
+    rdf:subject readperm:ReadStudentGrades ;
+    orca:derivedBy "owl:propertyChainAxiom" ;
+    orca:derivedFrom """owl:propertyChainAxiom
+<https://orca.example.org/data/ReadPermission/ReadStudentGrades> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReadStudentGrades_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject readperm:ReadStudentGrades ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadStudentGrades> <https://orca.example.org/ontology#accessMode> "read" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadStudentGrades> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadStudentGrades> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/ReadPermission/ReadStudentGrades> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/RecommendCourses> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/ReadPermission/ReadStudentGrades> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/StudentRecordsTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadStudentGrades> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/ReadPermission/ReadStudentGrades> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#ReadPermission> .
+<https://orca.example.org/ontology#ReadPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:RecommendCourses_isAssignedTo_AdvisingAgent
+    rdf:object agent:AdvisingAgent ;
+    rdf:predicate orca:isAssignedTo ;
+    rdf:subject task:RecommendCourses ;
+    orca:derivedBy "owl:inverseOf" ;
+    orca:derivedFrom """owl:inverseOf
+<https://orca.example.org/data/AIAgent/AdvisingAgent> <https://orca.example.org/ontology#assignedTask> <https://orca.example.org/data/Task/RecommendCourses> .
+<https://orca.example.org/ontology#isAssignedTo> <http://www.w3.org/2002/07/owl#inverseOf> <https://orca.example.org/ontology#assignedTask> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:RenewLibraryLoans_isAssignedTo_LibraryHelpBot
+    rdf:object agent:LibraryHelpBot ;
+    rdf:predicate orca:isAssignedTo ;
+    rdf:subject task:RenewLibraryLoans ;
+    orca:derivedBy "owl:inverseOf" ;
+    orca:derivedFrom """owl:inverseOf
+<https://orca.example.org/data/AIAgent/LibraryHelpBot> <https://orca.example.org/ontology#assignedTask> <https://orca.example.org/data/Task/RenewLibraryLoans> .
+<https://orca.example.org/ontology#isAssignedTo> <http://www.w3.org/2002/07/owl#inverseOf> <https://orca.example.org/ontology#assignedTask> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ResearchSummaryAgent_canReachSensitiveData_EmployeePII
+    rdf:object personaldata:EmployeePII ;
+    rdf:predicate orca:canReachSensitiveData ;
+    rdf:subject agent:ResearchSummaryAgent ;
+    orca:derivedBy "ORCA-C" ;
+    orca:derivedFrom """ORCA-C
+<https://orca.example.org/data/AIAgent/ResearchSummaryAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/ReadPermission/ReadStaffRecords> .
+<https://orca.example.org/data/ReadPermission/ReadStaffRecords> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/HRRecordsDB> .
+<https://orca.example.org/data/Database/HRRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/EmployeePII> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ResearchSummaryAgent_canReachSensitiveData_HealthInformation
+    rdf:object healthdata:HealthInformation ;
+    rdf:predicate orca:canReachSensitiveData ;
+    rdf:subject agent:ResearchSummaryAgent ;
+    orca:derivedBy "ORCA-C" ;
+    orca:derivedFrom """ORCA-C
+<https://orca.example.org/data/AIAgent/ResearchSummaryAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/ReadPermission/ReadClinicAppointments> .
+<https://orca.example.org/data/ReadPermission/ReadClinicAppointments> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/HealthCentreDB> .
+<https://orca.example.org/data/Database/HealthCentreDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/HealthDataCategory/HealthInformation> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ResearchSummaryAgent_hasAvailablePermission_ReadClinicAppointments
+    rdf:object readperm:ReadClinicAppointments ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:ResearchSummaryAgent ;
+    orca:derivedBy "ORCA-A" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/ResearchSummaryAgent> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/ClinicSchedulerTool> .
+<https://orca.example.org/data/Tool/ClinicSchedulerTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadClinicAppointments> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ResearchSummaryAgent_hasAvailablePermission_ReadLibraryCatalog
+    rdf:object readperm:ReadLibraryCatalog ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:ResearchSummaryAgent ;
+    orca:derivedBy "ORCA-A" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/ResearchSummaryAgent> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/PaperSearchTool> .
+<https://orca.example.org/data/Tool/PaperSearchTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadLibraryCatalog> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ResearchSummaryAgent_hasAvailablePermission_ReadStaffRecords
+    rdf:object readperm:ReadStaffRecords ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:ResearchSummaryAgent ;
+    orca:derivedBy "ORCA-A" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/ResearchSummaryAgent> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/HRDirectoryTool> .
+<https://orca.example.org/data/Tool/HRDirectoryTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadStaffRecords> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ResearchSummaryAgent_hasExcessivePermission_ReadClinicAppointments
+    rdf:object readperm:ReadClinicAppointments ;
+    rdf:predicate orca:hasExcessivePermission ;
+    rdf:subject agent:ResearchSummaryAgent ;
+    orca:derivedBy "ORCA-D" ;
+    orca:derivedFrom """ORCA-D
+<https://orca.example.org/data/AIAgent/ResearchSummaryAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/ReadPermission/ReadClinicAppointments> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ResearchSummaryAgent_hasExcessivePermission_ReadStaffRecords
+    rdf:object readperm:ReadStaffRecords ;
+    rdf:predicate orca:hasExcessivePermission ;
+    rdf:subject agent:ResearchSummaryAgent ;
+    orca:derivedBy "ORCA-D" ;
+    orca:derivedFrom """ORCA-D
+<https://orca.example.org/data/AIAgent/ResearchSummaryAgent> <https://orca.example.org/ontology#hasAvailablePermission> <https://orca.example.org/data/ReadPermission/ReadStaffRecords> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ResearchSummaryAgent_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject agent:ResearchSummaryAgent ;
+    orca:derivedBy "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:subClassOf
+<https://orca.example.org/data/AIAgent/ResearchSummaryAgent> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#AIAgent> .
+<https://orca.example.org/ontology#AIAgent> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ResetPassword_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject adminperm:ResetPassword ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/AdminPermission/ResetPassword> <https://orca.example.org/ontology#accessMode> "admin" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/AdminPermission/ResetPassword> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/AccountDirectory> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Role/ITSupportRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/AdminPermission/ResetPassword> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/ResetStudentPasswords> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/AdminPermission/ResetPassword> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/PasswordResetTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/AdminPermission/ResetPassword> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/AdminPermission/ResetPassword> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#AdminPermission> .
+<https://orca.example.org/ontology#AdminPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ResetStudentPasswords_isAssignedTo_HelpdeskAgent
+    rdf:object agent:HelpdeskAgent ;
+    rdf:predicate orca:isAssignedTo ;
+    rdf:subject task:ResetStudentPasswords ;
+    orca:derivedBy "owl:inverseOf" ;
+    orca:derivedFrom """owl:inverseOf
+<https://orca.example.org/data/AIAgent/HelpdeskAgent> <https://orca.example.org/ontology#assignedTask> <https://orca.example.org/data/Task/ResetStudentPasswords> .
+<https://orca.example.org/ontology#isAssignedTo> <http://www.w3.org/2002/07/owl#inverseOf> <https://orca.example.org/ontology#assignedTask> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:ReviewApplications_isAssignedTo_AdmissionsReviewAgent
+    rdf:object agent:AdmissionsReviewAgent ;
+    rdf:predicate orca:isAssignedTo ;
+    rdf:subject task:ReviewApplications ;
+    orca:derivedBy "owl:inverseOf" ;
+    orca:derivedFrom """owl:inverseOf
+<https://orca.example.org/data/AIAgent/AdmissionsReviewAgent> <https://orca.example.org/ontology#assignedTask> <https://orca.example.org/data/Task/ReviewApplications> .
+<https://orca.example.org/ontology#isAssignedTo> <http://www.w3.org/2002/07/owl#inverseOf> <https://orca.example.org/ontology#assignedTask> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:RubricTool_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject tool:RubricTool ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Tool/RubricTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadMarkingRubrics> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Tool/RubricTool> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Tool> .
+<https://orca.example.org/ontology#Tool> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:SecurityAuditorRole_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject role:SecurityAuditorRole ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Role/SecurityAuditorRole> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadAccessLogs> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Role/SecurityAuditorRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Role> .
+<https://orca.example.org/ontology#Role> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:SendFeeReminders_isAssignedTo_FeeReminderAgent
+    rdf:object agent:FeeReminderAgent ;
+    rdf:predicate orca:isAssignedTo ;
+    rdf:subject task:SendFeeReminders ;
+    orca:derivedBy "owl:inverseOf" ;
+    orca:derivedFrom """owl:inverseOf
+<https://orca.example.org/data/AIAgent/FeeReminderAgent> <https://orca.example.org/ontology#assignedTask> <https://orca.example.org/data/Task/SendFeeReminders> .
+<https://orca.example.org/ontology#isAssignedTo> <http://www.w3.org/2002/07/owl#inverseOf> <https://orca.example.org/ontology#assignedTask> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:SendStudentEmail_grantsAccessTo_ConfidentialEmail
+    rdf:object communicationdata:ConfidentialEmail ;
+    rdf:predicate orca:grantsAccessTo ;
+    rdf:subject sendperm:SendStudentEmail ;
+    orca:derivedBy "owl:propertyChainAxiom" ;
+    orca:derivedFrom """owl:propertyChainAxiom
+<https://orca.example.org/data/SendPermission/SendStudentEmail> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Mailbox/StudentMailbox> .
+<https://orca.example.org/data/Mailbox/StudentMailbox> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/CommunicationDataCategory/ConfidentialEmail> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:SendStudentEmail_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject sendperm:SendStudentEmail ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/SendPermission/SendStudentEmail> <https://orca.example.org/ontology#accessMode> "send" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/SendPermission/SendStudentEmail> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Mailbox/StudentMailbox> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/SendPermission/SendStudentEmail> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/CommunicationDataCategory/ConfidentialEmail> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/SendFeeReminders> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/SendPermission/SendStudentEmail> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/EmailTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/SendPermission/SendStudentEmail> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/SendPermission/SendStudentEmail> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#SendPermission> .
+<https://orca.example.org/ontology#SendPermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:StudentMailbox_type_Resource
+    rdf:object orca:Resource ;
+    rdf:predicate rdf:type ;
+    rdf:subject mailbox:StudentMailbox ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Mailbox/StudentMailbox> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/CommunicationDataCategory/ConfidentialEmail> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/SendPermission/SendStudentEmail> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Mailbox/StudentMailbox> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Mailbox/StudentMailbox> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Mailbox> .
+<https://orca.example.org/ontology#Mailbox> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Resource> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:StudentPII_type_SensitiveDataCategory
+    rdf:object orca:SensitiveDataCategory ;
+    rdf:predicate rdf:type ;
+    rdf:subject personaldata:StudentPII ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/PersonalDataCategory/StudentPII> <https://orca.example.org/ontology#sensitivityLevel> "4"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<https://orca.example.org/ontology#sensitivityLevel> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/AdminPermission/ExportStudentData> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Database/LibraryLoansDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/FileStore/ApplicantDocumentStore> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadApplicantDocuments> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadLibraryLoans> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadStudentGrades> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/WritePermission/WriteStudentGrades> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/PersonalDataCategory/StudentPII> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#PersonalDataCategory> .
+<https://orca.example.org/ontology#PersonalDataCategory> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#SensitiveDataCategory> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:StudentRecordsDB_type_Resource
+    rdf:object orca:Resource ;
+    rdf:predicate rdf:type ;
+    rdf:subject database:StudentRecordsDB ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#containsSensitiveData> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/AdminPermission/ExportStudentData> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/ReadPermission/ReadStudentGrades> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/WritePermission/WriteStudentGrades> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Resource> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Database/StudentRecordsDB> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Database> .
+<https://orca.example.org/ontology#Database> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Resource> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:StudentRecordsTool_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject tool:StudentRecordsTool ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/Tool/StudentRecordsTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadStudentContactInfo> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/Tool/StudentRecordsTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadStudentGrades> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/Tool/StudentRecordsTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/WriteStudentGrades> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#PermissionHolder> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/Tool/StudentRecordsTool> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#Tool> .
+<https://orca.example.org/ontology#Tool> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:SummarizePapers_isAssignedTo_ResearchSummaryAgent
+    rdf:object agent:ResearchSummaryAgent ;
+    rdf:predicate orca:isAssignedTo ;
+    rdf:subject task:SummarizePapers ;
+    orca:derivedBy "owl:inverseOf" ;
+    orca:derivedFrom """owl:inverseOf
+<https://orca.example.org/data/AIAgent/ResearchSummaryAgent> <https://orca.example.org/ontology#assignedTask> <https://orca.example.org/data/Task/SummarizePapers> .
+<https://orca.example.org/ontology#isAssignedTo> <http://www.w3.org/2002/07/owl#inverseOf> <https://orca.example.org/ontology#assignedTask> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:TimetableAssistant_hasAvailablePermission_ReadCourseCatalog
+    rdf:object readperm:ReadCourseCatalog ;
+    rdf:predicate orca:hasAvailablePermission ;
+    rdf:subject agent:TimetableAssistant ;
+    orca:derivedBy "ORCA-A" ;
+    orca:derivedFrom """ORCA-A
+<https://orca.example.org/data/AIAgent/TimetableAssistant> <https://orca.example.org/ontology#usesTool> <https://orca.example.org/data/Tool/CourseCatalogTool> .
+<https://orca.example.org/data/Tool/CourseCatalogTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/ReadPermission/ReadCourseCatalog> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:TimetableAssistant_type_PermissionHolder
+    rdf:object orca:PermissionHolder ;
+    rdf:predicate rdf:type ;
+    rdf:subject agent:TimetableAssistant ;
+    orca:derivedBy "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:subClassOf
+<https://orca.example.org/data/AIAgent/TimetableAssistant> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#AIAgent> .
+<https://orca.example.org/ontology#AIAgent> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#PermissionHolder> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:UpdateAdmissionsFAQ_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject writeperm:UpdateAdmissionsFAQ ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/WritePermission/UpdateAdmissionsFAQ> <https://orca.example.org/ontology#accessMode> "write" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/WritePermission/UpdateAdmissionsFAQ> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/WebContent/AdmissionsWebPages> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/FAQEditorTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/UpdateAdmissionsFAQ> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/WritePermission/UpdateAdmissionsFAQ> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#WritePermission> .
+<https://orca.example.org/ontology#WritePermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:WriteCourseCatalog_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject writeperm:WriteCourseCatalog ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/WritePermission/WriteCourseCatalog> <https://orca.example.org/ontology#accessMode> "write" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/WritePermission/WriteCourseCatalog> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/CourseCatalogDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/WritePermission/WriteCourseCatalog> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#WritePermission> .
+<https://orca.example.org/ontology#WritePermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:WriteExamTimetable_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject writeperm:WriteExamTimetable ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/WritePermission/WriteExamTimetable> <https://orca.example.org/ontology#accessMode> "write" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/WritePermission/WriteExamTimetable> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/FileStore/ExamTimetableStore> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/PublishExamTimetable> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/WritePermission/WriteExamTimetable> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/ExamTimetableTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/WriteExamTimetable> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/WritePermission/WriteExamTimetable> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#WritePermission> .
+<https://orca.example.org/ontology#WritePermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:WriteStudentGrades_grantsAccessTo_AcademicRecord
+    rdf:object academicdata:AcademicRecord ;
+    rdf:predicate orca:grantsAccessTo ;
+    rdf:subject writeperm:WriteStudentGrades ;
+    orca:derivedBy "owl:propertyChainAxiom" ;
+    orca:derivedFrom """owl:propertyChainAxiom
+<https://orca.example.org/data/WritePermission/WriteStudentGrades> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:WriteStudentGrades_grantsAccessTo_StudentPII
+    rdf:object personaldata:StudentPII ;
+    rdf:predicate orca:grantsAccessTo ;
+    rdf:subject writeperm:WriteStudentGrades ;
+    orca:derivedBy "owl:propertyChainAxiom" ;
+    orca:derivedFrom """owl:propertyChainAxiom
+<https://orca.example.org/data/WritePermission/WriteStudentGrades> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/data/Database/StudentRecordsDB> <https://orca.example.org/ontology#containsSensitiveData> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+inference:WriteStudentGrades_type_Permission
+    rdf:object orca:Permission ;
+    rdf:predicate rdf:type ;
+    rdf:subject writeperm:WriteStudentGrades ;
+    orca:derivedBy "rdfs:domain" ,
+        "rdfs:range" ,
+        "rdfs:subClassOf" ;
+    orca:derivedFrom """rdfs:domain
+<https://orca.example.org/data/WritePermission/WriteStudentGrades> <https://orca.example.org/ontology#accessMode> "write" .
+<https://orca.example.org/ontology#accessMode> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/WritePermission/WriteStudentGrades> <https://orca.example.org/ontology#accessesResource> <https://orca.example.org/data/Database/StudentRecordsDB> .
+<https://orca.example.org/ontology#accessesResource> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/WritePermission/WriteStudentGrades> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/AcademicDataCategory/AcademicRecord> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:domain
+<https://orca.example.org/data/WritePermission/WriteStudentGrades> <https://orca.example.org/ontology#grantsAccessTo> <https://orca.example.org/data/PersonalDataCategory/StudentPII> .
+<https://orca.example.org/ontology#grantsAccessTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/AIAgent/GradingAssistant> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/WriteStudentGrades> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Task/GradeAssignments> <https://orca.example.org/ontology#requiresPermission> <https://orca.example.org/data/WritePermission/WriteStudentGrades> .
+<https://orca.example.org/ontology#requiresPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:range
+<https://orca.example.org/data/Tool/StudentRecordsTool> <https://orca.example.org/ontology#hasPermission> <https://orca.example.org/data/WritePermission/WriteStudentGrades> .
+<https://orca.example.org/ontology#hasPermission> <http://www.w3.org/2000/01/rdf-schema#range> <https://orca.example.org/ontology#Permission> .""" ,
+        """rdfs:subClassOf
+<https://orca.example.org/data/WritePermission/WriteStudentGrades> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://orca.example.org/ontology#WritePermission> .
+<https://orca.example.org/ontology#WritePermission> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://orca.example.org/ontology#Permission> .""" ;
+    orca:provenanceLabel "Inferred_Fact" .
+
+mailbox:StudentMailbox
+    a orca:Resource .
+
+personaldata:EmployeePII
+    a orca:SensitiveDataCategory .
+
+personaldata:StudentPII
+    a orca:SensitiveDataCategory .
+
+readperm:ReadAccessLogs
+    a orca:Permission .
+
+readperm:ReadAdmissionsFAQ
+    a orca:Permission .
+
+readperm:ReadApplicantDocuments
+    a orca:Permission ;
+    orca:grantsAccessTo personaldata:StudentPII .
+
+readperm:ReadCampusEvents
+    a orca:Permission .
+
+readperm:ReadClinicAppointments
+    a orca:Permission ;
+    orca:grantsAccessTo healthdata:HealthInformation .
+
+readperm:ReadCourseCatalog
+    a orca:Permission .
+
+readperm:ReadExamTimetable
+    a orca:Permission .
+
+readperm:ReadFeeBalances
+    a orca:Permission ;
+    orca:grantsAccessTo financialdata:FinancialRecord .
+
+readperm:ReadLibraryCatalog
+    a orca:Permission .
+
+readperm:ReadLibraryLoans
+    a orca:Permission ;
+    orca:grantsAccessTo personaldata:StudentPII .
+
+readperm:ReadMarkingRubrics
+    a orca:Permission .
+
+readperm:ReadStaffRecords
+    a orca:Permission ;
+    orca:grantsAccessTo personaldata:EmployeePII .
+
+readperm:ReadStudentContactInfo
+    a orca:Permission ;
+    orca:grantsAccessTo academicdata:AcademicRecord ,
+        personaldata:StudentPII .
+
+readperm:ReadStudentGrades
+    a orca:Permission ;
+    orca:grantsAccessTo academicdata:AcademicRecord ,
+        personaldata:StudentPII .
+
+role:AcademicAdvisorRole
+    a orca:PermissionHolder .
+
+role:AdmissionsStaffRole
+    a orca:PermissionHolder .
+
+role:FinanceAssistantRole
+    a orca:PermissionHolder .
+
+role:ITSupportRole
+    a orca:PermissionHolder .
+
+role:LibraryAssistantRole
+    a orca:PermissionHolder .
+
+role:SecurityAuditorRole
+    a orca:PermissionHolder .
+
+sendperm:SendStudentEmail
+    a orca:Permission ;
+    orca:grantsAccessTo communicationdata:ConfidentialEmail .
+
+task:AnnounceCampusEvents
+    orca:isAssignedTo agent:CampusEventsBot .
+
+task:AnswerAdmissionsFAQ
+    orca:isAssignedTo agent:AdmissionsFAQBot .
+
+task:GradeAssignments
+    orca:isAssignedTo agent:GradingAssistant .
+
+task:PublishExamTimetable
+    orca:isAssignedTo agent:TimetableAssistant .
+
+task:RecommendCourses
+    orca:isAssignedTo agent:AdvisingAgent .
+
+task:RenewLibraryLoans
+    orca:isAssignedTo agent:LibraryHelpBot .
+
+task:ResetStudentPasswords
+    orca:isAssignedTo agent:HelpdeskAgent .
+
+task:ReviewApplications
+    orca:isAssignedTo agent:AdmissionsReviewAgent .
+
+task:SendFeeReminders
+    orca:isAssignedTo agent:FeeReminderAgent .
+
+task:SummarizePapers
+    orca:isAssignedTo agent:ResearchSummaryAgent .
+
+tool:CampusEventsTool
+    a orca:PermissionHolder .
+
+tool:ClinicSchedulerTool
+    a orca:PermissionHolder .
+
+tool:CourseCatalogTool
+    a orca:PermissionHolder .
+
+tool:EmailTool
+    a orca:PermissionHolder .
+
+tool:ExamTimetableTool
+    a orca:PermissionHolder .
+
+tool:FAQEditorTool
+    a orca:PermissionHolder .
+
+tool:FAQSearchTool
+    a orca:PermissionHolder .
+
+tool:FinanceLedgerTool
+    a orca:PermissionHolder .
+
+tool:HRDirectoryTool
+    a orca:PermissionHolder .
+
+tool:LibraryTool
+    a orca:PermissionHolder .
+
+tool:PaperSearchTool
+    a orca:PermissionHolder .
+
+tool:PasswordResetTool
+    a orca:PermissionHolder .
+
+tool:RubricTool
+    a orca:PermissionHolder .
+
+tool:StudentRecordsTool
+    a orca:PermissionHolder .
+
+webcontent:AdmissionsWebPages
+    a orca:Resource .
+
+webcontent:CampusEventsPages
+    a orca:Resource .
+
+writeperm:ApproveRefunds
+    a orca:Permission ;
+    orca:grantsAccessTo financialdata:FinancialRecord .
+
+writeperm:PostCampusAnnouncement
+    a orca:Permission .
+
+writeperm:UpdateAdmissionsFAQ
+    a orca:Permission .
+
+writeperm:WriteCourseCatalog
+    a orca:Permission .
+
+writeperm:WriteExamTimetable
+    a orca:Permission .
+
+writeperm:WriteStudentGrades
+    a orca:Permission ;
+    orca:grantsAccessTo academicdata:AcademicRecord ,
+        personaldata:StudentPII .

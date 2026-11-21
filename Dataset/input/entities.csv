@@ -1,0 +1,97 @@
+id,class,label,description,sensitivity_level,access_mode
+AdmissionsFAQBot,AIAgent,Admissions FAQ Bot,Fictional chatbot that answers prospective students' admissions questions from public web pages.,,
+TimetableAssistant,AIAgent,Timetable Assistant,Fictional agent that prepares and publishes the exam timetable.,,
+AdvisingAgent,AIAgent,Advising Agent,Fictional academic advising agent that recommends courses to students.,,
+LibraryHelpBot,AIAgent,Library Help Bot,Fictional library chatbot that renews students' library loans.,,
+FeeReminderAgent,AIAgent,Fee Reminder Agent,Fictional finance agent that emails students about unpaid fee balances.,,
+ResearchSummaryAgent,AIAgent,Research Summary Agent,Fictional research assistant that summarises papers from the library catalogue.,,
+HelpdeskAgent,AIAgent,Helpdesk Agent,Fictional IT helpdesk agent that resets student account passwords.,,
+GradingAssistant,AIAgent,Grading Assistant,Fictional agent that records assignment grades for course instructors.,,
+CampusEventsBot,AIAgent,Campus Events Bot,Fictional agent that announces public campus events.,,
+AdmissionsReviewAgent,AIAgent,Admissions Review Agent,Fictional agent that pre-screens applications for the admissions office.,,
+AminaRahman,HumanUser,Amina Rahman,Fictional head of student services who supervises student-facing agents.,,
+DanielOkafor,HumanUser,Daniel Okafor,Fictional university finance manager who supervises finance-related agents.,,
+LeilaHartmann,HumanUser,Leila Hartmann,Fictional IT security lead who supervises IT and library agents.,,
+TomasSilva,HumanUser,Tomas Silva,Fictional academic registrar who supervises academic and admissions agents.,,
+AnswerAdmissionsFAQ,Task,Answer admissions FAQ,Answer common admissions questions using the public admissions web pages.,,
+PublishExamTimetable,Task,Publish exam timetable,Build the exam timetable from the course catalogue and publish it.,,
+RecommendCourses,Task,Recommend courses,Recommend next-term courses to a student based on the catalogue and the student's grades.,,
+RenewLibraryLoans,Task,Renew library loans,Renew a student's current library loans.,,
+SendFeeReminders,Task,Send fee reminders,Email students who have an outstanding fee balance.,,
+SummarizePapers,Task,Summarize papers,Find and summarise research papers listed in the library catalogue.,,
+ResetStudentPasswords,Task,Reset student passwords,Reset the password of a student account on request.,,
+GradeAssignments,Task,Grade assignments,Record assignment grades using the course marking rubrics.,,
+AnnounceCampusEvents,Task,Announce campus events,Post announcements about upcoming public campus events.,,
+ReviewApplications,Task,Review applications,Pre-screen admission applications by reading the applicant documents.,,
+ProcessRefunds,Task,Process refunds,Approve fee refunds for eligible students; currently assigned to staff only.,,
+AuditAccessLogs,Task,Audit access logs,Review account access logs for unusual activity; currently assigned to staff only.,,
+FAQSearchTool,Tool,FAQ search tool,Search connector over the public admissions web pages.,,
+CourseCatalogTool,Tool,Course catalog tool,Read-only connector to the course catalogue database.,,
+StudentRecordsTool,Tool,Student records tool,Connector to the student records database for grades and contact details.,,
+LibraryTool,Tool,Library tool,Connector to the library loans system.,,
+FinanceLedgerTool,Tool,Finance ledger tool,Connector to the finance ledger that shows student fee balances.,,
+EmailTool,Tool,Email tool,Connector that sends email to student mailboxes.,,
+PaperSearchTool,Tool,Paper search tool,Search connector over the library catalogue of research papers.,,
+HRDirectoryTool,Tool,HR directory tool,Connector to the human-resources staff records.,,
+ClinicSchedulerTool,Tool,Clinic scheduler tool,Connector to the health centre appointment system.,,
+RubricTool,Tool,Rubric tool,Connector that reads course marking rubrics.,,
+CampusEventsTool,Tool,Campus events tool,Connector that reads and posts entries on the campus events pages.,,
+ExamTimetableTool,Tool,Exam timetable tool,Connector that reads and writes the exam timetable file store.,,
+PasswordResetTool,Tool,Password reset tool,Connector that resets passwords in the account directory.,,
+FAQEditorTool,Tool,FAQ editor tool,Connector that edits the public admissions FAQ pages.,,
+ReadAdmissionsFAQ,ReadPermission,Read admissions FAQ,Read the public admissions FAQ web pages.,,read
+UpdateAdmissionsFAQ,WritePermission,Update admissions FAQ,Edit the public admissions FAQ web pages.,,write
+ReadCourseCatalog,ReadPermission,Read course catalog,Read course descriptions and schedules in the course catalogue.,,read
+WriteCourseCatalog,WritePermission,Write course catalog,Change course entries in the course catalogue.,,write
+ReadExamTimetable,ReadPermission,Read exam timetable,Read the exam timetable.,,read
+WriteExamTimetable,WritePermission,Write exam timetable,Create or change the exam timetable.,,write
+ReadStudentGrades,ReadPermission,Read student grades,Read students' course grades in the student records database.,,read
+ReadStudentContactInfo,ReadPermission,Read student contact info,Read students' addresses and phone numbers in the student records database.,,read
+WriteStudentGrades,WritePermission,Write student grades,Enter or change students' course grades.,,write
+ExportStudentData,AdminPermission,Export student data,Bulk-export complete student records from the student records database.,,admin
+ReadLibraryLoans,ReadPermission,Read library loans,Read and renew a student's library loans.,,read
+ReadLibraryCatalog,ReadPermission,Read library catalog,Search the library catalogue of books and papers.,,read
+ReadFeeBalances,ReadPermission,Read fee balances,Read students' outstanding fee balances in the finance ledger.,,read
+ApproveRefunds,WritePermission,Approve refunds,Approve fee refunds in the finance ledger.,,write
+SendStudentEmail,SendPermission,Send student email,Send email messages to student mailboxes.,,send
+ReadStaffRecords,ReadPermission,Read staff records,Read employee records in the HR records database.,,read
+ReadClinicAppointments,ReadPermission,Read clinic appointments,Read appointments and visit notes in the health centre database.,,read
+ReadApplicantDocuments,ReadPermission,Read applicant documents,Read documents uploaded by admission applicants.,,read
+ResetPassword,AdminPermission,Reset password,Reset the password of a user account in the account directory.,,admin
+ManageUserAccounts,AdminPermission,Manage user accounts,Create or disable user accounts in the account directory.,,admin
+ReadAccessLogs,ReadPermission,Read access logs,Read sign-in and access logs of the account directory.,,read
+ReadCampusEvents,ReadPermission,Read campus events,Read the campus events pages.,,read
+PostCampusAnnouncement,WritePermission,Post campus announcement,Post a new announcement on the campus events pages.,,write
+ReadMarkingRubrics,ReadPermission,Read marking rubrics,Read the marking rubrics of a course.,,read
+AdmissionsWebPages,WebContent,Admissions web pages,Public web pages with admissions information and FAQs.,,
+CourseCatalogDB,Database,Course catalog database,Database of course descriptions and schedules.,,
+ExamTimetableStore,FileStore,Exam timetable store,File store holding exam timetable documents.,,
+StudentRecordsDB,Database,Student records database,Database of student identities and contact details and grades.,,
+LibraryLoansDB,Database,Library loans database,Database of library loans linked to named students.,,
+LibraryCatalogDB,Database,Library catalog database,Database of library books and research papers.,,
+FinanceLedgerDB,Database,Finance ledger database,Database of student fee balances and payments.,,
+StudentMailbox,Mailbox,Student mailbox,University email mailboxes of students.,,
+HRRecordsDB,Database,HR records database,Database of employee personal records.,,
+HealthCentreDB,Database,Health centre database,Database of student health centre appointments and visit notes.,,
+ApplicantDocumentStore,FileStore,Applicant document store,File store of documents uploaded by admission applicants.,,
+AccountDirectory,Database,Account directory,Directory of user accounts and their sign-in logs.,,
+CampusEventsPages,WebContent,Campus events pages,Public web pages listing campus events.,,
+MarkingRubricStore,FileStore,Marking rubric store,File store of course marking rubrics.,,
+StudentPII,PersonalDataCategory,Student PII,Personally identifiable information about students such as names and contact details.,4,
+EmployeePII,PersonalDataCategory,Employee PII,Personally identifiable information about university employees.,4,
+AcademicRecord,AcademicDataCategory,Academic record,Students' grades and academic history.,3,
+FinancialRecord,FinancialDataCategory,Financial record,Students' fee balances and payment history.,4,
+HealthInformation,HealthDataCategory,Health information,Students' health appointments and medical notes.,5,
+ConfidentialEmail,CommunicationDataCategory,Confidential email,Private email correspondence with students.,3,
+AdmissionsStaffRole,Role,Admissions staff role,Role for admissions office helpers.,,
+AcademicAdvisorRole,Role,Academic advisor role,Role for course advising helpers.,,
+LibraryAssistantRole,Role,Library assistant role,Role for library service helpers.,,
+FinanceAssistantRole,Role,Finance assistant role,Role for finance office helpers.,,
+ITSupportRole,Role,IT support role,Role for IT helpdesk helpers.,,
+SecurityAuditorRole,Role,Security auditor role,Role for staff who review account access logs.,,
+LeastPrivilegePolicy,SecurityPolicy,Least privilege policy,An agent may hold only the permissions its assigned tasks require.,,
+NoBulkDataExportPolicy,SecurityPolicy,No bulk data export policy,Agents must not hold permissions that bulk-export student data.,,
+StudentDataProtectionPolicy,SecurityPolicy,Student data protection policy,Access to student personal and academic data must be limited and recorded.,,
+HumanOversightPolicy,SecurityPolicy,Human oversight policy,Every agent must have a named human supervisor who can stop it.,,
+AgentIdentityPolicy,SecurityPolicy,Agent identity policy,Every agent must have its own managed identity and credentials.,,
+ActivityMonitoringPolicy,SecurityPolicy,Activity monitoring policy,Agent use of tools and data must be logged and monitored.,,

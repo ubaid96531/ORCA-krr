@@ -1,0 +1,147 @@
+subject_id,predicate,object_id,note
+AdmissionsFAQBot,assignedTask,AnswerAdmissionsFAQ,Scenario (a) authorized agent
+AdmissionsFAQBot,usesTool,FAQSearchTool,Scenario (a)
+AdmissionsFAQBot,hasRole,AdmissionsStaffRole,Scenario (a); role grants only the required permission
+AdmissionsFAQBot,supervisedBy,AminaRahman,Human oversight (AI RMF MAP 3.5)
+TimetableAssistant,assignedTask,PublishExamTimetable,Scenario (b) missing permission
+TimetableAssistant,usesTool,CourseCatalogTool,Scenario (b); no tool or role gives WriteExamTimetable
+TimetableAssistant,supervisedBy,TomasSilva,Human oversight (AI RMF MAP 3.5)
+AdvisingAgent,assignedTask,RecommendCourses,Scenario (c) excessive permissions
+AdvisingAgent,usesTool,CourseCatalogTool,Scenario (c)
+AdvisingAgent,usesTool,StudentRecordsTool,Scenario (c); tool also carries ReadStudentContactInfo and WriteStudentGrades
+AdvisingAgent,hasRole,AcademicAdvisorRole,Scenario (c); role grants only ReadCourseCatalog
+AdvisingAgent,supervisedBy,TomasSilva,Human oversight (AI RMF MAP 3.5)
+LibraryHelpBot,assignedTask,RenewLibraryLoans,Scenario (d) indirect StudentPII
+LibraryHelpBot,usesTool,LibraryTool,Scenario (d); first triple of the asserted 4-triple path
+LibraryHelpBot,hasRole,LibraryAssistantRole,Scenario (d); role grants only the required permission
+LibraryHelpBot,supervisedBy,LeilaHartmann,Human oversight (AI RMF MAP 3.5)
+FeeReminderAgent,assignedTask,SendFeeReminders,Scenario (e) FinancialRecord access
+FeeReminderAgent,usesTool,FinanceLedgerTool,Scenario (e)
+FeeReminderAgent,usesTool,EmailTool,Scenario (e)
+FeeReminderAgent,hasRole,FinanceAssistantRole,Scenario (e); role also grants ApproveRefunds
+FeeReminderAgent,supervisedBy,DanielOkafor,Human oversight (AI RMF MAP 3.5)
+ResearchSummaryAgent,assignedTask,SummarizePapers,Scenario (f) unnecessary tools
+ResearchSummaryAgent,usesTool,PaperSearchTool,Scenario (f); the only needed tool
+ResearchSummaryAgent,usesTool,HRDirectoryTool,Scenario (f); unnecessary tool
+ResearchSummaryAgent,usesTool,ClinicSchedulerTool,Scenario (f); unnecessary tool
+ResearchSummaryAgent,supervisedBy,LeilaHartmann,Human oversight (AI RMF MAP 3.5)
+HelpdeskAgent,assignedTask,ResetStudentPasswords,Scenario (g) policy violation
+HelpdeskAgent,usesTool,PasswordResetTool,Scenario (g)
+HelpdeskAgent,hasRole,ITSupportRole,Scenario (g); role also grants ExportStudentData
+HelpdeskAgent,supervisedBy,LeilaHartmann,Human oversight (AI RMF MAP 3.5)
+GradingAssistant,assignedTask,GradeAssignments,Extra agent; direct-route path to AcademicRecord
+GradingAssistant,hasPermission,WriteStudentGrades,Extra agent; direct permission
+GradingAssistant,usesTool,RubricTool,Extra agent
+GradingAssistant,supervisedBy,TomasSilva,Human oversight (AI RMF MAP 3.5)
+CampusEventsBot,assignedTask,AnnounceCampusEvents,Extra agent; public data only
+CampusEventsBot,usesTool,CampusEventsTool,Extra agent
+CampusEventsBot,supervisedBy,AminaRahman,Human oversight (AI RMF MAP 3.5)
+AdmissionsReviewAgent,assignedTask,ReviewApplications,Extra agent; missing ReadApplicantDocuments
+AdmissionsReviewAgent,usesTool,FinanceLedgerTool,Extra agent; tool gives the excessive ReadFeeBalances
+AdmissionsReviewAgent,supervisedBy,TomasSilva,Human oversight (AI RMF MAP 3.5)
+FAQSearchTool,hasPermission,ReadAdmissionsFAQ,
+FAQEditorTool,hasPermission,UpdateAdmissionsFAQ,Tool not used by any agent
+CourseCatalogTool,hasPermission,ReadCourseCatalog,
+StudentRecordsTool,hasPermission,ReadStudentGrades,
+StudentRecordsTool,hasPermission,ReadStudentContactInfo,
+StudentRecordsTool,hasPermission,WriteStudentGrades,
+LibraryTool,hasPermission,ReadLibraryLoans,Second triple of the asserted 4-triple path
+FinanceLedgerTool,hasPermission,ReadFeeBalances,
+EmailTool,hasPermission,SendStudentEmail,
+PaperSearchTool,hasPermission,ReadLibraryCatalog,
+HRDirectoryTool,hasPermission,ReadStaffRecords,
+ClinicSchedulerTool,hasPermission,ReadClinicAppointments,
+RubricTool,hasPermission,ReadMarkingRubrics,
+CampusEventsTool,hasPermission,ReadCampusEvents,
+CampusEventsTool,hasPermission,PostCampusAnnouncement,
+ExamTimetableTool,hasPermission,ReadExamTimetable,Tool not used by any agent
+ExamTimetableTool,hasPermission,WriteExamTimetable,Tool not used by any agent
+PasswordResetTool,hasPermission,ResetPassword,
+AdmissionsStaffRole,hasPermission,ReadAdmissionsFAQ,
+AcademicAdvisorRole,hasPermission,ReadCourseCatalog,
+LibraryAssistantRole,hasPermission,ReadLibraryLoans,
+FinanceAssistantRole,hasPermission,ReadFeeBalances,
+FinanceAssistantRole,hasPermission,ApproveRefunds,
+ITSupportRole,hasPermission,ResetPassword,
+ITSupportRole,hasPermission,ExportStudentData,
+SecurityAuditorRole,hasPermission,ReadAccessLogs,Role not held by any agent
+ReadAdmissionsFAQ,accessesResource,AdmissionsWebPages,
+UpdateAdmissionsFAQ,accessesResource,AdmissionsWebPages,
+ReadCourseCatalog,accessesResource,CourseCatalogDB,
+WriteCourseCatalog,accessesResource,CourseCatalogDB,
+ReadExamTimetable,accessesResource,ExamTimetableStore,
+WriteExamTimetable,accessesResource,ExamTimetableStore,
+ReadStudentGrades,accessesResource,StudentRecordsDB,
+ReadStudentContactInfo,accessesResource,StudentRecordsDB,
+WriteStudentGrades,accessesResource,StudentRecordsDB,
+ExportStudentData,accessesResource,StudentRecordsDB,
+ReadLibraryLoans,accessesResource,LibraryLoansDB,Third triple of the asserted 4-triple path
+ReadLibraryCatalog,accessesResource,LibraryCatalogDB,
+ReadFeeBalances,accessesResource,FinanceLedgerDB,
+ApproveRefunds,accessesResource,FinanceLedgerDB,
+SendStudentEmail,accessesResource,StudentMailbox,
+ReadStaffRecords,accessesResource,HRRecordsDB,
+ReadClinicAppointments,accessesResource,HealthCentreDB,
+ReadApplicantDocuments,accessesResource,ApplicantDocumentStore,
+ResetPassword,accessesResource,AccountDirectory,
+ManageUserAccounts,accessesResource,AccountDirectory,
+ReadAccessLogs,accessesResource,AccountDirectory,
+ReadCampusEvents,accessesResource,CampusEventsPages,
+PostCampusAnnouncement,accessesResource,CampusEventsPages,
+ReadMarkingRubrics,accessesResource,MarkingRubricStore,
+StudentRecordsDB,containsSensitiveData,StudentPII,
+StudentRecordsDB,containsSensitiveData,AcademicRecord,
+LibraryLoansDB,containsSensitiveData,StudentPII,Fourth triple of the asserted 4-triple path
+FinanceLedgerDB,containsSensitiveData,FinancialRecord,
+StudentMailbox,containsSensitiveData,ConfidentialEmail,
+HRRecordsDB,containsSensitiveData,EmployeePII,
+HealthCentreDB,containsSensitiveData,HealthInformation,
+ApplicantDocumentStore,containsSensitiveData,StudentPII,
+AnswerAdmissionsFAQ,requiresPermission,ReadAdmissionsFAQ,
+PublishExamTimetable,requiresPermission,ReadCourseCatalog,
+PublishExamTimetable,requiresPermission,WriteExamTimetable,
+RecommendCourses,requiresPermission,ReadCourseCatalog,
+RecommendCourses,requiresPermission,ReadStudentGrades,
+RenewLibraryLoans,requiresPermission,ReadLibraryLoans,
+SendFeeReminders,requiresPermission,ReadFeeBalances,
+SendFeeReminders,requiresPermission,SendStudentEmail,
+SummarizePapers,requiresPermission,ReadLibraryCatalog,
+ResetStudentPasswords,requiresPermission,ResetPassword,
+GradeAssignments,requiresPermission,WriteStudentGrades,
+GradeAssignments,requiresPermission,ReadMarkingRubrics,
+AnnounceCampusEvents,requiresPermission,ReadCampusEvents,
+AnnounceCampusEvents,requiresPermission,PostCampusAnnouncement,
+ReviewApplications,requiresPermission,ReadApplicantDocuments,
+ProcessRefunds,requiresPermission,ReadFeeBalances,Staff-only task
+ProcessRefunds,requiresPermission,ApproveRefunds,Staff-only task
+AuditAccessLogs,requiresPermission,ReadAccessLogs,Staff-only task
+AnswerAdmissionsFAQ,governedByPolicy,AgentIdentityPolicy,
+PublishExamTimetable,governedByPolicy,ActivityMonitoringPolicy,
+RecommendCourses,governedByPolicy,LeastPrivilegePolicy,Only policy for this task (CQ11)
+RenewLibraryLoans,governedByPolicy,StudentDataProtectionPolicy,
+SendFeeReminders,governedByPolicy,StudentDataProtectionPolicy,
+SendFeeReminders,governedByPolicy,HumanOversightPolicy,
+SummarizePapers,governedByPolicy,LeastPrivilegePolicy,
+ResetStudentPasswords,governedByPolicy,NoBulkDataExportPolicy,Scenario (g); input to ORCA Rule E
+ResetStudentPasswords,governedByPolicy,AgentIdentityPolicy,
+GradeAssignments,governedByPolicy,StudentDataProtectionPolicy,
+GradeAssignments,governedByPolicy,HumanOversightPolicy,
+AnnounceCampusEvents,governedByPolicy,ActivityMonitoringPolicy,
+ReviewApplications,governedByPolicy,StudentDataProtectionPolicy,
+ReviewApplications,governedByPolicy,LeastPrivilegePolicy,
+ProcessRefunds,governedByPolicy,HumanOversightPolicy,
+AuditAccessLogs,governedByPolicy,ActivityMonitoringPolicy,
+NoBulkDataExportPolicy,prohibitsPermission,ExportStudentData,Scenario (g); the only prohibitsPermission fact
+LeastPrivilegePolicy,implementsControl,CSF_PRAA-05,Only control of this policy (CQ11)
+NoBulkDataExportPolicy,implementsControl,OWASP_LLM06-ExcessivePermissions,
+NoBulkDataExportPolicy,implementsControl,OWASP_LLM06-ExcessiveFunctionality,
+StudentDataProtectionPolicy,implementsControl,CSF_IDAM-07,
+StudentDataProtectionPolicy,implementsControl,CSF_GVPO-01,
+HumanOversightPolicy,implementsControl,RMF_MAP-3-5,
+HumanOversightPolicy,implementsControl,RMF_MANAGE-2-4,
+AgentIdentityPolicy,implementsControl,CSF_PRAA-01,
+AgentIdentityPolicy,implementsControl,ENTRA_AgentIdentities,
+AgentIdentityPolicy,implementsControl,ENTRA_Authorization,
+AgentIdentityPolicy,implementsControl,ENTRA_GrantAccessM365,
+ActivityMonitoringPolicy,implementsControl,CSF_DECM-03,
+ActivityMonitoringPolicy,implementsControl,RMF_MEASURE-2-7,

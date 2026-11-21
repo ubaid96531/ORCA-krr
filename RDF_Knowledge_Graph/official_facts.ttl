@@ -1,0 +1,111 @@
+# Produced by: python -m dataset.build_kg
+# Generated from dataset/input CSV files. Do not edit by hand.
+@prefix control: <https://orca.example.org/data/SecurityControl/> .
+@prefix orca: <https://orca.example.org/ontology#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+control:CSF_DECM-03 a orca:SecurityControl ;
+    rdfs:label "NIST CSF 2.0 DE.CM-03" ;
+    orca:excerptText "Personnel activity and technology usage are monitored to find potentially adverse events" ;
+    orca:provenanceLabel "Official_Fact" ;
+    orca:sourceName "NIST CSF 2.0" ;
+    orca:sourceSection "DE.CM-03" ;
+    orca:sourceURL "https://doi.org/10.6028/NIST.CSWP.29"^^xsd:anyURI .
+
+control:CSF_GVPO-01 a orca:SecurityControl ;
+    rdfs:label "NIST CSF 2.0 GV.PO-01" ;
+    orca:excerptText "Policy for managing cybersecurity risks is established based on organizational context, cybersecurity strategy, and priorities and is communicated and enforced" ;
+    orca:provenanceLabel "Official_Fact" ;
+    orca:sourceName "NIST CSF 2.0" ;
+    orca:sourceSection "GV.PO-01" ;
+    orca:sourceURL "https://doi.org/10.6028/NIST.CSWP.29"^^xsd:anyURI .
+
+control:CSF_IDAM-07 a orca:SecurityControl ;
+    rdfs:label "NIST CSF 2.0 ID.AM-07" ;
+    orca:excerptText "Inventories of data and corresponding metadata for designated data types are maintained" ;
+    orca:provenanceLabel "Official_Fact" ;
+    orca:sourceName "NIST CSF 2.0" ;
+    orca:sourceSection "ID.AM-07" ;
+    orca:sourceURL "https://doi.org/10.6028/NIST.CSWP.29"^^xsd:anyURI .
+
+control:CSF_PRAA-01 a orca:SecurityControl ;
+    rdfs:label "NIST CSF 2.0 PR.AA-01" ;
+    orca:excerptText "Identities and credentials for authorized users, services, and hardware are managed by the organization" ;
+    orca:provenanceLabel "Official_Fact" ;
+    orca:sourceName "NIST CSF 2.0" ;
+    orca:sourceSection "PR.AA-01" ;
+    orca:sourceURL "https://doi.org/10.6028/NIST.CSWP.29"^^xsd:anyURI .
+
+control:CSF_PRAA-05 a orca:SecurityControl ;
+    rdfs:label "NIST CSF 2.0 PR.AA-05" ;
+    orca:excerptText "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties" ;
+    orca:provenanceLabel "Official_Fact" ;
+    orca:sourceName "NIST CSF 2.0" ;
+    orca:sourceSection "PR.AA-05" ;
+    orca:sourceURL "https://doi.org/10.6028/NIST.CSWP.29"^^xsd:anyURI .
+
+control:ENTRA_AgentIdentities a orca:SecurityControl ;
+    rdfs:label "Microsoft Entra Agent ID: Agent identities" ;
+    orca:excerptText "An agent identity is a special service principal in Microsoft Entra ID." ;
+    orca:provenanceLabel "Official_Fact" ;
+    orca:sourceName "Microsoft Entra Agent ID" ;
+    orca:sourceSection "Agent identities" ;
+    orca:sourceURL "https://learn.microsoft.com/en-us/entra/agent-id/agent-identities"^^xsd:anyURI .
+
+control:ENTRA_Authorization a orca:SecurityControl ;
+    rdfs:label "Microsoft Entra Agent ID: Authorization" ;
+    orca:excerptText "Agents can request delegated permissions (acting on behalf of a user via consent) or application permissions (app-only privileges granted by an administrator)." ;
+    orca:provenanceLabel "Official_Fact" ;
+    orca:sourceName "Microsoft Entra Agent ID" ;
+    orca:sourceSection "Authorization" ;
+    orca:sourceURL "https://learn.microsoft.com/en-us/entra/agent-id/authorization-agent-id"^^xsd:anyURI .
+
+control:ENTRA_GrantAccessM365 a orca:SecurityControl ;
+    rdfs:label "Microsoft Entra Agent ID: Grant agents access to Microsoft 365 resources" ;
+    orca:excerptText "Users or administrators can grant agents access to data by consenting to API permissions during the OAuth flow." ;
+    orca:provenanceLabel "Official_Fact" ;
+    orca:sourceName "Microsoft Entra Agent ID" ;
+    orca:sourceSection "Grant agents access to Microsoft 365 resources" ;
+    orca:sourceURL "https://learn.microsoft.com/en-us/entra/agent-id/grant-agent-access-microsoft-365"^^xsd:anyURI .
+
+control:OWASP_LLM06-ExcessiveFunctionality a orca:SecurityControl ;
+    rdfs:label "OWASP LLM06:2025 Excessive Functionality" ;
+    orca:excerptText "An LLM agent has access to extensions which include functions that are not needed for the intended operation of the system." ;
+    orca:provenanceLabel "Official_Fact" ;
+    orca:sourceName "OWASP LLM06:2025 Excessive Agency" ;
+    orca:sourceSection "Excessive Functionality" ;
+    orca:sourceURL "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"^^xsd:anyURI .
+
+control:OWASP_LLM06-ExcessivePermissions a orca:SecurityControl ;
+    rdfs:label "OWASP LLM06:2025 Excessive Permissions" ;
+    orca:excerptText "An LLM extension has permissions on downstream systems that are not needed for the intended operation of the application." ;
+    orca:provenanceLabel "Official_Fact" ;
+    orca:sourceName "OWASP LLM06:2025 Excessive Agency" ;
+    orca:sourceSection "Excessive Permissions" ;
+    orca:sourceURL "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/"^^xsd:anyURI .
+
+control:RMF_MANAGE-2-4 a orca:SecurityControl ;
+    rdfs:label "NIST AI RMF 1.0 MANAGE 2.4" ;
+    orca:excerptText "Mechanisms are in place and applied, and responsibilities are assigned and understood, to supersede, disengage, or deactivate AI systems that demonstrate performance or outcomes inconsistent with intended use." ;
+    orca:provenanceLabel "Official_Fact" ;
+    orca:sourceName "NIST AI RMF 1.0" ;
+    orca:sourceSection "MANAGE 2.4" ;
+    orca:sourceURL "https://doi.org/10.6028/NIST.AI.100-1"^^xsd:anyURI .
+
+control:RMF_MAP-3-5 a orca:SecurityControl ;
+    rdfs:label "NIST AI RMF 1.0 MAP 3.5" ;
+    orca:excerptText "Processes for human oversight are defined, assessed, and documented in accordance with organizational policies from the GOVERN function." ;
+    orca:provenanceLabel "Official_Fact" ;
+    orca:sourceName "NIST AI RMF 1.0" ;
+    orca:sourceSection "MAP 3.5" ;
+    orca:sourceURL "https://doi.org/10.6028/NIST.AI.100-1"^^xsd:anyURI .
+
+control:RMF_MEASURE-2-7 a orca:SecurityControl ;
+    rdfs:label "NIST AI RMF 1.0 MEASURE 2.7" ;
+    orca:excerptText "AI system security and resilience – as identified in the MAP function – are evaluated and documented." ;
+    orca:provenanceLabel "Official_Fact" ;
+    orca:sourceName "NIST AI RMF 1.0" ;
+    orca:sourceSection "MEASURE 2.7" ;
+    orca:sourceURL "https://doi.org/10.6028/NIST.AI.100-1"^^xsd:anyURI .
+
