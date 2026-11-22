@@ -23,4 +23,3 @@ ORCA models AI agents, tasks, tools, permissions, resources, and security polici
 └── SPARQL_Queries/
     └── all_queries.rq          # 13 competency question SPARQL queries
 ```
-...
