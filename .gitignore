@@ -1,0 +1,29 @@
+# Python environments & caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.hypothesis/
+
+# Secrets & local env overrides
+.env
+*.pem
+*.key
+
+# Node / Frontend build artifacts
+frontend/node_modules/
+frontend/dist/
+
+# LaTeX intermediate files
+*.aux
+*.log
+*.out
+*.toc
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
+# OS / editor noise
+.DS_Store
+Thumbs.db

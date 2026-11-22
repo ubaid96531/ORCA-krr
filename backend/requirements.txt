@@ -1,0 +1,15 @@
+rdflib
+owlrl
+fastapi
+pydantic
+uvicorn
+httpx
+pytest
+hypothesis
+torch
+transformers
+scikit-learn
+matplotlib
+numpy
+python-dotenv
+reportlab
