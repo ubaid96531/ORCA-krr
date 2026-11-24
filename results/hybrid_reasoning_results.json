@@ -1,0 +1,2148 @@
+{
+  "generated_at": "2026-11-21T21:22:13+00:00",
+  "metrics": {
+    "dataset": {
+      "num_entities": 109,
+      "num_relations": 11,
+      "total_relational_triples": 146,
+      "train_triples": 117,
+      "test_triples": 29,
+      "embedding_dim": 64,
+      "epochs": 600,
+      "seed": 42
+    },
+    "global_filtered": {
+      "Random": {
+        "num_test_triples": 29,
+        "num_evaluations": 58,
+        "ontology_constrained": false,
+        "mrr": 0.0401,
+        "mean_rank": 62.72,
+        "hits_at_1": 0.0172,
+        "hits_at_3": 0.0172,
+        "hits_at_10": 0.0172,
+        "sample_predictions": [
+          {
+            "triple": [
+              "agent:AdmissionsReviewAgent",
+              "orca:assignedTask",
+              "task:ReviewApplications"
+            ],
+            "tail_rank": 91,
+            "head_rank": 60,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "agent:GradingAssistant",
+              "control:ENTRA_Authorization",
+              "tool:RubricTool"
+            ]
+          },
+          {
+            "triple": [
+              "agent:AdvisingAgent",
+              "orca:supervisedBy",
+              "user:TomasSilva"
+            ],
+            "tail_rank": 23,
+            "head_rank": 75,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "role:SecurityAuditorRole",
+              "category:HealthInformation",
+              "agent:GradingAssistant"
+            ]
+          },
+          {
+            "triple": [
+              "agent:CampusEventsBot",
+              "orca:usesTool",
+              "tool:CampusEventsTool"
+            ],
+            "tail_rank": 1,
+            "head_rank": 31,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "tool:CampusEventsTool",
+              "user:LeilaHartmann",
+              "tool:StudentRecordsTool"
+            ]
+          },
+          {
+            "triple": [
+              "agent:HelpdeskAgent",
+              "orca:hasRole",
+              "role:ITSupportRole"
+            ],
+            "tail_rank": 72,
+            "head_rank": 42,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "category:FinancialRecord",
+              "control:CSF_IDAM-07",
+              "policy:LeastPrivilegePolicy"
+            ]
+          },
+          {
+            "triple": [
+              "agent:LibraryHelpBot",
+              "orca:supervisedBy",
+              "user:LeilaHartmann"
+            ],
+            "tail_rank": 89,
+            "head_rank": 77,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "user:TomasSilva",
+              "perm:ReadLibraryCatalog",
+              "perm:ReadLibraryLoans"
+            ]
+          },
+          {
+            "triple": [
+              "agent:ResearchSummaryAgent",
+              "orca:assignedTask",
+              "task:SummarizePapers"
+            ],
+            "tail_rank": 32,
+            "head_rank": 52,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "perm:ReadFeeBalances",
+              "control:CSF_IDAM-07",
+              "perm:ReadExamTimetable"
+            ]
+          },
+          {
+            "triple": [
+              "agent:TimetableAssistant",
+              "orca:supervisedBy",
+              "user:TomasSilva"
+            ],
+            "tail_rank": 51,
+            "head_rank": 99,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "role:FinanceAssistantRole",
+              "perm:ReadCampusEvents",
+              "tool:RubricTool"
+            ]
+          },
+          {
+            "triple": [
+              "perm:ExportStudentData",
+              "orca:accessesResource",
+              "resource:StudentRecordsDB"
+            ],
+            "tail_rank": 23,
+            "head_rank": 21,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "perm:ReadAdmissionsFAQ",
+              "perm:WriteStudentGrades",
+              "tool:ClinicSchedulerTool"
+            ]
+          }
+        ]
+      },
+      "TransE": {
+        "num_test_triples": 29,
+        "num_evaluations": 58,
+        "ontology_constrained": false,
+        "mrr": 0.2034,
+        "mean_rank": 14.78,
+        "hits_at_1": 0.069,
+        "hits_at_3": 0.2069,
+        "hits_at_10": 0.5172,
+        "sample_predictions": [
+          {
+            "triple": [
+              "agent:AdmissionsReviewAgent",
+              "orca:assignedTask",
+              "task:ReviewApplications"
+            ],
+            "tail_rank": 14,
+            "head_rank": 13,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "agent:AdmissionsReviewAgent",
+              "tool:FinanceLedgerTool",
+              "task:GradeAssignments"
+            ]
+          },
+          {
+            "triple": [
+              "agent:AdvisingAgent",
+              "orca:supervisedBy",
+              "user:TomasSilva"
+            ],
+            "tail_rank": 19,
+            "head_rank": 52,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "agent:AdvisingAgent",
+              "tool:CourseCatalogTool",
+              "tool:StudentRecordsTool"
+            ]
+          },
+          {
+            "triple": [
+              "agent:CampusEventsBot",
+              "orca:usesTool",
+              "tool:CampusEventsTool"
+            ],
+            "tail_rank": 4,
+            "head_rank": 5,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "task:AnnounceCampusEvents",
+              "agent:CampusEventsBot",
+              "user:AminaRahman"
+            ]
+          },
+          {
+            "triple": [
+              "agent:HelpdeskAgent",
+              "orca:hasRole",
+              "role:ITSupportRole"
+            ],
+            "tail_rank": 2,
+            "head_rank": 3,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "tool:PasswordResetTool",
+              "role:ITSupportRole",
+              "agent:HelpdeskAgent"
+            ]
+          },
+          {
+            "triple": [
+              "agent:LibraryHelpBot",
+              "orca:supervisedBy",
+              "user:LeilaHartmann"
+            ],
+            "tail_rank": 7,
+            "head_rank": 30,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "tool:LibraryTool",
+              "perm:ReadLibraryLoans",
+              "agent:LibraryHelpBot"
+            ]
+          },
+          {
+            "triple": [
+              "agent:ResearchSummaryAgent",
+              "orca:assignedTask",
+              "task:SummarizePapers"
+            ],
+            "tail_rank": 8,
+            "head_rank": 9,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "agent:ResearchSummaryAgent",
+              "tool:ClinicSchedulerTool",
+              "tool:HRDirectoryTool"
+            ]
+          },
+          {
+            "triple": [
+              "agent:TimetableAssistant",
+              "orca:supervisedBy",
+              "user:TomasSilva"
+            ],
+            "tail_rank": 15,
+            "head_rank": 45,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "agent:TimetableAssistant",
+              "tool:CourseCatalogTool",
+              "task:PublishExamTimetable"
+            ]
+          },
+          {
+            "triple": [
+              "perm:ExportStudentData",
+              "orca:accessesResource",
+              "resource:StudentRecordsDB"
+            ],
+            "tail_rank": 9,
+            "head_rank": 18,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "perm:ExportStudentData",
+              "role:ITSupportRole",
+              "tool:PasswordResetTool"
+            ]
+          }
+        ]
+      },
+      "DistMult": {
+        "num_test_triples": 29,
+        "num_evaluations": 58,
+        "ontology_constrained": false,
+        "mrr": 0.213,
+        "mean_rank": 34.66,
+        "hits_at_1": 0.1552,
+        "hits_at_3": 0.1897,
+        "hits_at_10": 0.2759,
+        "sample_predictions": [
+          {
+            "triple": [
+              "agent:AdmissionsReviewAgent",
+              "orca:assignedTask",
+              "task:ReviewApplications"
+            ],
+            "tail_rank": 59,
+            "head_rank": 68,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "category:StudentPII",
+              "resource:StudentRecordsDB",
+              "tool:FAQSearchTool"
+            ]
+          },
+          {
+            "triple": [
+              "agent:AdvisingAgent",
+              "orca:supervisedBy",
+              "user:TomasSilva"
+            ],
+            "tail_rank": 1,
+            "head_rank": 1,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "user:TomasSilva",
+              "task:PublishExamTimetable",
+              "category:StudentPII"
+            ]
+          },
+          {
+            "triple": [
+              "agent:CampusEventsBot",
+              "orca:usesTool",
+              "tool:CampusEventsTool"
+            ],
+            "tail_rank": 27,
+            "head_rank": 26,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "perm:ReadLibraryLoans",
+              "task:SummarizePapers",
+              "perm:ReadApplicantDocuments"
+            ]
+          },
+          {
+            "triple": [
+              "agent:HelpdeskAgent",
+              "orca:hasRole",
+              "role:ITSupportRole"
+            ],
+            "tail_rank": 34,
+            "head_rank": 61,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "perm:ReadFeeBalances",
+              "tool:RubricTool",
+              "perm:ReadApplicantDocuments"
+            ]
+          },
+          {
+            "triple": [
+              "agent:LibraryHelpBot",
+              "orca:supervisedBy",
+              "user:LeilaHartmann"
+            ],
+            "tail_rank": 1,
+            "head_rank": 1,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "user:LeilaHartmann",
+              "tool:CourseCatalogTool",
+              "task:AnswerAdmissionsFAQ"
+            ]
+          },
+          {
+            "triple": [
+              "agent:ResearchSummaryAgent",
+              "orca:assignedTask",
+              "task:SummarizePapers"
+            ],
+            "tail_rank": 16,
+            "head_rank": 11,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "resource:AdmissionsWebPages",
+              "agent:AdvisingAgent",
+              "perm:ReadCourseCatalog"
+            ]
+          },
+          {
+            "triple": [
+              "agent:TimetableAssistant",
+              "orca:supervisedBy",
+              "user:TomasSilva"
+            ],
+            "tail_rank": 25,
+            "head_rank": 4,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "policy:LeastPrivilegePolicy",
+              "task:GradeAssignments",
+              "resource:LibraryCatalogDB"
+            ]
+          },
+          {
+            "triple": [
+              "perm:ExportStudentData",
+              "orca:accessesResource",
+              "resource:StudentRecordsDB"
+            ],
+            "tail_rank": 73,
+            "head_rank": 70,
+            "tail_pool_size": 109,
+            "top3_tail_predictions": [
+              "control:CSF_DECM-03",
+              "category:StudentPII",
+              "category:EmployeePII"
+            ]
+          }
+        ]
+      }
+    },
+    "ontology_constrained_filtered": {
+      "Random": {
+        "num_test_triples": 29,
+        "num_evaluations": 58,
+        "ontology_constrained": true,
+        "mrr": 0.2307,
+        "mean_rank": 7.62,
+        "hits_at_1": 0.0345,
+        "hits_at_3": 0.2414,
+        "hits_at_10": 0.8103,
+        "sample_predictions": [
+          {
+            "triple": [
+              "agent:AdmissionsReviewAgent",
+              "orca:assignedTask",
+              "task:ReviewApplications"
+            ],
+            "tail_rank": 9,
+            "head_rank": 6,
+            "tail_pool_size": 12,
+            "top3_tail_predictions": [
+              "task:GradeAssignments",
+              "task:AnnounceCampusEvents",
+              "task:RenewLibraryLoans"
+            ]
+          },
+          {
+            "triple": [
+              "agent:AdvisingAgent",
+              "orca:supervisedBy",
+              "user:TomasSilva"
+            ],
+            "tail_rank": 2,
+            "head_rank": 5,
+            "tail_pool_size": 4,
+            "top3_tail_predictions": [
+              "user:DanielOkafor",
+              "user:TomasSilva",
+              "user:LeilaHartmann"
+            ]
+          },
+          {
+            "triple": [
+              "agent:CampusEventsBot",
+              "orca:usesTool",
+              "tool:CampusEventsTool"
+            ],
+            "tail_rank": 1,
+            "head_rank": 2,
+            "tail_pool_size": 14,
+            "top3_tail_predictions": [
+              "tool:CampusEventsTool",
+              "tool:StudentRecordsTool",
+              "tool:RubricTool"
+            ]
+          },
+          {
+            "triple": [
+              "agent:HelpdeskAgent",
+              "orca:hasRole",
+              "role:ITSupportRole"
+            ],
+            "tail_rank": 3,
+            "head_rank": 2,
+            "tail_pool_size": 6,
+            "top3_tail_predictions": [
+              "role:FinanceAssistantRole",
+              "role:AdmissionsStaffRole",
+              "role:ITSupportRole"
+            ]
+          },
+          {
+            "triple": [
+              "agent:LibraryHelpBot",
+              "orca:supervisedBy",
+              "user:LeilaHartmann"
+            ],
+            "tail_rank": 4,
+            "head_rank": 6,
+            "tail_pool_size": 4,
+            "top3_tail_predictions": [
+              "user:TomasSilva",
+              "user:DanielOkafor",
+              "user:AminaRahman"
+            ]
+          },
+          {
+            "triple": [
+              "agent:ResearchSummaryAgent",
+              "orca:assignedTask",
+              "task:SummarizePapers"
+            ],
+            "tail_rank": 2,
+            "head_rank": 7,
+            "tail_pool_size": 12,
+            "top3_tail_predictions": [
+              "task:ProcessRefunds",
+              "task:SummarizePapers",
+              "task:RecommendCourses"
+            ]
+          },
+          {
+            "triple": [
+              "agent:TimetableAssistant",
+              "orca:supervisedBy",
+              "user:TomasSilva"
+            ],
+            "tail_rank": 3,
+            "head_rank": 7,
+            "tail_pool_size": 4,
+            "top3_tail_predictions": [
+              "user:AminaRahman",
+              "user:LeilaHartmann",
+              "user:TomasSilva"
+            ]
+          },
+          {
+            "triple": [
+              "perm:ExportStudentData",
+              "orca:accessesResource",
+              "resource:StudentRecordsDB"
+            ],
+            "tail_rank": 4,
+            "head_rank": 5,
+            "tail_pool_size": 14,
+            "top3_tail_predictions": [
+              "resource:HRRecordsDB",
+              "resource:AccountDirectory",
+              "resource:LibraryCatalogDB"
+            ]
+          }
+        ]
+      },
+      "TransE": {
+        "num_test_triples": 29,
+        "num_evaluations": 58,
+        "ontology_constrained": true,
+        "mrr": 0.5746,
+        "mean_rank": 3.48,
+        "hits_at_1": 0.3793,
+        "hits_at_3": 0.7414,
+        "hits_at_10": 0.9138,
+        "sample_predictions": [
+          {
+            "triple": [
+              "agent:AdmissionsReviewAgent",
+              "orca:assignedTask",
+              "task:ReviewApplications"
+            ],
+            "tail_rank": 4,
+            "head_rank": 2,
+            "tail_pool_size": 12,
+            "top3_tail_predictions": [
+              "task:GradeAssignments",
+              "task:SendFeeReminders",
+              "task:ProcessRefunds"
+            ]
+          },
+          {
+            "triple": [
+              "agent:AdvisingAgent",
+              "orca:supervisedBy",
+              "user:TomasSilva"
+            ],
+            "tail_rank": 4,
+            "head_rank": 4,
+            "tail_pool_size": 4,
+            "top3_tail_predictions": [
+              "user:AminaRahman",
+              "user:DanielOkafor",
+              "user:LeilaHartmann"
+            ]
+          },
+          {
+            "triple": [
+              "agent:CampusEventsBot",
+              "orca:usesTool",
+              "tool:CampusEventsTool"
+            ],
+            "tail_rank": 1,
+            "head_rank": 1,
+            "tail_pool_size": 14,
+            "top3_tail_predictions": [
+              "tool:CampusEventsTool",
+              "tool:FAQSearchTool",
+              "tool:EmailTool"
+            ]
+          },
+          {
+            "triple": [
+              "agent:HelpdeskAgent",
+              "orca:hasRole",
+              "role:ITSupportRole"
+            ],
+            "tail_rank": 1,
+            "head_rank": 1,
+            "tail_pool_size": 6,
+            "top3_tail_predictions": [
+              "role:ITSupportRole",
+              "role:SecurityAuditorRole",
+              "role:AcademicAdvisorRole"
+            ]
+          },
+          {
+            "triple": [
+              "agent:LibraryHelpBot",
+              "orca:supervisedBy",
+              "user:LeilaHartmann"
+            ],
+            "tail_rank": 1,
+            "head_rank": 1,
+            "tail_pool_size": 4,
+            "top3_tail_predictions": [
+              "user:LeilaHartmann",
+              "user:AminaRahman",
+              "user:DanielOkafor"
+            ]
+          },
+          {
+            "triple": [
+              "agent:ResearchSummaryAgent",
+              "orca:assignedTask",
+              "task:SummarizePapers"
+            ],
+            "tail_rank": 1,
+            "head_rank": 2,
+            "tail_pool_size": 12,
+            "top3_tail_predictions": [
+              "task:SummarizePapers",
+              "task:ResetStudentPasswords",
+              "task:ProcessRefunds"
+            ]
+          },
+          {
+            "triple": [
+              "agent:TimetableAssistant",
+              "orca:supervisedBy",
+              "user:TomasSilva"
+            ],
+            "tail_rank": 2,
+            "head_rank": 3,
+            "tail_pool_size": 4,
+            "top3_tail_predictions": [
+              "user:AminaRahman",
+              "user:TomasSilva",
+              "user:DanielOkafor"
+            ]
+          },
+          {
+            "triple": [
+              "perm:ExportStudentData",
+              "orca:accessesResource",
+              "resource:StudentRecordsDB"
+            ],
+            "tail_rank": 2,
+            "head_rank": 4,
+            "tail_pool_size": 14,
+            "top3_tail_predictions": [
+              "resource:AccountDirectory",
+              "resource:StudentRecordsDB",
+              "resource:StudentMailbox"
+            ]
+          }
+        ]
+      },
+      "DistMult": {
+        "num_test_triples": 29,
+        "num_evaluations": 58,
+        "ontology_constrained": true,
+        "mrr": 0.605,
+        "mean_rank": 3.83,
+        "hits_at_1": 0.4828,
+        "hits_at_3": 0.6552,
+        "hits_at_10": 0.9138,
+        "sample_predictions": [
+          {
+            "triple": [
+              "agent:AdmissionsReviewAgent",
+              "orca:assignedTask",
+              "task:ReviewApplications"
+            ],
+            "tail_rank": 6,
+            "head_rank": 4,
+            "tail_pool_size": 12,
+            "top3_tail_predictions": [
+              "task:GradeAssignments",
+              "task:SummarizePapers",
+              "task:SendFeeReminders"
+            ]
+          },
+          {
+            "triple": [
+              "agent:AdvisingAgent",
+              "orca:supervisedBy",
+              "user:TomasSilva"
+            ],
+            "tail_rank": 1,
+            "head_rank": 1,
+            "tail_pool_size": 4,
+            "top3_tail_predictions": [
+              "user:TomasSilva",
+              "user:DanielOkafor",
+              "user:LeilaHartmann"
+            ]
+          },
+          {
+            "triple": [
+              "agent:CampusEventsBot",
+              "orca:usesTool",
+              "tool:CampusEventsTool"
+            ],
+            "tail_rank": 1,
+            "head_rank": 1,
+            "tail_pool_size": 14,
+            "top3_tail_predictions": [
+              "tool:CampusEventsTool",
+              "tool:FAQSearchTool",
+              "tool:ExamTimetableTool"
+            ]
+          },
+          {
+            "triple": [
+              "agent:HelpdeskAgent",
+              "orca:hasRole",
+              "role:ITSupportRole"
+            ],
+            "tail_rank": 3,
+            "head_rank": 2,
+            "tail_pool_size": 6,
+            "top3_tail_predictions": [
+              "role:LibraryAssistantRole",
+              "role:SecurityAuditorRole",
+              "role:ITSupportRole"
+            ]
+          },
+          {
+            "triple": [
+              "agent:LibraryHelpBot",
+              "orca:supervisedBy",
+              "user:LeilaHartmann"
+            ],
+            "tail_rank": 1,
+            "head_rank": 1,
+            "tail_pool_size": 4,
+            "top3_tail_predictions": [
+              "user:LeilaHartmann",
+              "user:AminaRahman",
+              "user:TomasSilva"
+            ]
+          },
+          {
+            "triple": [
+              "agent:ResearchSummaryAgent",
+              "orca:assignedTask",
+              "task:SummarizePapers"
+            ],
+            "tail_rank": 1,
+            "head_rank": 2,
+            "tail_pool_size": 12,
+            "top3_tail_predictions": [
+              "task:SummarizePapers",
+              "task:AuditAccessLogs",
+              "task:RecommendCourses"
+            ]
+          },
+          {
+            "triple": [
+              "agent:TimetableAssistant",
+              "orca:supervisedBy",
+              "user:TomasSilva"
+            ],
+            "tail_rank": 1,
+            "head_rank": 1,
+            "tail_pool_size": 4,
+            "top3_tail_predictions": [
+              "user:TomasSilva",
+              "user:DanielOkafor",
+              "user:LeilaHartmann"
+            ]
+          },
+          {
+            "triple": [
+              "perm:ExportStudentData",
+              "orca:accessesResource",
+              "resource:StudentRecordsDB"
+            ],
+            "tail_rank": 9,
+            "head_rank": 13,
+            "tail_pool_size": 14,
+            "top3_tail_predictions": [
+              "resource:StudentMailbox",
+              "resource:AccountDirectory",
+              "resource:ApplicantDocumentStore"
+            ]
+          }
+        ]
+      }
+    },
+    "training_loss": {
+      "TransE_start": 1.009,
+      "TransE_end": 0.0231,
+      "DistMult_start": 0.6933,
+      "DistMult_end": 0.0003
+    }
+  },
+  "similarity_examples": {
+    "agent:AdvisingAgent": [
+      {
+        "entity_id": "task:RecommendCourses",
+        "entity_class": "orca:Task",
+        "cosine_similarity": 0.8547,
+        "model": "TransE"
+      },
+      {
+        "entity_id": "agent:TimetableAssistant",
+        "entity_class": "orca:AIAgent",
+        "cosine_similarity": 0.8434,
+        "model": "TransE"
+      },
+      {
+        "entity_id": "perm:ReadStudentGrades",
+        "entity_class": "orca:ReadPermission",
+        "cosine_similarity": 0.7738,
+        "model": "TransE"
+      },
+      {
+        "entity_id": "tool:StudentRecordsTool",
+        "entity_class": "orca:Tool",
+        "cosine_similarity": 0.7541,
+        "model": "TransE"
+      }
+    ],
+    "agent:TimetableAssistant": [
+      {
+        "entity_id": "agent:AdvisingAgent",
+        "entity_class": "orca:AIAgent",
+        "cosine_similarity": 0.8434,
+        "model": "TransE"
+      },
+      {
+        "entity_id": "task:PublishExamTimetable",
+        "entity_class": "orca:Task",
+        "cosine_similarity": 0.8346,
+        "model": "TransE"
+      },
+      {
+        "entity_id": "tool:CourseCatalogTool",
+        "entity_class": "orca:Tool",
+        "cosine_similarity": 0.8096,
+        "model": "TransE"
+      },
+      {
+        "entity_id": "perm:ReadCourseCatalog",
+        "entity_class": "orca:ReadPermission",
+        "cosine_similarity": 0.7654,
+        "model": "TransE"
+      }
+    ],
+    "agent:HelpdeskAgent": [
+      {
+        "entity_id": "policy:NoBulkDataExportPolicy",
+        "entity_class": "orca:SecurityPolicy",
+        "cosine_similarity": 0.8668,
+        "model": "TransE"
+      },
+      {
+        "entity_id": "task:ResetStudentPasswords",
+        "entity_class": "orca:Task",
+        "cosine_similarity": 0.8283,
+        "model": "TransE"
+      },
+      {
+        "entity_id": "perm:ResetPassword",
+        "entity_class": "orca:AdminPermission",
+        "cosine_similarity": 0.7998,
+        "model": "TransE"
+      },
+      {
+        "entity_id": "tool:PasswordResetTool",
+        "entity_class": "orca:Tool",
+        "cosine_similarity": 0.7729,
+        "model": "TransE"
+      }
+    ],
+    "resource:StudentRecordsDB": [
+      {
+        "entity_id": "perm:ReadStudentContactInfo",
+        "entity_class": "orca:ReadPermission",
+        "cosine_similarity": 0.7977,
+        "model": "TransE"
+      },
+      {
+        "entity_id": "perm:ExportStudentData",
+        "entity_class": "orca:AdminPermission",
+        "cosine_similarity": 0.7733,
+        "model": "TransE"
+      },
+      {
+        "entity_id": "perm:ReadStudentGrades",
+        "entity_class": "orca:ReadPermission",
+        "cosine_similarity": 0.7313,
+        "model": "TransE"
+      },
+      {
+        "entity_id": "tool:StudentRecordsTool",
+        "entity_class": "orca:Tool",
+        "cosine_similarity": 0.6918,
+        "model": "TransE"
+      }
+    ],
+    "perm:ExportStudentData": [
+      {
+        "entity_id": "perm:ReadStudentContactInfo",
+        "entity_class": "orca:ReadPermission",
+        "cosine_similarity": 0.7861,
+        "model": "TransE"
+      },
+      {
+        "entity_id": "resource:StudentRecordsDB",
+        "entity_class": "orca:Database",
+        "cosine_similarity": 0.7733,
+        "model": "TransE"
+      },
+      {
+        "entity_id": "perm:ReadStudentGrades",
+        "entity_class": "orca:ReadPermission",
+        "cosine_similarity": 0.7157,
+        "model": "TransE"
+      },
+      {
+        "entity_id": "perm:ResetPassword",
+        "entity_class": "orca:AdminPermission",
+        "cosine_similarity": 0.6722,
+        "model": "TransE"
+      }
+    ]
+  },
+  "hybrid_candidates": [
+    {
+      "query_title": "Missing tool prediction for unauthorized agent TimetableAssistant",
+      "head": "agent:TimetableAssistant",
+      "relation": "orca:usesTool",
+      "tail": null,
+      "model": "TransE",
+      "candidates": [
+        {
+          "head": "agent:TimetableAssistant",
+          "relation": "orca:usesTool",
+          "tail": "tool:StudentRecordsTool",
+          "raw_score": -0.9214,
+          "confidence": 0.1168,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "permissions": [
+                  "perm:ReadStudentContactInfo",
+                  "perm:ReadStudentGrades",
+                  "perm:WriteStudentGrades"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "categories": [
+                  "category:AcademicRecord",
+                  "category:StudentPII"
+                ]
+              }
+            ],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:ReadStudentContactInfo, perm:ReadStudentGrades, perm:WriteStudentGrades] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        },
+        {
+          "head": "agent:TimetableAssistant",
+          "relation": "orca:usesTool",
+          "tail": "tool:ExamTimetableTool",
+          "raw_score": -0.9244,
+          "confidence": 0.1165,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": true,
+            "resolved_authorizations": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "task": "task:PublishExamTimetable",
+                "verdict_before": "NOT_AUTHORIZED",
+                "verdict_after": "AUTHORIZED",
+                "resolved_permissions": [
+                  "perm:WriteExamTimetable"
+                ]
+              }
+            ],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "permissions": [
+                  "perm:ReadExamTimetable"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [],
+            "risk_level": "REMEDIATION_WITH_EXCESS",
+            "summary": "Restores [perm:WriteExamTimetable] for agent:TimetableAssistant (NOT_AUTHORIZED -> AUTHORIZED), but also introduces excessive permission(s) [perm:ReadExamTimetable] via ORCA-D."
+          }
+        },
+        {
+          "head": "agent:TimetableAssistant",
+          "relation": "orca:usesTool",
+          "tail": "tool:RubricTool",
+          "raw_score": -1.1489,
+          "confidence": 0.093,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "permissions": [
+                  "perm:ReadMarkingRubrics"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:ReadMarkingRubrics] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        }
+      ]
+    },
+    {
+      "query_title": "Missing direct permission prediction for unauthorized agent TimetableAssistant",
+      "head": "agent:TimetableAssistant",
+      "relation": "orca:hasPermission",
+      "tail": null,
+      "model": "TransE",
+      "candidates": [
+        {
+          "head": "agent:TimetableAssistant",
+          "relation": "orca:hasPermission",
+          "tail": "perm:ReadCourseCatalog",
+          "raw_score": -0.7515,
+          "confidence": 0.079,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:PermissionHolder",
+            "expected_range": "orca:Permission",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "LOW_RISK",
+            "summary": "OWL-consistent predicted relation with no new excessive permissions or policy violations."
+          }
+        },
+        {
+          "head": "agent:TimetableAssistant",
+          "relation": "orca:hasPermission",
+          "tail": "perm:WriteExamTimetable",
+          "raw_score": -0.8998,
+          "confidence": 0.0681,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:PermissionHolder",
+            "expected_range": "orca:Permission",
+            "fixes_missing_permission": true,
+            "resolved_authorizations": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "task": "task:PublishExamTimetable",
+                "verdict_before": "NOT_AUTHORIZED",
+                "verdict_after": "AUTHORIZED",
+                "resolved_permissions": [
+                  "perm:WriteExamTimetable"
+                ]
+              }
+            ],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "SAFE_REMEDIATION",
+            "summary": "Resolves missing permission(s) [perm:WriteExamTimetable] for agent:TimetableAssistant with zero excessive permissions."
+          }
+        },
+        {
+          "head": "agent:TimetableAssistant",
+          "relation": "orca:hasPermission",
+          "tail": "perm:ReadStudentGrades",
+          "raw_score": -1.062,
+          "confidence": 0.0579,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:PermissionHolder",
+            "expected_range": "orca:Permission",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "permissions": [
+                  "perm:ReadStudentGrades"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "categories": [
+                  "category:AcademicRecord",
+                  "category:StudentPII"
+                ]
+              }
+            ],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:ReadStudentGrades] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        }
+      ]
+    },
+    {
+      "query_title": "Missing tool prediction for unauthorized agent AdmissionsReviewAgent",
+      "head": "agent:AdmissionsReviewAgent",
+      "relation": "orca:usesTool",
+      "tail": null,
+      "model": "TransE",
+      "candidates": [
+        {
+          "head": "agent:AdmissionsReviewAgent",
+          "relation": "orca:usesTool",
+          "tail": "tool:EmailTool",
+          "raw_score": -0.9884,
+          "confidence": 0.1093,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:AdmissionsReviewAgent",
+                "permissions": [
+                  "perm:SendStudentEmail"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [
+              {
+                "agent": "agent:AdmissionsReviewAgent",
+                "categories": [
+                  "category:ConfidentialEmail"
+                ]
+              }
+            ],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:SendStudentEmail] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        },
+        {
+          "head": "agent:AdmissionsReviewAgent",
+          "relation": "orca:usesTool",
+          "tail": "tool:RubricTool",
+          "raw_score": -1.0536,
+          "confidence": 0.1024,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:AdmissionsReviewAgent",
+                "permissions": [
+                  "perm:ReadMarkingRubrics"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:ReadMarkingRubrics] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        },
+        {
+          "head": "agent:AdmissionsReviewAgent",
+          "relation": "orca:usesTool",
+          "tail": "tool:StudentRecordsTool",
+          "raw_score": -1.0629,
+          "confidence": 0.1014,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:AdmissionsReviewAgent",
+                "permissions": [
+                  "perm:ReadStudentContactInfo",
+                  "perm:ReadStudentGrades",
+                  "perm:WriteStudentGrades"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [
+              {
+                "agent": "agent:AdmissionsReviewAgent",
+                "categories": [
+                  "category:AcademicRecord",
+                  "category:StudentPII"
+                ]
+              }
+            ],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:ReadStudentContactInfo, perm:ReadStudentGrades, perm:WriteStudentGrades] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        }
+      ]
+    },
+    {
+      "query_title": "Candidate agent/role/tool holder for ExportStudentData (policy-risk probe)",
+      "head": null,
+      "relation": "orca:hasPermission",
+      "tail": "perm:ExportStudentData",
+      "model": "TransE",
+      "candidates": [
+        {
+          "head": "tool:StudentRecordsTool",
+          "relation": "orca:hasPermission",
+          "tail": "perm:ExportStudentData",
+          "raw_score": -0.7766,
+          "confidence": 0.0603,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:PermissionHolder",
+            "expected_range": "orca:Permission",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:AdvisingAgent",
+                "permissions": [
+                  "perm:ExportStudentData"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:ExportStudentData] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        },
+        {
+          "head": "tool:PasswordResetTool",
+          "relation": "orca:hasPermission",
+          "tail": "perm:ExportStudentData",
+          "raw_score": -0.804,
+          "confidence": 0.0587,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:PermissionHolder",
+            "expected_range": "orca:Permission",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "POLICY_VIOLATION",
+            "summary": "BLOCKED by Rule ORCA-E: introduces or duplicates prohibited permission triggering governing SecurityPolicy."
+          }
+        },
+        {
+          "head": "agent:HelpdeskAgent",
+          "relation": "orca:hasPermission",
+          "tail": "perm:ExportStudentData",
+          "raw_score": -1.023,
+          "confidence": 0.0472,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:PermissionHolder",
+            "expected_range": "orca:Permission",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "POLICY_VIOLATION",
+            "summary": "BLOCKED by Rule ORCA-E: introduces or duplicates prohibited permission triggering governing SecurityPolicy."
+          }
+        }
+      ]
+    },
+    {
+      "query_title": "Candidate governing policy for PublishExamTimetable",
+      "head": "task:PublishExamTimetable",
+      "relation": "orca:governedByPolicy",
+      "tail": null,
+      "model": "TransE",
+      "candidates": [
+        {
+          "head": "task:PublishExamTimetable",
+          "relation": "orca:governedByPolicy",
+          "tail": "policy:LeastPrivilegePolicy",
+          "raw_score": -1.2795,
+          "confidence": 0.2564,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:Task",
+            "expected_range": "orca:SecurityPolicy",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "LOW_RISK",
+            "summary": "OWL-consistent predicted relation with no new excessive permissions or policy violations."
+          }
+        },
+        {
+          "head": "task:PublishExamTimetable",
+          "relation": "orca:governedByPolicy",
+          "tail": "policy:HumanOversightPolicy",
+          "raw_score": -1.5649,
+          "confidence": 0.1928,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:Task",
+            "expected_range": "orca:SecurityPolicy",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "LOW_RISK",
+            "summary": "OWL-consistent predicted relation with no new excessive permissions or policy violations."
+          }
+        },
+        {
+          "head": "task:PublishExamTimetable",
+          "relation": "orca:governedByPolicy",
+          "tail": "policy:StudentDataProtectionPolicy",
+          "raw_score": -1.5994,
+          "confidence": 0.1862,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:Task",
+            "expected_range": "orca:SecurityPolicy",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "LOW_RISK",
+            "summary": "OWL-consistent predicted relation with no new excessive permissions or policy violations."
+          }
+        }
+      ]
+    },
+    {
+      "query_title": "Candidate official security control for LeastPrivilegePolicy",
+      "head": "policy:LeastPrivilegePolicy",
+      "relation": "orca:implementsControl",
+      "tail": null,
+      "model": "TransE",
+      "candidates": [
+        {
+          "head": "policy:LeastPrivilegePolicy",
+          "relation": "orca:implementsControl",
+          "tail": "control:CSF_IDAM-07",
+          "raw_score": -1.1332,
+          "confidence": 0.1125,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:SecurityPolicy",
+            "expected_range": "orca:SecurityControl",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "LOW_RISK",
+            "summary": "OWL-consistent predicted relation with no new excessive permissions or policy violations."
+          }
+        },
+        {
+          "head": "policy:LeastPrivilegePolicy",
+          "relation": "orca:implementsControl",
+          "tail": "control:CSF_GVPO-01",
+          "raw_score": -1.1563,
+          "confidence": 0.11,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:SecurityPolicy",
+            "expected_range": "orca:SecurityControl",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "LOW_RISK",
+            "summary": "OWL-consistent predicted relation with no new excessive permissions or policy violations."
+          }
+        },
+        {
+          "head": "policy:LeastPrivilegePolicy",
+          "relation": "orca:implementsControl",
+          "tail": "control:CSF_DECM-03",
+          "raw_score": -1.3217,
+          "confidence": 0.0932,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:SecurityPolicy",
+            "expected_range": "orca:SecurityControl",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "LOW_RISK",
+            "summary": "OWL-consistent predicted relation with no new excessive permissions or policy violations."
+          }
+        }
+      ]
+    }
+  ],
+  "hybrid_candidates_distmult": [
+    {
+      "query_title": "Missing tool prediction for unauthorized agent TimetableAssistant",
+      "head": "agent:TimetableAssistant",
+      "relation": "orca:usesTool",
+      "tail": null,
+      "model": "DistMult",
+      "candidates": [
+        {
+          "head": "agent:TimetableAssistant",
+          "relation": "orca:usesTool",
+          "tail": "tool:StudentRecordsTool",
+          "raw_score": -7.5968,
+          "confidence": 0.5784,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "permissions": [
+                  "perm:ReadStudentContactInfo",
+                  "perm:ReadStudentGrades",
+                  "perm:WriteStudentGrades"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "categories": [
+                  "category:AcademicRecord",
+                  "category:StudentPII"
+                ]
+              }
+            ],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:ReadStudentContactInfo, perm:ReadStudentGrades, perm:WriteStudentGrades] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        },
+        {
+          "head": "agent:TimetableAssistant",
+          "relation": "orca:usesTool",
+          "tail": "tool:ExamTimetableTool",
+          "raw_score": -8.1295,
+          "confidence": 0.3395,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": true,
+            "resolved_authorizations": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "task": "task:PublishExamTimetable",
+                "verdict_before": "NOT_AUTHORIZED",
+                "verdict_after": "AUTHORIZED",
+                "resolved_permissions": [
+                  "perm:WriteExamTimetable"
+                ]
+              }
+            ],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "permissions": [
+                  "perm:ReadExamTimetable"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [],
+            "risk_level": "REMEDIATION_WITH_EXCESS",
+            "summary": "Restores [perm:WriteExamTimetable] for agent:TimetableAssistant (NOT_AUTHORIZED -> AUTHORIZED), but also introduces excessive permission(s) [perm:ReadExamTimetable] via ORCA-D."
+          }
+        },
+        {
+          "head": "agent:TimetableAssistant",
+          "relation": "orca:usesTool",
+          "tail": "tool:FAQEditorTool",
+          "raw_score": -10.6326,
+          "confidence": 0.0278,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "permissions": [
+                  "perm:UpdateAdmissionsFAQ"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:UpdateAdmissionsFAQ] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        }
+      ]
+    },
+    {
+      "query_title": "Missing direct permission prediction for unauthorized agent TimetableAssistant",
+      "head": "agent:TimetableAssistant",
+      "relation": "orca:hasPermission",
+      "tail": null,
+      "model": "DistMult",
+      "candidates": [
+        {
+          "head": "agent:TimetableAssistant",
+          "relation": "orca:hasPermission",
+          "tail": "perm:SendStudentEmail",
+          "raw_score": -6.7544,
+          "confidence": 0.6912,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:PermissionHolder",
+            "expected_range": "orca:Permission",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "permissions": [
+                  "perm:SendStudentEmail"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "categories": [
+                  "category:ConfidentialEmail"
+                ]
+              }
+            ],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:SendStudentEmail] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        },
+        {
+          "head": "agent:TimetableAssistant",
+          "relation": "orca:hasPermission",
+          "tail": "perm:UpdateAdmissionsFAQ",
+          "raw_score": -9.1012,
+          "confidence": 0.0661,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:PermissionHolder",
+            "expected_range": "orca:Permission",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "permissions": [
+                  "perm:UpdateAdmissionsFAQ"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:UpdateAdmissionsFAQ] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        },
+        {
+          "head": "agent:TimetableAssistant",
+          "relation": "orca:hasPermission",
+          "tail": "perm:WriteStudentGrades",
+          "raw_score": -9.3176,
+          "confidence": 0.0533,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:PermissionHolder",
+            "expected_range": "orca:Permission",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "permissions": [
+                  "perm:WriteStudentGrades"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "categories": [
+                  "category:AcademicRecord",
+                  "category:StudentPII"
+                ]
+              }
+            ],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:WriteStudentGrades] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        }
+      ]
+    },
+    {
+      "query_title": "Missing tool prediction for unauthorized agent AdmissionsReviewAgent",
+      "head": "agent:AdmissionsReviewAgent",
+      "relation": "orca:usesTool",
+      "tail": null,
+      "model": "DistMult",
+      "candidates": [
+        {
+          "head": "agent:AdmissionsReviewAgent",
+          "relation": "orca:usesTool",
+          "tail": "tool:EmailTool",
+          "raw_score": -8.2964,
+          "confidence": 0.4292,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:AdmissionsReviewAgent",
+                "permissions": [
+                  "perm:SendStudentEmail"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [
+              {
+                "agent": "agent:AdmissionsReviewAgent",
+                "categories": [
+                  "category:ConfidentialEmail"
+                ]
+              }
+            ],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:SendStudentEmail] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        },
+        {
+          "head": "agent:AdmissionsReviewAgent",
+          "relation": "orca:usesTool",
+          "tail": "tool:RubricTool",
+          "raw_score": -8.6923,
+          "confidence": 0.2889,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:AdmissionsReviewAgent",
+                "permissions": [
+                  "perm:ReadMarkingRubrics"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:ReadMarkingRubrics] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        },
+        {
+          "head": "agent:AdmissionsReviewAgent",
+          "relation": "orca:usesTool",
+          "tail": "tool:CourseCatalogTool",
+          "raw_score": -9.6091,
+          "confidence": 0.1155,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:AdmissionsReviewAgent",
+                "permissions": [
+                  "perm:ReadCourseCatalog"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:ReadCourseCatalog] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        }
+      ]
+    },
+    {
+      "query_title": "Candidate agent/role/tool holder for ExportStudentData (policy-risk probe)",
+      "head": null,
+      "relation": "orca:hasPermission",
+      "tail": "perm:ExportStudentData",
+      "model": "DistMult",
+      "candidates": [
+        {
+          "head": "tool:StudentRecordsTool",
+          "relation": "orca:hasPermission",
+          "tail": "perm:ExportStudentData",
+          "raw_score": -7.6187,
+          "confidence": 0.4036,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:PermissionHolder",
+            "expected_range": "orca:Permission",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:AdvisingAgent",
+                "permissions": [
+                  "perm:ExportStudentData"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:ExportStudentData] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        },
+        {
+          "head": "role:SecurityAuditorRole",
+          "relation": "orca:hasPermission",
+          "tail": "perm:ExportStudentData",
+          "raw_score": -7.9837,
+          "confidence": 0.2802,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:PermissionHolder",
+            "expected_range": "orca:Permission",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "LOW_RISK",
+            "summary": "OWL-consistent predicted relation with no new excessive permissions or policy violations."
+          }
+        },
+        {
+          "head": "tool:PasswordResetTool",
+          "relation": "orca:hasPermission",
+          "tail": "perm:ExportStudentData",
+          "raw_score": -8.7814,
+          "confidence": 0.1262,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:PermissionHolder",
+            "expected_range": "orca:Permission",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "POLICY_VIOLATION",
+            "summary": "BLOCKED by Rule ORCA-E: introduces or duplicates prohibited permission triggering governing SecurityPolicy."
+          }
+        }
+      ]
+    },
+    {
+      "query_title": "Candidate governing policy for PublishExamTimetable",
+      "head": "task:PublishExamTimetable",
+      "relation": "orca:governedByPolicy",
+      "tail": null,
+      "model": "DistMult",
+      "candidates": [
+        {
+          "head": "task:PublishExamTimetable",
+          "relation": "orca:governedByPolicy",
+          "tail": "policy:LeastPrivilegePolicy",
+          "raw_score": -12.8457,
+          "confidence": 0.7032,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:Task",
+            "expected_range": "orca:SecurityPolicy",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "LOW_RISK",
+            "summary": "OWL-consistent predicted relation with no new excessive permissions or policy violations."
+          }
+        },
+        {
+          "head": "task:PublishExamTimetable",
+          "relation": "orca:governedByPolicy",
+          "tail": "policy:AgentIdentityPolicy",
+          "raw_score": -14.2493,
+          "confidence": 0.1728,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:Task",
+            "expected_range": "orca:SecurityPolicy",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "LOW_RISK",
+            "summary": "OWL-consistent predicted relation with no new excessive permissions or policy violations."
+          }
+        },
+        {
+          "head": "task:PublishExamTimetable",
+          "relation": "orca:governedByPolicy",
+          "tail": "policy:NoBulkDataExportPolicy",
+          "raw_score": -14.964,
+          "confidence": 0.0845,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:Task",
+            "expected_range": "orca:SecurityPolicy",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "LOW_RISK",
+            "summary": "OWL-consistent predicted relation with no new excessive permissions or policy violations."
+          }
+        }
+      ]
+    },
+    {
+      "query_title": "Candidate official security control for LeastPrivilegePolicy",
+      "head": "policy:LeastPrivilegePolicy",
+      "relation": "orca:implementsControl",
+      "tail": null,
+      "model": "DistMult",
+      "candidates": [
+        {
+          "head": "policy:LeastPrivilegePolicy",
+          "relation": "orca:implementsControl",
+          "tail": "control:CSF_GVPO-01",
+          "raw_score": -9.6826,
+          "confidence": 0.4812,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:SecurityPolicy",
+            "expected_range": "orca:SecurityControl",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "LOW_RISK",
+            "summary": "OWL-consistent predicted relation with no new excessive permissions or policy violations."
+          }
+        },
+        {
+          "head": "policy:LeastPrivilegePolicy",
+          "relation": "orca:implementsControl",
+          "tail": "control:CSF_IDAM-07",
+          "raw_score": -10.129,
+          "confidence": 0.3079,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:SecurityPolicy",
+            "expected_range": "orca:SecurityControl",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "LOW_RISK",
+            "summary": "OWL-consistent predicted relation with no new excessive permissions or policy violations."
+          }
+        },
+        {
+          "head": "policy:LeastPrivilegePolicy",
+          "relation": "orca:implementsControl",
+          "tail": "control:CSF_DECM-03",
+          "raw_score": -11.524,
+          "confidence": 0.0763,
+          "model": "DistMult",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:SecurityPolicy",
+            "expected_range": "orca:SecurityControl",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [],
+            "new_sensitive_categories": [],
+            "risk_level": "LOW_RISK",
+            "summary": "OWL-consistent predicted relation with no new excessive permissions or policy violations."
+          }
+        }
+      ]
+    }
+  ]
+}
