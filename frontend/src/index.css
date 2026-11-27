@@ -1,0 +1,422 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --orca-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #f0f2f5;
+    background-color: #0f1115;
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  code,
+  pre,
+  kbd,
+  .font-mono {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  :focus-visible {
+    outline: 2px solid #38bdf8;
+    outline-offset: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #090b0f;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #242934;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #353c4d;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Arctic Night & Deep Ocean Telemetry surfaces — zero glow, crisp hairlines */
+.surface-card {
+  background-color: rgba(22, 25, 32, 0.9);
+  border: 1px solid rgba(240, 242, 245, 0.085);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.surface-raised {
+  background-color: #1e222b;
+  border: 1px solid rgba(240, 242, 245, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.surface-active {
+  background: linear-gradient(180deg, #252a36 0%, #1b1f28 100%);
+  border: 1px solid rgba(240, 242, 245, 0.13);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.btn-press:active:not(:disabled) {
+  transform: scale(0.975);
+}
+
+/* Precision dark canvas for Knowledge Graph & Ocean Stage */
+.graph-stage {
+  background-color: #090b0f;
+  background-image: radial-gradient(rgba(240, 242, 245, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ── GPU-composited animations (transform / opacity / stroke-dashoffset) ── */
+
+@keyframes orcaPageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes orcaCardRise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes orcaNodeSpawn {
+  0% {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes orcaRingExpand {
+  0% {
+    opacity: 0.72;
+    transform: scale(0.88);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.68);
+  }
+}
+
+@keyframes orcaEdgeDraw {
+  0% {
+    stroke-dashoffset: 100;
+    opacity: 0.35;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes orcaLabelReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes orcaBarSweep {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes orcaBarRise {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes orcaScanTrack {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
+
+@keyframes orcaVerdictStamp {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes orcaWaveDrift {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-36px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes orcaWaveDriftSlow {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(28px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes orcaScrollBob {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.65;
+  }
+  50% {
+    transform: translateY(5px);
+    opacity: 1;
+  }
+}
+
+.anim-page {
+  animation: orcaPageEnter 320ms var(--orca-ease) both;
+}
+
+.anim-rise {
+  animation: orcaCardRise 340ms var(--orca-ease) both;
+}
+
+.anim-verdict {
+  animation: orcaVerdictStamp 260ms var(--orca-ease) both;
+}
+
+.anim-bar {
+  transform-origin: left center;
+  animation: orcaBarSweep 640ms var(--orca-ease) both;
+}
+
+.anim-bar-y {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: orcaBarRise 640ms var(--orca-ease) both;
+}
+
+.anim-node-spawn {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: orcaNodeSpawn 380ms var(--orca-ease) both;
+}
+
+.anim-ring-expand {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: orcaRingExpand 660ms var(--orca-ease) both;
+}
+
+.anim-edge-draw {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: orcaEdgeDraw 440ms var(--orca-ease) forwards;
+}
+
+.anim-label-reveal {
+  animation: orcaLabelReveal 260ms var(--orca-ease) 160ms both;
+}
+
+.anim-scan {
+  animation: orcaScanTrack 1.2s var(--orca-ease) infinite;
+}
+
+.anim-wave-a {
+  animation: orcaWaveDrift 9s ease-in-out infinite;
+}
+
+.anim-wave-b {
+  animation: orcaWaveDriftSlow 13s ease-in-out infinite;
+}
+
+@keyframes orcaBubbleRiseA {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.85);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.78;
+  }
+  50% {
+    transform: translate3d(12px, -52vh, 0) scale(1);
+    opacity: 0.65;
+  }
+  88% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translate3d(-8px, -108vh, 0) scale(1.06);
+    opacity: 0;
+  }
+}
+
+@keyframes orcaBubbleRiseB {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.8);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate3d(-14px, -50vh, 0) scale(1);
+    opacity: 0.6;
+  }
+  88% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate3d(10px, -108vh, 0) scale(1.05);
+    opacity: 0;
+  }
+}
+
+.anim-bubble-a {
+  animation: orcaBubbleRiseA 18s linear infinite;
+  will-change: transform, opacity;
+}
+
+.anim-bubble-b {
+  animation: orcaBubbleRiseB 21s linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes orcaSwimRight {
+  0% {
+    transform: translate3d(-220px, 18px, 0) rotate(-4deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: var(--orca-peak, 0.22);
+  }
+  28% {
+    transform: translate3d(28vw, -22px, 0) rotate(-7deg);
+    opacity: var(--orca-peak, 0.22);
+  }
+  55% {
+    transform: translate3d(62vw, 14px, 0) rotate(5deg);
+    opacity: var(--orca-peak, 0.2);
+  }
+  82% {
+    transform: translate3d(92vw, -12px, 0) rotate(-4deg);
+    opacity: var(--orca-peak, 0.18);
+  }
+  94% {
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(calc(100vw + 220px), 8px, 0) rotate(2deg);
+    opacity: 0;
+  }
+}
+
+@keyframes orcaSwimLeft {
+  0% {
+    transform: translate3d(calc(100vw + 180px), 0px, 0) scaleX(-1) rotate(-3deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--orca-peak, 0.16);
+  }
+  42% {
+    transform: translate3d(58vw, 20px, 0) scaleX(-1) rotate(5deg);
+    opacity: var(--orca-peak, 0.16);
+  }
+  75% {
+    transform: translate3d(20vw, -16px, 0) scaleX(-1) rotate(-6deg);
+    opacity: var(--orca-peak, 0.15);
+  }
+  92% {
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(-200px, 6px, 0) scaleX(-1) rotate(2deg);
+    opacity: 0;
+  }
+}
+
+.anim-swim-right {
+  animation: orcaSwimRight 36s linear infinite;
+  will-change: transform, opacity;
+}
+
+.anim-swim-left {
+  animation: orcaSwimLeft 52s linear infinite;
+  will-change: transform, opacity;
+}
+
+.anim-scroll-bob {
+  animation: orcaScrollBob 2.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-page,
+  .anim-rise,
+  .anim-verdict,
+  .anim-bar,
+  .anim-bar-y,
+  .anim-node-spawn,
+  .anim-ring-expand,
+  .anim-edge-draw,
+  .anim-label-reveal,
+  .anim-scan,
+  .anim-wave-a,
+  .anim-wave-b,
+  .anim-bubble-a,
+  .anim-bubble-b,
+  .anim-swim-right,
+  .anim-swim-left,
+  .anim-scroll-bob {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
