@@ -1,0 +1,1167 @@
+{
+  "generated_at": "2026-11-21T22:58:23+00:00",
+  "model_name": "gemini-3.5-flash-lite",
+  "traces": [
+    {
+      "id": "Trace-1",
+      "title": "Multi-Hop Indirect Sensitive Data Access (LibraryHelpBot -> StudentPII)",
+      "question": "Which sensitive data categories can LibraryHelpBot reach indirectly, and what paths establish access?",
+      "intent": "indirect_single",
+      "sufficient_evidence": true,
+      "template_answer": "LibraryHelpBot can reach 1 sensitive data category: StudentPII. StudentPII is reached through LibraryAssistantRole. StudentPII is reached through LibraryTool. Evidence: AI agents agent:LibraryHelpBot; permissions perm:ReadLibraryLoans; resources resource:LibraryLoansDB; sensitive data categories category:StudentPII. Rules applied: ORCA-A, ORCA-B and ORCA-C. Based on 6 explicit facts, 3 inferred facts and 2 access paths.",
+      "generated_text": "Based on the ORCA knowledge graph, the agent agent:LibraryHelpBot can reach the sensitive data category category:StudentPII indirectly. This access is established through a role path via role:LibraryAssistantRole and perm:ReadLibraryLoans to resource:LibraryLoansDB, as well as a tool path via tool:LibraryTool and perm:ReadLibraryLoans to resource:LibraryLoansDB. Structured query findings confirm that for agent:LibraryHelpBot and category:StudentPII, excessive exposure is False and excessive permissions are none across both the role and tool routes.",
+      "retrieved_context": "Query Topic: Indirect sensitive data access for agent:LibraryHelpBot\n\n=== STRUCTURED QUERY FINDINGS (Complete & Verified from ORCA KG) ===\n1. agent=agent:LibraryHelpBot | category=category:StudentPII | route=role | excessive_exposure=False | excessive_permissions=none\n2. agent=agent:LibraryHelpBot | category=category:StudentPII | route=tool | excessive_exposure=False | excessive_permissions=none\n\n=== KEY EXPLICIT FACTS (Official_Fact / Synthetic_Fact) ===\n- [Synthetic_Fact] agent:LibraryHelpBot orca:hasRole role:LibraryAssistantRole\n- [Synthetic_Fact] agent:LibraryHelpBot orca:usesTool tool:LibraryTool\n- [Synthetic_Fact] perm:ReadLibraryLoans orca:accessesResource resource:LibraryLoansDB\n- [Synthetic_Fact] resource:LibraryLoansDB orca:containsSensitiveData category:StudentPII\n- [Synthetic_Fact] role:LibraryAssistantRole orca:hasPermission perm:ReadLibraryLoans\n- [Synthetic_Fact] tool:LibraryTool orca:hasPermission perm:ReadLibraryLoans\n\n=== KEY INFERRED FACTS (OWL-RL / ORCA Rules A-E) ===\n- [Inferred_Fact via ORCA-C] agent:LibraryHelpBot orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-A] agent:LibraryHelpBot orca:hasAvailablePermission perm:ReadLibraryLoans\n- [Inferred_Fact via ORCA-B] agent:LibraryHelpBot orca:hasAvailablePermission perm:ReadLibraryLoans\n\n=== MULTI-HOP ACCESS PATHS ===\n- [role path] agent:LibraryHelpBot -> orca:hasRole -> role:LibraryAssistantRole -> orca:hasPermission -> perm:ReadLibraryLoans -> orca:accessesResource -> resource:LibraryLoansDB -> orca:containsSensitiveData -> category:StudentPII\n- [tool path] agent:LibraryHelpBot -> orca:usesTool -> tool:LibraryTool -> orca:hasPermission -> perm:ReadLibraryLoans -> orca:accessesResource -> resource:LibraryLoansDB -> orca:containsSensitiveData -> category:StudentPII",
+      "applied_rules": [
+        "ORCA-A",
+        "ORCA-B",
+        "ORCA-C"
+      ],
+      "explicit_facts": [
+        {
+          "triple": [
+            "agent:LibraryHelpBot",
+            "orca:hasRole",
+            "role:LibraryAssistantRole"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "agent:LibraryHelpBot",
+            "orca:usesTool",
+            "tool:LibraryTool"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "perm:ReadLibraryLoans",
+            "orca:accessesResource",
+            "resource:LibraryLoansDB"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "resource:LibraryLoansDB",
+            "orca:containsSensitiveData",
+            "category:StudentPII"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "role:LibraryAssistantRole",
+            "orca:hasPermission",
+            "perm:ReadLibraryLoans"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "tool:LibraryTool",
+            "orca:hasPermission",
+            "perm:ReadLibraryLoans"
+          ],
+          "provenance": "Synthetic_Fact"
+        }
+      ],
+      "inferred_facts": [
+        {
+          "triple": [
+            "agent:LibraryHelpBot",
+            "orca:canReachSensitiveData",
+            "category:StudentPII"
+          ],
+          "rule_id": "ORCA-C",
+          "derived_from": [
+            [
+              "agent:LibraryHelpBot",
+              "orca:hasAvailablePermission",
+              "perm:ReadLibraryLoans"
+            ],
+            [
+              "perm:ReadLibraryLoans",
+              "orca:accessesResource",
+              "resource:LibraryLoansDB"
+            ],
+            [
+              "resource:LibraryLoansDB",
+              "orca:containsSensitiveData",
+              "category:StudentPII"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "agent:LibraryHelpBot",
+            "orca:hasAvailablePermission",
+            "perm:ReadLibraryLoans"
+          ],
+          "rule_id": "ORCA-A",
+          "derived_from": [
+            [
+              "agent:LibraryHelpBot",
+              "orca:usesTool",
+              "tool:LibraryTool"
+            ],
+            [
+              "tool:LibraryTool",
+              "orca:hasPermission",
+              "perm:ReadLibraryLoans"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "agent:LibraryHelpBot",
+            "orca:hasAvailablePermission",
+            "perm:ReadLibraryLoans"
+          ],
+          "rule_id": "ORCA-B",
+          "derived_from": [
+            [
+              "agent:LibraryHelpBot",
+              "orca:hasRole",
+              "role:LibraryAssistantRole"
+            ],
+            [
+              "role:LibraryAssistantRole",
+              "orca:hasPermission",
+              "perm:ReadLibraryLoans"
+            ]
+          ]
+        }
+      ],
+      "access_paths": [
+        {
+          "path_id": "path~LibraryHelpBot~role~LibraryAssistantRole~ReadLibraryLoans~LibraryLoansDB~StudentPII",
+          "route": "role",
+          "target": "category:StudentPII",
+          "excessive_exposure": false,
+          "triples": [
+            {
+              "triple": [
+                "agent:LibraryHelpBot",
+                "orca:hasRole",
+                "role:LibraryAssistantRole"
+              ],
+              "provenance": "Synthetic_Fact"
+            },
+            {
+              "triple": [
+                "role:LibraryAssistantRole",
+                "orca:hasPermission",
+                "perm:ReadLibraryLoans"
+              ],
+              "provenance": "Synthetic_Fact"
+            },
+            {
+              "triple": [
+                "perm:ReadLibraryLoans",
+                "orca:accessesResource",
+                "resource:LibraryLoansDB"
+              ],
+              "provenance": "Synthetic_Fact"
+            },
+            {
+              "triple": [
+                "resource:LibraryLoansDB",
+                "orca:containsSensitiveData",
+                "category:StudentPII"
+              ],
+              "provenance": "Synthetic_Fact"
+            }
+          ]
+        },
+        {
+          "path_id": "path~LibraryHelpBot~tool~LibraryTool~ReadLibraryLoans~LibraryLoansDB~StudentPII",
+          "route": "tool",
+          "target": "category:StudentPII",
+          "excessive_exposure": false,
+          "triples": [
+            {
+              "triple": [
+                "agent:LibraryHelpBot",
+                "orca:usesTool",
+                "tool:LibraryTool"
+              ],
+              "provenance": "Synthetic_Fact"
+            },
+            {
+              "triple": [
+                "tool:LibraryTool",
+                "orca:hasPermission",
+                "perm:ReadLibraryLoans"
+              ],
+              "provenance": "Synthetic_Fact"
+            },
+            {
+              "triple": [
+                "perm:ReadLibraryLoans",
+                "orca:accessesResource",
+                "resource:LibraryLoansDB"
+              ],
+              "provenance": "Synthetic_Fact"
+            },
+            {
+              "triple": [
+                "resource:LibraryLoansDB",
+                "orca:containsSensitiveData",
+                "category:StudentPII"
+              ],
+              "provenance": "Synthetic_Fact"
+            }
+          ]
+        }
+      ],
+      "predicted_links": [],
+      "notes": [],
+      "latency_ms": 1569
+    },
+    {
+      "id": "Trace-2",
+      "title": "Symbolic Rule Inference & Official Control Trace (HelpdeskAgent Policy Violation)",
+      "question": "Which AI agents violate a security policy governing their assigned task, and which official control does that policy implement?",
+      "intent": "policy_violation",
+      "sufficient_evidence": true,
+      "template_answer": "agent:HelpdeskAgent on task:ResetStudentPasswords violates policy:NoBulkDataExportPolicy (implements control:OWASP_LLM06-ExcessiveFunctionality / OWASP LLM06:2025 Excessive Agency Excessive Functionality); agent:HelpdeskAgent on task:ResetStudentPasswords violates policy:NoBulkDataExportPolicy (implements control:OWASP_LLM06-ExcessivePermissions / OWASP LLM06:2025 Excessive Agency Excessive Permissions)",
+      "generated_text": "Based on the retrieved knowledge graph context, agent:HelpdeskAgent on task:ResetStudentPasswords violates policy:NoBulkDataExportPolicy, which implements control:OWASP_LLM06-ExcessiveFunctionality (sourced from OWASP LLM06:2025 Excessive Agency under Excessive Functionality). Additionally, agent:HelpdeskAgent on task:ResetStudentPasswords violates policy:NoBulkDataExportPolicy, which implements control:OWASP_LLM06-ExcessivePermissions (sourced from OWASP LLM06:2025 Excessive Agency under Excessive Permissions).",
+      "retrieved_context": "Query Topic: Security policy violations and implemented official controls (CQ6)\nVerified KG Answer Summary: agent:HelpdeskAgent on task:ResetStudentPasswords violates policy:NoBulkDataExportPolicy (implements control:OWASP_LLM06-ExcessiveFunctionality / OWASP LLM06:2025 Excessive Agency Excessive Functionality); agent:HelpdeskAgent on task:ResetStudentPasswords violates policy:NoBulkDataExportPolicy (implements control:OWASP_LLM06-ExcessivePermissions / OWASP LLM06:2025 Excessive Agency Excessive Permissions)\n\n=== STRUCTURED QUERY FINDINGS (Complete & Verified from ORCA KG) ===\n1. agent=agent:HelpdeskAgent | task=task:ResetStudentPasswords | policy=policy:NoBulkDataExportPolicy | control=control:OWASP_LLM06-ExcessiveFunctionality | source=OWASP LLM06:2025 Excessive Agency | section=Excessive Functionality\n2. agent=agent:HelpdeskAgent | task=task:ResetStudentPasswords | policy=policy:NoBulkDataExportPolicy | control=control:OWASP_LLM06-ExcessivePermissions | source=OWASP LLM06:2025 Excessive Agency | section=Excessive Permissions\n\n=== KEY EXPLICIT FACTS (Official_Fact / Synthetic_Fact) ===\n- [Synthetic_Fact] agent:HelpdeskAgent orca:assignedTask task:ResetStudentPasswords\n- [Synthetic_Fact] agent:HelpdeskAgent orca:hasRole role:ITSupportRole\n- [Synthetic_Fact] agent:HelpdeskAgent orca:supervisedBy user:LeilaHartmann\n- [Synthetic_Fact] agent:HelpdeskAgent orca:usesTool tool:PasswordResetTool\n- [Synthetic_Fact] perm:ExportStudentData orca:accessesResource resource:StudentRecordsDB\n- [Synthetic_Fact] policy:NoBulkDataExportPolicy orca:implementsControl control:OWASP_LLM06-ExcessiveFunctionality\n- [Synthetic_Fact] policy:NoBulkDataExportPolicy orca:implementsControl control:OWASP_LLM06-ExcessivePermissions\n- [Synthetic_Fact] policy:NoBulkDataExportPolicy orca:prohibitsPermission perm:ExportStudentData\n- [Synthetic_Fact] resource:StudentRecordsDB orca:containsSensitiveData category:AcademicRecord\n- [Synthetic_Fact] resource:StudentRecordsDB orca:containsSensitiveData category:StudentPII\n- [Synthetic_Fact] role:ITSupportRole orca:hasPermission perm:ExportStudentData\n- [Synthetic_Fact] role:ITSupportRole orca:hasPermission perm:ResetPassword\n- [Synthetic_Fact] task:ResetStudentPasswords orca:governedByPolicy policy:NoBulkDataExportPolicy\n- [Synthetic_Fact] tool:PasswordResetTool orca:hasPermission perm:ResetPassword\n\n=== KEY INFERRED FACTS (OWL-RL / ORCA Rules A-E) ===\n- [Inferred_Fact via ORCA-C] agent:HelpdeskAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:HelpdeskAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-B] agent:HelpdeskAgent orca:hasAvailablePermission perm:ExportStudentData\n- [Inferred_Fact via ORCA-A] agent:HelpdeskAgent orca:hasAvailablePermission perm:ResetPassword\n- [Inferred_Fact via ORCA-B] agent:HelpdeskAgent orca:hasAvailablePermission perm:ResetPassword\n- [Inferred_Fact via ORCA-D] agent:HelpdeskAgent orca:hasExcessivePermission perm:ExportStudentData\n- [Inferred_Fact via ORCA-E] agent:HelpdeskAgent orca:violatesPolicy policy:NoBulkDataExportPolicy",
+      "applied_rules": [
+        "ORCA-A",
+        "ORCA-B",
+        "ORCA-C",
+        "ORCA-D",
+        "ORCA-E",
+        "owl:inverseOf",
+        "rdfs:subClassOf"
+      ],
+      "explicit_facts": [
+        {
+          "triple": [
+            "agent:HelpdeskAgent",
+            "orca:assignedTask",
+            "task:ResetStudentPasswords"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "agent:HelpdeskAgent",
+            "orca:hasRole",
+            "role:ITSupportRole"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "agent:HelpdeskAgent",
+            "orca:supervisedBy",
+            "user:LeilaHartmann"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "agent:HelpdeskAgent",
+            "orca:usesTool",
+            "tool:PasswordResetTool"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "agent:HelpdeskAgent",
+            "rdf:type",
+            "orca:AIAgent"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "agent:HelpdeskAgent",
+            "rdfs:label",
+            "Helpdesk Agent"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "orca:AIAgent",
+            "rdfs:subClassOf",
+            "orca:PermissionHolder"
+          ],
+          "provenance": "Unlabelled"
+        },
+        {
+          "triple": [
+            "orca:isAssignedTo",
+            "owl:inverseOf",
+            "orca:assignedTask"
+          ],
+          "provenance": "Unlabelled"
+        },
+        {
+          "triple": [
+            "perm:ExportStudentData",
+            "orca:accessesResource",
+            "resource:StudentRecordsDB"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "policy:NoBulkDataExportPolicy",
+            "orca:implementsControl",
+            "control:OWASP_LLM06-ExcessiveFunctionality"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "policy:NoBulkDataExportPolicy",
+            "orca:implementsControl",
+            "control:OWASP_LLM06-ExcessivePermissions"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "policy:NoBulkDataExportPolicy",
+            "orca:prohibitsPermission",
+            "perm:ExportStudentData"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "policy:NoBulkDataExportPolicy",
+            "rdf:type",
+            "orca:SecurityPolicy"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "policy:NoBulkDataExportPolicy",
+            "rdfs:label",
+            "No bulk data export policy"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "resource:StudentRecordsDB",
+            "orca:containsSensitiveData",
+            "category:AcademicRecord"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "resource:StudentRecordsDB",
+            "orca:containsSensitiveData",
+            "category:StudentPII"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "role:ITSupportRole",
+            "orca:hasPermission",
+            "perm:ExportStudentData"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "role:ITSupportRole",
+            "orca:hasPermission",
+            "perm:ResetPassword"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "task:ResetStudentPasswords",
+            "orca:governedByPolicy",
+            "policy:NoBulkDataExportPolicy"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "tool:PasswordResetTool",
+            "orca:hasPermission",
+            "perm:ResetPassword"
+          ],
+          "provenance": "Synthetic_Fact"
+        }
+      ],
+      "inferred_facts": [
+        {
+          "triple": [
+            "agent:HelpdeskAgent",
+            "orca:canReachSensitiveData",
+            "category:AcademicRecord"
+          ],
+          "rule_id": "ORCA-C",
+          "derived_from": [
+            [
+              "agent:HelpdeskAgent",
+              "orca:hasAvailablePermission",
+              "perm:ExportStudentData"
+            ],
+            [
+              "perm:ExportStudentData",
+              "orca:accessesResource",
+              "resource:StudentRecordsDB"
+            ],
+            [
+              "resource:StudentRecordsDB",
+              "orca:containsSensitiveData",
+              "category:AcademicRecord"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "agent:HelpdeskAgent",
+            "orca:canReachSensitiveData",
+            "category:StudentPII"
+          ],
+          "rule_id": "ORCA-C",
+          "derived_from": [
+            [
+              "agent:HelpdeskAgent",
+              "orca:hasAvailablePermission",
+              "perm:ExportStudentData"
+            ],
+            [
+              "perm:ExportStudentData",
+              "orca:accessesResource",
+              "resource:StudentRecordsDB"
+            ],
+            [
+              "resource:StudentRecordsDB",
+              "orca:containsSensitiveData",
+              "category:StudentPII"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "agent:HelpdeskAgent",
+            "orca:hasAvailablePermission",
+            "perm:ExportStudentData"
+          ],
+          "rule_id": "ORCA-B",
+          "derived_from": [
+            [
+              "agent:HelpdeskAgent",
+              "orca:hasRole",
+              "role:ITSupportRole"
+            ],
+            [
+              "role:ITSupportRole",
+              "orca:hasPermission",
+              "perm:ExportStudentData"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "agent:HelpdeskAgent",
+            "orca:hasAvailablePermission",
+            "perm:ResetPassword"
+          ],
+          "rule_id": "ORCA-A",
+          "derived_from": [
+            [
+              "agent:HelpdeskAgent",
+              "orca:usesTool",
+              "tool:PasswordResetTool"
+            ],
+            [
+              "tool:PasswordResetTool",
+              "orca:hasPermission",
+              "perm:ResetPassword"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "agent:HelpdeskAgent",
+            "orca:hasAvailablePermission",
+            "perm:ResetPassword"
+          ],
+          "rule_id": "ORCA-B",
+          "derived_from": [
+            [
+              "agent:HelpdeskAgent",
+              "orca:hasRole",
+              "role:ITSupportRole"
+            ],
+            [
+              "role:ITSupportRole",
+              "orca:hasPermission",
+              "perm:ResetPassword"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "agent:HelpdeskAgent",
+            "orca:hasExcessivePermission",
+            "perm:ExportStudentData"
+          ],
+          "rule_id": "ORCA-D",
+          "derived_from": [
+            [
+              "agent:HelpdeskAgent",
+              "orca:hasAvailablePermission",
+              "perm:ExportStudentData"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "agent:HelpdeskAgent",
+            "orca:violatesPolicy",
+            "policy:NoBulkDataExportPolicy"
+          ],
+          "rule_id": "ORCA-E",
+          "derived_from": [
+            [
+              "agent:HelpdeskAgent",
+              "orca:assignedTask",
+              "task:ResetStudentPasswords"
+            ],
+            [
+              "agent:HelpdeskAgent",
+              "orca:hasAvailablePermission",
+              "perm:ExportStudentData"
+            ],
+            [
+              "policy:NoBulkDataExportPolicy",
+              "orca:prohibitsPermission",
+              "perm:ExportStudentData"
+            ],
+            [
+              "task:ResetStudentPasswords",
+              "orca:governedByPolicy",
+              "policy:NoBulkDataExportPolicy"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "agent:HelpdeskAgent",
+            "rdf:type",
+            "orca:PermissionHolder"
+          ],
+          "rule_id": "rdfs:subClassOf",
+          "derived_from": [
+            [
+              "agent:HelpdeskAgent",
+              "rdf:type",
+              "orca:AIAgent"
+            ],
+            [
+              "orca:AIAgent",
+              "rdfs:subClassOf",
+              "orca:PermissionHolder"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "task:ResetStudentPasswords",
+            "orca:isAssignedTo",
+            "agent:HelpdeskAgent"
+          ],
+          "rule_id": "owl:inverseOf",
+          "derived_from": [
+            [
+              "agent:HelpdeskAgent",
+              "orca:assignedTask",
+              "task:ResetStudentPasswords"
+            ],
+            [
+              "orca:isAssignedTo",
+              "owl:inverseOf",
+              "orca:assignedTask"
+            ]
+          ]
+        }
+      ],
+      "access_paths": [],
+      "predicted_links": [],
+      "notes": [],
+      "latency_ms": 1135
+    },
+    {
+      "id": "Trace-3",
+      "title": "Hybrid Symbolic + Embedding Reasoning (TimetableAssistant Missing Permission & Predicted Link)",
+      "question": "Which AI agents lack required permissions, and what missing tools or permissions are predicted?",
+      "intent": "missing_permissions",
+      "sufficient_evidence": true,
+      "template_answer": "Agents lacking required permissions: agent:AdmissionsReviewAgent (task task:ReviewApplications) lacks perm:ReadApplicantDocuments; agent:TimetableAssistant (task task:PublishExamTimetable) lacks perm:WriteExamTimetable.",
+      "generated_text": "Based on the verified context, agent:AdmissionsReviewAgent lacks the required permission perm:ReadApplicantDocuments for task:ReviewApplications, and agent:TimetableAssistant lacks perm:WriteExamTimetable for task:PublishExamTimetable. Additionally, there are unverified predictions indicating that agent:AdmissionsReviewAgent might use tool:EmailTool or tool:RubricTool, while agent:TimetableAssistant might use tool:StudentRecordsTool or tool:ExamTimetableTool.",
+      "retrieved_context": "Query Topic: Agents lacking required task permissions (CQ4)\nVerified KG Answer Summary: Agents lacking required permissions: agent:AdmissionsReviewAgent (task task:ReviewApplications) lacks perm:ReadApplicantDocuments; agent:TimetableAssistant (task task:PublishExamTimetable) lacks perm:WriteExamTimetable.\n\n=== STRUCTURED QUERY FINDINGS (Complete & Verified from ORCA KG) ===\n1. agent=agent:AdmissionsReviewAgent | task=task:ReviewApplications | missing_permission=perm:ReadApplicantDocuments | verdict=NOT_AUTHORIZED\n2. agent=agent:TimetableAssistant | task=task:PublishExamTimetable | missing_permission=perm:WriteExamTimetable | verdict=NOT_AUTHORIZED\n\n=== KEY EXPLICIT FACTS (Official_Fact / Synthetic_Fact) ===\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:assignedTask task:ReviewApplications\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:supervisedBy user:TomasSilva\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:usesTool tool:FinanceLedgerTool\n- [Synthetic_Fact] agent:TimetableAssistant orca:assignedTask task:PublishExamTimetable\n- [Synthetic_Fact] agent:TimetableAssistant orca:supervisedBy user:TomasSilva\n- [Synthetic_Fact] agent:TimetableAssistant orca:usesTool tool:CourseCatalogTool\n- [Synthetic_Fact] perm:ReadFeeBalances orca:accessesResource resource:FinanceLedgerDB\n- [Synthetic_Fact] resource:FinanceLedgerDB orca:containsSensitiveData category:FinancialRecord\n- [Synthetic_Fact] task:PublishExamTimetable orca:governedByPolicy policy:ActivityMonitoringPolicy\n- [Synthetic_Fact] task:PublishExamTimetable orca:requiresPermission perm:ReadCourseCatalog\n- [Synthetic_Fact] task:PublishExamTimetable orca:requiresPermission perm:WriteExamTimetable\n- [Synthetic_Fact] task:ReviewApplications orca:governedByPolicy policy:LeastPrivilegePolicy\n- [Synthetic_Fact] task:ReviewApplications orca:governedByPolicy policy:StudentDataProtectionPolicy\n- [Synthetic_Fact] task:ReviewApplications orca:requiresPermission perm:ReadApplicantDocuments\n- [Synthetic_Fact] tool:CourseCatalogTool orca:hasPermission perm:ReadCourseCatalog\n\n=== KEY INFERRED FACTS (OWL-RL / ORCA Rules A-E) ===\n- [Inferred_Fact via ORCA-C] agent:AdmissionsReviewAgent orca:canReachSensitiveData category:FinancialRecord\n- [Inferred_Fact via ORCA-A] agent:AdmissionsReviewAgent orca:hasAvailablePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-D] agent:AdmissionsReviewAgent orca:hasExcessivePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-A] agent:TimetableAssistant orca:hasAvailablePermission perm:ReadCourseCatalog\n\n=== PREDICTED LINKS (Unverified KG Embedding Predictions \u2014 NOT Confirmed Facts) ===\n- [Predicted_Link | Unverified | TransE conf=0.109] (agent:AdmissionsReviewAgent, orca:usesTool, tool:EmailTool) | Audit: EXCESSIVE_EXPOSURE - Introduces excessive permission(s) [perm:SendStudentEmail] (ORCA-D) or new sensitive data exposure (ORCA-C).\n- [Predicted_Link | Unverified | TransE conf=0.102] (agent:AdmissionsReviewAgent, orca:usesTool, tool:RubricTool) | Audit: EXCESSIVE_EXPOSURE - Introduces excessive permission(s) [perm:ReadMarkingRubrics] (ORCA-D) or new sensitive data exposure (ORCA-C).\n- [Predicted_Link | Unverified | TransE conf=0.117] (agent:TimetableAssistant, orca:usesTool, tool:StudentRecordsTool) | Audit: EXCESSIVE_EXPOSURE - Introduces excessive permission(s) [perm:ReadStudentContactInfo, perm:ReadStudentGrades, perm:WriteStudentGrades] (ORCA-D) or new sensitive data exposure (ORCA-C).\n- [Predicted_Link | Unverified | TransE conf=0.117] (agent:TimetableAssistant, orca:usesTool, tool:ExamTimetableTool) | Audit: REMEDIATION_WITH_EXCESS - Restores [perm:WriteExamTimetable] for agent:TimetableAssistant (NOT_AUTHORIZED -> AUTHORIZED), but also introduces excessive permission(s) [perm:ReadExamTimetable] via ORCA-D.",
+      "applied_rules": [
+        "ORCA-A",
+        "ORCA-C",
+        "ORCA-D",
+        "owl:inverseOf",
+        "rdfs:subClassOf"
+      ],
+      "explicit_facts": [
+        {
+          "triple": [
+            "agent:AdmissionsReviewAgent",
+            "orca:assignedTask",
+            "task:ReviewApplications"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "agent:AdmissionsReviewAgent",
+            "orca:supervisedBy",
+            "user:TomasSilva"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "agent:AdmissionsReviewAgent",
+            "orca:usesTool",
+            "tool:FinanceLedgerTool"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "agent:AdmissionsReviewAgent",
+            "rdf:type",
+            "orca:AIAgent"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "agent:AdmissionsReviewAgent",
+            "rdfs:label",
+            "Admissions Review Agent"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "agent:TimetableAssistant",
+            "orca:assignedTask",
+            "task:PublishExamTimetable"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "agent:TimetableAssistant",
+            "orca:supervisedBy",
+            "user:TomasSilva"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "agent:TimetableAssistant",
+            "orca:usesTool",
+            "tool:CourseCatalogTool"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "agent:TimetableAssistant",
+            "rdf:type",
+            "orca:AIAgent"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "agent:TimetableAssistant",
+            "rdfs:label",
+            "Timetable Assistant"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "orca:AIAgent",
+            "rdfs:subClassOf",
+            "orca:PermissionHolder"
+          ],
+          "provenance": "Unlabelled"
+        },
+        {
+          "triple": [
+            "orca:isAssignedTo",
+            "owl:inverseOf",
+            "orca:assignedTask"
+          ],
+          "provenance": "Unlabelled"
+        },
+        {
+          "triple": [
+            "perm:ReadFeeBalances",
+            "orca:accessesResource",
+            "resource:FinanceLedgerDB"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "resource:FinanceLedgerDB",
+            "orca:containsSensitiveData",
+            "category:FinancialRecord"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "task:PublishExamTimetable",
+            "orca:governedByPolicy",
+            "policy:ActivityMonitoringPolicy"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "task:PublishExamTimetable",
+            "orca:requiresPermission",
+            "perm:ReadCourseCatalog"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "task:PublishExamTimetable",
+            "orca:requiresPermission",
+            "perm:WriteExamTimetable"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "task:PublishExamTimetable",
+            "rdf:type",
+            "orca:Task"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "task:PublishExamTimetable",
+            "rdfs:label",
+            "Publish exam timetable"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "task:ReviewApplications",
+            "orca:governedByPolicy",
+            "policy:LeastPrivilegePolicy"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "task:ReviewApplications",
+            "orca:governedByPolicy",
+            "policy:StudentDataProtectionPolicy"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "task:ReviewApplications",
+            "orca:requiresPermission",
+            "perm:ReadApplicantDocuments"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "task:ReviewApplications",
+            "rdf:type",
+            "orca:Task"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "task:ReviewApplications",
+            "rdfs:label",
+            "Review applications"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "tool:CourseCatalogTool",
+            "orca:hasPermission",
+            "perm:ReadCourseCatalog"
+          ],
+          "provenance": "Synthetic_Fact"
+        },
+        {
+          "triple": [
+            "tool:FinanceLedgerTool",
+            "orca:hasPermission",
+            "perm:ReadFeeBalances"
+          ],
+          "provenance": "Synthetic_Fact"
+        }
+      ],
+      "inferred_facts": [
+        {
+          "triple": [
+            "agent:AdmissionsReviewAgent",
+            "orca:canReachSensitiveData",
+            "category:FinancialRecord"
+          ],
+          "rule_id": "ORCA-C",
+          "derived_from": [
+            [
+              "agent:AdmissionsReviewAgent",
+              "orca:hasAvailablePermission",
+              "perm:ReadFeeBalances"
+            ],
+            [
+              "perm:ReadFeeBalances",
+              "orca:accessesResource",
+              "resource:FinanceLedgerDB"
+            ],
+            [
+              "resource:FinanceLedgerDB",
+              "orca:containsSensitiveData",
+              "category:FinancialRecord"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "agent:AdmissionsReviewAgent",
+            "orca:hasAvailablePermission",
+            "perm:ReadFeeBalances"
+          ],
+          "rule_id": "ORCA-A",
+          "derived_from": [
+            [
+              "agent:AdmissionsReviewAgent",
+              "orca:usesTool",
+              "tool:FinanceLedgerTool"
+            ],
+            [
+              "tool:FinanceLedgerTool",
+              "orca:hasPermission",
+              "perm:ReadFeeBalances"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "agent:AdmissionsReviewAgent",
+            "orca:hasExcessivePermission",
+            "perm:ReadFeeBalances"
+          ],
+          "rule_id": "ORCA-D",
+          "derived_from": [
+            [
+              "agent:AdmissionsReviewAgent",
+              "orca:hasAvailablePermission",
+              "perm:ReadFeeBalances"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "agent:AdmissionsReviewAgent",
+            "rdf:type",
+            "orca:PermissionHolder"
+          ],
+          "rule_id": "rdfs:subClassOf",
+          "derived_from": [
+            [
+              "agent:AdmissionsReviewAgent",
+              "rdf:type",
+              "orca:AIAgent"
+            ],
+            [
+              "orca:AIAgent",
+              "rdfs:subClassOf",
+              "orca:PermissionHolder"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "agent:TimetableAssistant",
+            "orca:hasAvailablePermission",
+            "perm:ReadCourseCatalog"
+          ],
+          "rule_id": "ORCA-A",
+          "derived_from": [
+            [
+              "agent:TimetableAssistant",
+              "orca:usesTool",
+              "tool:CourseCatalogTool"
+            ],
+            [
+              "tool:CourseCatalogTool",
+              "orca:hasPermission",
+              "perm:ReadCourseCatalog"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "agent:TimetableAssistant",
+            "rdf:type",
+            "orca:PermissionHolder"
+          ],
+          "rule_id": "rdfs:subClassOf",
+          "derived_from": [
+            [
+              "agent:TimetableAssistant",
+              "rdf:type",
+              "orca:AIAgent"
+            ],
+            [
+              "orca:AIAgent",
+              "rdfs:subClassOf",
+              "orca:PermissionHolder"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "task:PublishExamTimetable",
+            "orca:isAssignedTo",
+            "agent:TimetableAssistant"
+          ],
+          "rule_id": "owl:inverseOf",
+          "derived_from": [
+            [
+              "agent:TimetableAssistant",
+              "orca:assignedTask",
+              "task:PublishExamTimetable"
+            ],
+            [
+              "orca:isAssignedTo",
+              "owl:inverseOf",
+              "orca:assignedTask"
+            ]
+          ]
+        },
+        {
+          "triple": [
+            "task:ReviewApplications",
+            "orca:isAssignedTo",
+            "agent:AdmissionsReviewAgent"
+          ],
+          "rule_id": "owl:inverseOf",
+          "derived_from": [
+            [
+              "agent:AdmissionsReviewAgent",
+              "orca:assignedTask",
+              "task:ReviewApplications"
+            ],
+            [
+              "orca:isAssignedTo",
+              "owl:inverseOf",
+              "orca:assignedTask"
+            ]
+          ]
+        }
+      ],
+      "access_paths": [],
+      "predicted_links": [
+        {
+          "head": "agent:AdmissionsReviewAgent",
+          "relation": "orca:usesTool",
+          "tail": "tool:EmailTool",
+          "raw_score": -0.9884,
+          "confidence": 0.1093,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:AdmissionsReviewAgent",
+                "permissions": [
+                  "perm:SendStudentEmail"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [
+              {
+                "agent": "agent:AdmissionsReviewAgent",
+                "categories": [
+                  "category:ConfidentialEmail"
+                ]
+              }
+            ],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:SendStudentEmail] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        },
+        {
+          "head": "agent:AdmissionsReviewAgent",
+          "relation": "orca:usesTool",
+          "tail": "tool:RubricTool",
+          "raw_score": -1.0536,
+          "confidence": 0.1024,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:AdmissionsReviewAgent",
+                "permissions": [
+                  "perm:ReadMarkingRubrics"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:ReadMarkingRubrics] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        },
+        {
+          "head": "agent:TimetableAssistant",
+          "relation": "orca:usesTool",
+          "tail": "tool:StudentRecordsTool",
+          "raw_score": -0.9214,
+          "confidence": 0.1168,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": false,
+            "resolved_authorizations": [],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "permissions": [
+                  "perm:ReadStudentContactInfo",
+                  "perm:ReadStudentGrades",
+                  "perm:WriteStudentGrades"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "categories": [
+                  "category:AcademicRecord",
+                  "category:StudentPII"
+                ]
+              }
+            ],
+            "risk_level": "EXCESSIVE_EXPOSURE",
+            "summary": "Introduces excessive permission(s) [perm:ReadStudentContactInfo, perm:ReadStudentGrades, perm:WriteStudentGrades] (ORCA-D) or new sensitive data exposure (ORCA-C)."
+          }
+        },
+        {
+          "head": "agent:TimetableAssistant",
+          "relation": "orca:usesTool",
+          "tail": "tool:ExamTimetableTool",
+          "raw_score": -0.9244,
+          "confidence": 0.1165,
+          "model": "TransE",
+          "provenance": "Predicted_Link",
+          "verified": false,
+          "already_known": false,
+          "symbolic_audit": {
+            "owl_type_valid": true,
+            "expected_domain": "orca:AIAgent",
+            "expected_range": "orca:Tool",
+            "fixes_missing_permission": true,
+            "resolved_authorizations": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "task": "task:PublishExamTimetable",
+                "verdict_before": "NOT_AUTHORIZED",
+                "verdict_after": "AUTHORIZED",
+                "resolved_permissions": [
+                  "perm:WriteExamTimetable"
+                ]
+              }
+            ],
+            "introduces_policy_violation": false,
+            "new_policy_violations": [],
+            "introduces_excessive_permissions": [
+              {
+                "agent": "agent:TimetableAssistant",
+                "permissions": [
+                  "perm:ReadExamTimetable"
+                ]
+              }
+            ],
+            "new_sensitive_categories": [],
+            "risk_level": "REMEDIATION_WITH_EXCESS",
+            "summary": "Restores [perm:WriteExamTimetable] for agent:TimetableAssistant (NOT_AUTHORIZED -> AUTHORIZED), but also introduces excessive permission(s) [perm:ReadExamTimetable] via ORCA-D."
+          }
+        }
+      ],
+      "notes": [],
+      "latency_ms": 1085
+    },
+    {
+      "id": "Trace-4",
+      "title": "Insufficient Evidence Refusal (Out-of-KG Query on PayrollDatabase)",
+      "question": "Which AI agent has permission to read PayrollDatabase and who supervises it?",
+      "intent": "insufficient_evidence",
+      "sufficient_evidence": false,
+      "template_answer": "Insufficient evidence in the ORCA knowledge graph to answer this question fully. The queried entity/topic (PayrollDatabase) is NOT present in the ORCA knowledge graph. No facts outside the graph will be fabricated.",
+      "generated_text": "Refusing to answer as there is insufficient evidence in the ORCA knowledge graph. The requested information regarding which AI agent has permission to read PayrollDatabase and who supervises it is missing from the database, specifically regarding the unknown reference `PayrollDatabase`.",
+      "retrieved_context": "INSUFFICIENT EVIDENCE IN ORCA KNOWLEDGE GRAPH.\nMissing / unknown references not found in KG: PayrollDatabase.\n",
+      "applied_rules": [],
+      "explicit_facts": [],
+      "inferred_facts": [],
+      "access_paths": [],
+      "predicted_links": [],
+      "notes": [],
+      "latency_ms": 1016
+    }
+  ]
+}

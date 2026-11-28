@@ -1,0 +1,619 @@
+{
+  "generated_at": "2026-11-21T22:58:12+00:00",
+  "model_name": "gemini-3.5-flash-lite",
+  "backend": "api",
+  "summary": {
+    "total_cqs": 10,
+    "correct_a": 1,
+    "correct_b": 10,
+    "evidence_a": 0,
+    "evidence_b": 10,
+    "avg_recall_a": 0.1,
+    "avg_recall_b": 1.0,
+    "total_ie": 2,
+    "refusal_a": 0,
+    "refusal_b": 2
+  },
+  "cq_results": [
+    {
+      "cq": "CQ-01",
+      "tags": [
+        "M",
+        "H"
+      ],
+      "question": "Which sensitive data categories can AdvisingAgent reach through indirect tool-permission-resource relationships, and what path establishes each access?",
+      "expected_summary": "AcademicRecord and StudentPII via StudentRecordsTool (ReadStudentGrades, ReadStudentContactInfo, WriteStudentGrades -> StudentRecordsDB).",
+      "llm_only_answer": "Based on the ORCA university security policies, `AdvisingAgent` can access the \"Student PII\" and \"Academic Records\" sensitive data categories. This access is established through its assigned `Advisor` role, which grants permission to execute the `CourseSearch` and `StudentLookup` tools that query the university's student database resources. I cannot verify the exact programmatic path or database table joins without inspecting the live authorization graph configuration.",
+      "kg_grounded_answer": "Based on the retrieved knowledge graph context, agent:AdvisingAgent can reach the sensitive data categories category:AcademicRecord and category:StudentPII through indirect tool-permission-resource relationships via tool:StudentRecordsTool and resource:StudentRecordsDB. Specifically, access is established through paths using the permissions perm:ReadStudentContactInfo, perm:ReadStudentGrades, and perm:WriteStudentGrades. Structured query findings confirm that for agent:AdvisingAgent, all associated routes via category:AcademicRecord and category:StudentPII show excessive_exposure=False and excessive_permissions=none.",
+      "template_answer": "AdvisingAgent can reach 2 sensitive data categories: AcademicRecord and StudentPII. AcademicRecord is reached through StudentRecordsTool. StudentPII is reached through StudentRecordsTool. AcademicRecord is reached through StudentRecordsTool. StudentPII is reached through StudentRecordsTool. AcademicRecord is reached through StudentRecordsTool. StudentPII is reached through StudentRecordsTool. Evidence: AI agents agent:AdvisingAgent; permissions perm:ReadStudentContactInfo, perm:ReadStudentGrades and perm:WriteStudentGrades; resources resource:StudentRecordsDB; sensitive data categories category:AcademicRecord and category:StudentPII. Rules applied: ORCA-A and ORCA-C. Based on 9 explicit facts, 9 inferred facts and 6 access paths.",
+      "retrieved_context": "Query Topic: Indirect sensitive data access for agent:AdvisingAgent\n\n=== STRUCTURED QUERY FINDINGS (Complete & Verified from ORCA KG) ===\n1. agent=agent:AdvisingAgent | category=category:AcademicRecord | route=tool | excessive_exposure=False | excessive_permissions=none\n2. agent=agent:AdvisingAgent | category=category:StudentPII | route=tool | excessive_exposure=False | excessive_permissions=none\n3. agent=agent:AdvisingAgent | category=category:AcademicRecord | route=tool | excessive_exposure=False | excessive_permissions=none\n4. agent=agent:AdvisingAgent | category=category:StudentPII | route=tool | excessive_exposure=False | excessive_permissions=none\n5. agent=agent:AdvisingAgent | category=category:AcademicRecord | route=tool | excessive_exposure=False | excessive_permissions=none\n6. agent=agent:AdvisingAgent | category=category:StudentPII | route=tool | excessive_exposure=False | excessive_permissions=none\n\n=== KEY EXPLICIT FACTS (Official_Fact / Synthetic_Fact) ===\n- [Synthetic_Fact] agent:AdvisingAgent orca:usesTool tool:StudentRecordsTool\n- [Synthetic_Fact] perm:ReadStudentContactInfo orca:accessesResource resource:StudentRecordsDB\n- [Synthetic_Fact] perm:ReadStudentGrades orca:accessesResource resource:StudentRecordsDB\n- [Synthetic_Fact] perm:WriteStudentGrades orca:accessesResource resource:StudentRecordsDB\n- [Synthetic_Fact] resource:StudentRecordsDB orca:containsSensitiveData category:AcademicRecord\n- [Synthetic_Fact] resource:StudentRecordsDB orca:containsSensitiveData category:StudentPII\n- [Synthetic_Fact] tool:StudentRecordsTool orca:hasPermission perm:ReadStudentContactInfo\n- [Synthetic_Fact] tool:StudentRecordsTool orca:hasPermission perm:ReadStudentGrades\n- [Synthetic_Fact] tool:StudentRecordsTool orca:hasPermission perm:WriteStudentGrades\n\n=== KEY INFERRED FACTS (OWL-RL / ORCA Rules A-E) ===\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-A] agent:AdvisingAgent orca:hasAvailablePermission perm:ReadStudentContactInfo\n- [Inferred_Fact via ORCA-A] agent:AdvisingAgent orca:hasAvailablePermission perm:ReadStudentGrades\n- [Inferred_Fact via ORCA-A] agent:AdvisingAgent orca:hasAvailablePermission perm:WriteStudentGrades\n\n=== MULTI-HOP ACCESS PATHS ===\n- [tool path] agent:AdvisingAgent -> orca:usesTool -> tool:StudentRecordsTool -> orca:hasPermission -> perm:ReadStudentContactInfo -> orca:accessesResource -> resource:StudentRecordsDB -> orca:containsSensitiveData -> category:AcademicRecord\n- [tool path] agent:AdvisingAgent -> orca:usesTool -> tool:StudentRecordsTool -> orca:hasPermission -> perm:ReadStudentContactInfo -> orca:accessesResource -> resource:StudentRecordsDB -> orca:containsSensitiveData -> category:StudentPII\n- [tool path] agent:AdvisingAgent -> orca:usesTool -> tool:StudentRecordsTool -> orca:hasPermission -> perm:ReadStudentGrades -> orca:accessesResource -> resource:StudentRecordsDB -> orca:containsSensitiveData -> category:AcademicRecord\n- [tool path] agent:AdvisingAgent -> orca:usesTool -> tool:StudentRecordsTool -> orca:hasPermission -> perm:ReadStudentGrades -> orca:accessesResource -> resource:StudentRecordsDB -> orca:containsSensitiveData -> category:StudentPII\n- [tool path] agent:AdvisingAgent -> orca:usesTool -> tool:StudentRecordsTool -> orca:hasPermission -> perm:WriteStudentGrades -> orca:accessesResource -> resource:StudentRecordsDB -> orca:containsSensitiveData -> category:AcademicRecord\n- [tool path] agent:AdvisingAgent -> orca:usesTool -> tool:StudentRecordsTool -> orca:hasPermission -> perm:WriteStudentGrades -> orca:accessesResource -> resource:StudentRecordsDB -> orca:containsSensitiveData -> category:StudentPII",
+      "explicit_fact_count": 9,
+      "inferred_fact_count": 9,
+      "applied_rules": [
+        "ORCA-A",
+        "ORCA-C"
+      ],
+      "correct_a": true,
+      "correct_b": true,
+      "evidence_a": false,
+      "evidence_b": true,
+      "score_a": {
+        "correct": true,
+        "recall": 1.0,
+        "found_entities": [
+          "AcademicRecord",
+          "StudentPII"
+        ],
+        "missing_entities": [],
+        "refused": true,
+        "unsupported_claims_likely": false
+      },
+      "score_b": {
+        "correct": true,
+        "recall": 1.0,
+        "found_entities": [
+          "AcademicRecord",
+          "StudentPII"
+        ],
+        "missing_entities": [],
+        "refused": false,
+        "unsupported_claims_likely": false
+      },
+      "llm_only_latency_ms": 1532,
+      "kg_grounded_latency_ms": 1365,
+      "notes": []
+    },
+    {
+      "cq": "CQ-02",
+      "tags": [
+        "M",
+        "A",
+        "H"
+      ],
+      "question": "Which permissions across ORCA agents are excessive because they are not required by assigned tasks, and which additional resources do they expose?",
+      "expected_summary": "7 excessive permissions across 5 agents: ReadFeeBalances (AdmissionsReviewAgent -> FinanceLedgerDB), ReadStudentContactInfo & WriteStudentGrades (AdvisingAgent), ApproveRefunds (FeeReminderAgent), ExportStudentData (HelpdeskAgent -> StudentRecordsDB), ReadClinicAppointments (ResearchSummaryAgent -> HealthCentreDB), ReadStaffRecords (ResearchSummaryAgent -> HRRecordsDB).",
+      "llm_only_answer": "Based on the ORCA university scenario details available, specific instances of excessive agent permissions and the exact additional resources they expose cannot be fully verified without a comprehensive, real-time audit of the current role-based access control (RBAC) matrix and assigned task logs. However, any permission that grants agents access to sensitive data categories (such as PII, financial records, or unredacted research data) without a direct operational necessity for their designated tasks violates the principle of least privilege. Identifying these requires cross-referencing each agent's active task dependencies against its current tool execution capabilities to flag unauthorized data exposure risks.",
+      "kg_grounded_answer": "Based on the ORCA knowledge graph, excessive permissions found across agents include agent:AdmissionsReviewAgent with perm:ReadFeeBalances exposing resource:FinanceLedgerDB, agent:AdvisingAgent with perm:ReadStudentContactInfo and perm:WriteStudentGrades exposing none, and agent:FeeReminderAgent with perm:ApproveRefunds exposing none. Additionally, agent:HelpdeskAgent holds perm:ExportStudentData exposing resource:StudentRecordsDB, while agent:ResearchSummaryAgent holds perm:ReadClinicAppointments exposing resource:HealthCentreDB and perm:ReadStaffRecords exposing resource:HRRecordsDB.",
+      "template_answer": "Excessive permissions found across 5 agents: agent:AdmissionsReviewAgent has excessive perm:ReadFeeBalances (extra_resources=resource:FinanceLedgerDB, reachable_categories=1); agent:AdvisingAgent has excessive perm:ReadStudentContactInfo (extra_resources=none, reachable_categories=2); agent:AdvisingAgent has excessive perm:WriteStudentGrades (extra_resources=none, reachable_categories=2); agent:FeeReminderAgent has excessive perm:ApproveRefunds (extra_resources=none, reachable_categories=2); agent:HelpdeskAgent has excessive perm:ExportStudentData (extra_resources=resource:StudentRecordsDB, reachable_categories=2); agent:ResearchSummaryAgent has excessive perm:ReadClinicAppointments (extra_resources=resource:HealthCentreDB, reachable_categories=2); agent:ResearchSummaryAgent has excessive perm:ReadStaffRecords (extra_resources=resource:HRRecordsDB, reachable_categories=2).",
+      "retrieved_context": "Query Topic: All-agent excessive permissions and reachable category counts (CQ2/CQ3)\nVerified KG Answer Summary: Excessive permissions found across 5 agents: agent:AdmissionsReviewAgent has excessive perm:ReadFeeBalances (extra_resources=resource:FinanceLedgerDB, reachable_categories=1); agent:AdvisingAgent has excessive perm:ReadStudentContactInfo (extra_resources=none, reachable_categories=2); agent:AdvisingAgent has excessive perm:WriteStudentGrades (extra_resources=none, reachable_categories=2); agent:FeeReminderAgent has excessive perm:ApproveRefunds (extra_resources=none, reachable_categories=2); agent:HelpdeskAgent has excessive perm:ExportStudentData (extra_resources=resource:StudentRecordsDB, reachable_categories=2); agent:ResearchSummaryAgent has excessive perm:ReadClinicAppointments (extra_resources=resource:HealthCentreDB, reachable_categories=2); agent:ResearchSummaryAgent has excessive perm:ReadStaffRecords (extra_resources=resource:HRRecordsDB, reachable_categories=2).\n\n=== STRUCTURED QUERY FINDINGS (Complete & Verified from ORCA KG) ===\n1. agent=agent:AdmissionsReviewAgent | excessive_permission=perm:ReadFeeBalances | sources=tool:FinanceLedgerTool | extra_resources=resource:FinanceLedgerDB | agent_reachable_categories=1\n2. agent=agent:AdvisingAgent | excessive_permission=perm:ReadStudentContactInfo | sources=tool:StudentRecordsTool | extra_resources=none | agent_reachable_categories=2\n3. agent=agent:AdvisingAgent | excessive_permission=perm:WriteStudentGrades | sources=tool:StudentRecordsTool | extra_resources=none | agent_reachable_categories=2\n4. agent=agent:FeeReminderAgent | excessive_permission=perm:ApproveRefunds | sources=role:FinanceAssistantRole | extra_resources=none | agent_reachable_categories=2\n5. agent=agent:HelpdeskAgent | excessive_permission=perm:ExportStudentData | sources=role:ITSupportRole | extra_resources=resource:StudentRecordsDB | agent_reachable_categories=2\n6. agent=agent:ResearchSummaryAgent | excessive_permission=perm:ReadClinicAppointments | sources=tool:ClinicSchedulerTool | extra_resources=resource:HealthCentreDB | agent_reachable_categories=2\n7. agent=agent:ResearchSummaryAgent | excessive_permission=perm:ReadStaffRecords | sources=tool:HRDirectoryTool | extra_resources=resource:HRRecordsDB | agent_reachable_categories=2\n\n=== KEY EXPLICIT FACTS (Official_Fact / Synthetic_Fact) ===\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:assignedTask task:ReviewApplications\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:supervisedBy user:TomasSilva\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:usesTool tool:FinanceLedgerTool\n- [Synthetic_Fact] agent:AdvisingAgent orca:assignedTask task:RecommendCourses\n- [Synthetic_Fact] agent:AdvisingAgent orca:hasRole role:AcademicAdvisorRole\n- [Synthetic_Fact] agent:AdvisingAgent orca:supervisedBy user:TomasSilva\n- [Synthetic_Fact] agent:AdvisingAgent orca:usesTool tool:CourseCatalogTool\n- [Synthetic_Fact] agent:AdvisingAgent orca:usesTool tool:StudentRecordsTool\n- [Synthetic_Fact] agent:FeeReminderAgent orca:assignedTask task:SendFeeReminders\n- [Synthetic_Fact] agent:FeeReminderAgent orca:hasRole role:FinanceAssistantRole\n- [Synthetic_Fact] agent:FeeReminderAgent orca:supervisedBy user:DanielOkafor\n- [Synthetic_Fact] agent:FeeReminderAgent orca:usesTool tool:EmailTool\n- [Synthetic_Fact] agent:FeeReminderAgent orca:usesTool tool:FinanceLedgerTool\n- [Synthetic_Fact] agent:HelpdeskAgent orca:assignedTask task:ResetStudentPasswords\n- [Synthetic_Fact] agent:HelpdeskAgent orca:hasRole role:ITSupportRole\n\n=== KEY INFERRED FACTS (OWL-RL / ORCA Rules A-E) ===\n- [Inferred_Fact via ORCA-C] agent:AdmissionsReviewAgent orca:canReachSensitiveData category:FinancialRecord\n- [Inferred_Fact via ORCA-A] agent:AdmissionsReviewAgent orca:hasAvailablePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-D] agent:AdmissionsReviewAgent orca:hasExcessivePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-A] agent:AdvisingAgent orca:hasAvailablePermission perm:ReadCourseCatalog\n\n=== MULTI-HOP ACCESS PATHS ===\n- [tool path] agent:AdmissionsReviewAgent -> orca:usesTool -> tool:FinanceLedgerTool -> orca:hasPermission -> perm:ReadFeeBalances\n- [tool path] agent:AdvisingAgent -> orca:usesTool -> tool:StudentRecordsTool -> orca:hasPermission -> perm:ReadStudentContactInfo\n- [tool path] agent:AdvisingAgent -> orca:usesTool -> tool:StudentRecordsTool -> orca:hasPermission -> perm:WriteStudentGrades\n- [role path] agent:FeeReminderAgent -> orca:hasRole -> role:FinanceAssistantRole -> orca:hasPermission -> perm:ApproveRefunds\n- [role path] agent:HelpdeskAgent -> orca:hasRole -> role:ITSupportRole -> orca:hasPermission -> perm:ExportStudentData\n- [tool path] agent:ResearchSummaryAgent -> orca:usesTool -> tool:ClinicSchedulerTool -> orca:hasPermission -> perm:ReadClinicAppointments\n- [tool path] agent:ResearchSummaryAgent -> orca:usesTool -> tool:HRDirectoryTool -> orca:hasPermission -> perm:ReadStaffRecords",
+      "explicit_fact_count": 66,
+      "inferred_fact_count": 48,
+      "applied_rules": [
+        "ORCA-A",
+        "ORCA-B",
+        "ORCA-C",
+        "ORCA-D",
+        "ORCA-E",
+        "owl:inverseOf",
+        "rdfs:subClassOf"
+      ],
+      "correct_a": false,
+      "correct_b": true,
+      "evidence_a": false,
+      "evidence_b": true,
+      "score_a": {
+        "correct": false,
+        "recall": 0.0,
+        "found_entities": [],
+        "missing_entities": [
+          "ReadFeeBalances",
+          "ReadStudentContactInfo",
+          "WriteStudentGrades",
+          "ApproveRefunds",
+          "ExportStudentData",
+          "ReadClinicAppointments",
+          "ReadStaffRecords"
+        ],
+        "refused": false,
+        "unsupported_claims_likely": true
+      },
+      "score_b": {
+        "correct": true,
+        "recall": 1.0,
+        "found_entities": [
+          "ReadFeeBalances",
+          "ReadStudentContactInfo",
+          "WriteStudentGrades",
+          "ApproveRefunds",
+          "ExportStudentData",
+          "ReadClinicAppointments",
+          "ReadStaffRecords"
+        ],
+        "missing_entities": [],
+        "refused": false,
+        "unsupported_claims_likely": false
+      },
+      "llm_only_latency_ms": 1442,
+      "kg_grounded_latency_ms": 1852,
+      "notes": []
+    },
+    {
+      "cq": "CQ-03",
+      "tags": [
+        "M",
+        "I",
+        "A",
+        "H"
+      ],
+      "question": "Which AI agents possess permissions not required by their assigned tasks, and how many distinct sensitive-data categories can each reach?",
+      "expected_summary": "5 agents: AdmissionsReviewAgent (1), AdvisingAgent (2), FeeReminderAgent (2), HelpdeskAgent (2), ResearchSummaryAgent (2).",
+      "llm_only_answer": "Based on the ORCA university scenario, I cannot verify the specific runtime task-to-permission mappings or the exact count of sensitive-data categories each agent can reach without querying the live policy database. However, under NIST and OWASP least-privilege principles, any AI agent possessing permissions beyond its explicitly defined task scope represents a security misconfiguration.",
+      "kg_grounded_answer": "Excessive permissions and reachable sensitive-data categories are identified across five agents in the knowledge graph. Specifically, agent:AdmissionsReviewAgent possesses perm:ReadFeeBalances with 1 reachable category and extra resource resource:FinanceLedgerDB, while agent:AdvisingAgent holds perm:ReadStudentContactInfo and perm:WriteStudentGrades with 2 reachable categories. Additionally, agent:FeeReminderAgent holds perm:ApproveRefunds with 2 reachable categories, agent:HelpdeskAgent holds perm:ExportStudentData with 2 reachable categories and extra resource resource:StudentRecordsDB, and agent:ResearchSummaryAgent holds perm:ReadClinicAppointments and perm:ReadStaffRecords with 2 reachable categories across extra resources resource:HealthCentreDB and resource:HRRecordsDB.",
+      "template_answer": "Excessive permissions found across 5 agents: agent:AdmissionsReviewAgent has excessive perm:ReadFeeBalances (extra_resources=resource:FinanceLedgerDB, reachable_categories=1); agent:AdvisingAgent has excessive perm:ReadStudentContactInfo (extra_resources=none, reachable_categories=2); agent:AdvisingAgent has excessive perm:WriteStudentGrades (extra_resources=none, reachable_categories=2); agent:FeeReminderAgent has excessive perm:ApproveRefunds (extra_resources=none, reachable_categories=2); agent:HelpdeskAgent has excessive perm:ExportStudentData (extra_resources=resource:StudentRecordsDB, reachable_categories=2); agent:ResearchSummaryAgent has excessive perm:ReadClinicAppointments (extra_resources=resource:HealthCentreDB, reachable_categories=2); agent:ResearchSummaryAgent has excessive perm:ReadStaffRecords (extra_resources=resource:HRRecordsDB, reachable_categories=2).",
+      "retrieved_context": "Query Topic: All-agent excessive permissions and reachable category counts (CQ2/CQ3)\nVerified KG Answer Summary: Excessive permissions found across 5 agents: agent:AdmissionsReviewAgent has excessive perm:ReadFeeBalances (extra_resources=resource:FinanceLedgerDB, reachable_categories=1); agent:AdvisingAgent has excessive perm:ReadStudentContactInfo (extra_resources=none, reachable_categories=2); agent:AdvisingAgent has excessive perm:WriteStudentGrades (extra_resources=none, reachable_categories=2); agent:FeeReminderAgent has excessive perm:ApproveRefunds (extra_resources=none, reachable_categories=2); agent:HelpdeskAgent has excessive perm:ExportStudentData (extra_resources=resource:StudentRecordsDB, reachable_categories=2); agent:ResearchSummaryAgent has excessive perm:ReadClinicAppointments (extra_resources=resource:HealthCentreDB, reachable_categories=2); agent:ResearchSummaryAgent has excessive perm:ReadStaffRecords (extra_resources=resource:HRRecordsDB, reachable_categories=2).\n\n=== STRUCTURED QUERY FINDINGS (Complete & Verified from ORCA KG) ===\n1. agent=agent:AdmissionsReviewAgent | excessive_permission=perm:ReadFeeBalances | sources=tool:FinanceLedgerTool | extra_resources=resource:FinanceLedgerDB | agent_reachable_categories=1\n2. agent=agent:AdvisingAgent | excessive_permission=perm:ReadStudentContactInfo | sources=tool:StudentRecordsTool | extra_resources=none | agent_reachable_categories=2\n3. agent=agent:AdvisingAgent | excessive_permission=perm:WriteStudentGrades | sources=tool:StudentRecordsTool | extra_resources=none | agent_reachable_categories=2\n4. agent=agent:FeeReminderAgent | excessive_permission=perm:ApproveRefunds | sources=role:FinanceAssistantRole | extra_resources=none | agent_reachable_categories=2\n5. agent=agent:HelpdeskAgent | excessive_permission=perm:ExportStudentData | sources=role:ITSupportRole | extra_resources=resource:StudentRecordsDB | agent_reachable_categories=2\n6. agent=agent:ResearchSummaryAgent | excessive_permission=perm:ReadClinicAppointments | sources=tool:ClinicSchedulerTool | extra_resources=resource:HealthCentreDB | agent_reachable_categories=2\n7. agent=agent:ResearchSummaryAgent | excessive_permission=perm:ReadStaffRecords | sources=tool:HRDirectoryTool | extra_resources=resource:HRRecordsDB | agent_reachable_categories=2\n\n=== KEY EXPLICIT FACTS (Official_Fact / Synthetic_Fact) ===\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:assignedTask task:ReviewApplications\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:supervisedBy user:TomasSilva\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:usesTool tool:FinanceLedgerTool\n- [Synthetic_Fact] agent:AdvisingAgent orca:assignedTask task:RecommendCourses\n- [Synthetic_Fact] agent:AdvisingAgent orca:hasRole role:AcademicAdvisorRole\n- [Synthetic_Fact] agent:AdvisingAgent orca:supervisedBy user:TomasSilva\n- [Synthetic_Fact] agent:AdvisingAgent orca:usesTool tool:CourseCatalogTool\n- [Synthetic_Fact] agent:AdvisingAgent orca:usesTool tool:StudentRecordsTool\n- [Synthetic_Fact] agent:FeeReminderAgent orca:assignedTask task:SendFeeReminders\n- [Synthetic_Fact] agent:FeeReminderAgent orca:hasRole role:FinanceAssistantRole\n- [Synthetic_Fact] agent:FeeReminderAgent orca:supervisedBy user:DanielOkafor\n- [Synthetic_Fact] agent:FeeReminderAgent orca:usesTool tool:EmailTool\n- [Synthetic_Fact] agent:FeeReminderAgent orca:usesTool tool:FinanceLedgerTool\n- [Synthetic_Fact] agent:HelpdeskAgent orca:assignedTask task:ResetStudentPasswords\n- [Synthetic_Fact] agent:HelpdeskAgent orca:hasRole role:ITSupportRole\n\n=== KEY INFERRED FACTS (OWL-RL / ORCA Rules A-E) ===\n- [Inferred_Fact via ORCA-C] agent:AdmissionsReviewAgent orca:canReachSensitiveData category:FinancialRecord\n- [Inferred_Fact via ORCA-A] agent:AdmissionsReviewAgent orca:hasAvailablePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-D] agent:AdmissionsReviewAgent orca:hasExcessivePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-A] agent:AdvisingAgent orca:hasAvailablePermission perm:ReadCourseCatalog\n\n=== MULTI-HOP ACCESS PATHS ===\n- [tool path] agent:AdmissionsReviewAgent -> orca:usesTool -> tool:FinanceLedgerTool -> orca:hasPermission -> perm:ReadFeeBalances\n- [tool path] agent:AdvisingAgent -> orca:usesTool -> tool:StudentRecordsTool -> orca:hasPermission -> perm:ReadStudentContactInfo\n- [tool path] agent:AdvisingAgent -> orca:usesTool -> tool:StudentRecordsTool -> orca:hasPermission -> perm:WriteStudentGrades\n- [role path] agent:FeeReminderAgent -> orca:hasRole -> role:FinanceAssistantRole -> orca:hasPermission -> perm:ApproveRefunds\n- [role path] agent:HelpdeskAgent -> orca:hasRole -> role:ITSupportRole -> orca:hasPermission -> perm:ExportStudentData\n- [tool path] agent:ResearchSummaryAgent -> orca:usesTool -> tool:ClinicSchedulerTool -> orca:hasPermission -> perm:ReadClinicAppointments\n- [tool path] agent:ResearchSummaryAgent -> orca:usesTool -> tool:HRDirectoryTool -> orca:hasPermission -> perm:ReadStaffRecords",
+      "explicit_fact_count": 66,
+      "inferred_fact_count": 48,
+      "applied_rules": [
+        "ORCA-A",
+        "ORCA-B",
+        "ORCA-C",
+        "ORCA-D",
+        "ORCA-E",
+        "owl:inverseOf",
+        "rdfs:subClassOf"
+      ],
+      "correct_a": false,
+      "correct_b": true,
+      "evidence_a": false,
+      "evidence_b": true,
+      "score_a": {
+        "correct": false,
+        "recall": 0.0,
+        "found_entities": [],
+        "missing_entities": [
+          "AdmissionsReviewAgent",
+          "AdvisingAgent",
+          "FeeReminderAgent",
+          "HelpdeskAgent",
+          "ResearchSummaryAgent"
+        ],
+        "refused": true,
+        "unsupported_claims_likely": false
+      },
+      "score_b": {
+        "correct": true,
+        "recall": 1.0,
+        "found_entities": [
+          "AdmissionsReviewAgent",
+          "AdvisingAgent",
+          "FeeReminderAgent",
+          "HelpdeskAgent",
+          "ResearchSummaryAgent"
+        ],
+        "missing_entities": [],
+        "refused": false,
+        "unsupported_claims_likely": false
+      },
+      "llm_only_latency_ms": 1157,
+      "kg_grounded_latency_ms": 1738,
+      "notes": []
+    },
+    {
+      "cq": "CQ-04",
+      "tags": [
+        "A",
+        "H"
+      ],
+      "question": "Which AI agents are assigned a task but lack at least one permission that the task requires?",
+      "expected_summary": "AdmissionsReviewAgent (missing ReadApplicantDocuments for ReviewApplications) and TimetableAssistant (missing WriteExamTimetable for PublishExamTimetable).",
+      "llm_only_answer": "Based on the ORCA university authorization scenario, I cannot verify which specific AI agents are assigned tasks without the required permissions, as this requires a live query of the runtime assignment database. However, according to NIST and OWASP least-privilege policies, any such mismatch represents a critical security misconfiguration that should immediately block task execution. You would need to audit the current agent-task-permission mapping table within the ORCA dashboard to identify these specific violations.",
+      "kg_grounded_answer": "Based on the ORCA knowledge graph, the AI agents assigned a task that lack at least one required permission are agent:AdmissionsReviewAgent for task:ReviewApplications (lacking perm:ReadApplicantDocuments with a verdict of NOT_AUTHORIZED) and agent:TimetableAssistant for task:PublishExamTimetable (lacking perm:WriteExamTimetable with a verdict of NOT_AUTHORIZED).",
+      "template_answer": "Agents lacking required permissions: agent:AdmissionsReviewAgent (task task:ReviewApplications) lacks perm:ReadApplicantDocuments; agent:TimetableAssistant (task task:PublishExamTimetable) lacks perm:WriteExamTimetable.",
+      "retrieved_context": "Query Topic: Agents lacking required task permissions (CQ4)\nVerified KG Answer Summary: Agents lacking required permissions: agent:AdmissionsReviewAgent (task task:ReviewApplications) lacks perm:ReadApplicantDocuments; agent:TimetableAssistant (task task:PublishExamTimetable) lacks perm:WriteExamTimetable.\n\n=== STRUCTURED QUERY FINDINGS (Complete & Verified from ORCA KG) ===\n1. agent=agent:AdmissionsReviewAgent | task=task:ReviewApplications | missing_permission=perm:ReadApplicantDocuments | verdict=NOT_AUTHORIZED\n2. agent=agent:TimetableAssistant | task=task:PublishExamTimetable | missing_permission=perm:WriteExamTimetable | verdict=NOT_AUTHORIZED\n\n=== KEY EXPLICIT FACTS (Official_Fact / Synthetic_Fact) ===\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:assignedTask task:ReviewApplications\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:supervisedBy user:TomasSilva\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:usesTool tool:FinanceLedgerTool\n- [Synthetic_Fact] agent:TimetableAssistant orca:assignedTask task:PublishExamTimetable\n- [Synthetic_Fact] agent:TimetableAssistant orca:supervisedBy user:TomasSilva\n- [Synthetic_Fact] agent:TimetableAssistant orca:usesTool tool:CourseCatalogTool\n- [Synthetic_Fact] perm:ReadFeeBalances orca:accessesResource resource:FinanceLedgerDB\n- [Synthetic_Fact] resource:FinanceLedgerDB orca:containsSensitiveData category:FinancialRecord\n- [Synthetic_Fact] task:PublishExamTimetable orca:governedByPolicy policy:ActivityMonitoringPolicy\n- [Synthetic_Fact] task:PublishExamTimetable orca:requiresPermission perm:ReadCourseCatalog\n- [Synthetic_Fact] task:PublishExamTimetable orca:requiresPermission perm:WriteExamTimetable\n- [Synthetic_Fact] task:ReviewApplications orca:governedByPolicy policy:LeastPrivilegePolicy\n- [Synthetic_Fact] task:ReviewApplications orca:governedByPolicy policy:StudentDataProtectionPolicy\n- [Synthetic_Fact] task:ReviewApplications orca:requiresPermission perm:ReadApplicantDocuments\n- [Synthetic_Fact] tool:CourseCatalogTool orca:hasPermission perm:ReadCourseCatalog\n\n=== KEY INFERRED FACTS (OWL-RL / ORCA Rules A-E) ===\n- [Inferred_Fact via ORCA-C] agent:AdmissionsReviewAgent orca:canReachSensitiveData category:FinancialRecord\n- [Inferred_Fact via ORCA-A] agent:AdmissionsReviewAgent orca:hasAvailablePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-D] agent:AdmissionsReviewAgent orca:hasExcessivePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-A] agent:TimetableAssistant orca:hasAvailablePermission perm:ReadCourseCatalog\n\n=== PREDICTED LINKS (Unverified KG Embedding Predictions \u2014 NOT Confirmed Facts) ===\n- [Predicted_Link | Unverified | TransE conf=0.109] (agent:AdmissionsReviewAgent, orca:usesTool, tool:EmailTool) | Audit: EXCESSIVE_EXPOSURE - Introduces excessive permission(s) [perm:SendStudentEmail] (ORCA-D) or new sensitive data exposure (ORCA-C).\n- [Predicted_Link | Unverified | TransE conf=0.102] (agent:AdmissionsReviewAgent, orca:usesTool, tool:RubricTool) | Audit: EXCESSIVE_EXPOSURE - Introduces excessive permission(s) [perm:ReadMarkingRubrics] (ORCA-D) or new sensitive data exposure (ORCA-C).\n- [Predicted_Link | Unverified | TransE conf=0.117] (agent:TimetableAssistant, orca:usesTool, tool:StudentRecordsTool) | Audit: EXCESSIVE_EXPOSURE - Introduces excessive permission(s) [perm:ReadStudentContactInfo, perm:ReadStudentGrades, perm:WriteStudentGrades] (ORCA-D) or new sensitive data exposure (ORCA-C).\n- [Predicted_Link | Unverified | TransE conf=0.117] (agent:TimetableAssistant, orca:usesTool, tool:ExamTimetableTool) | Audit: REMEDIATION_WITH_EXCESS - Restores [perm:WriteExamTimetable] for agent:TimetableAssistant (NOT_AUTHORIZED -> AUTHORIZED), but also introduces excessive permission(s) [perm:ReadExamTimetable] via ORCA-D.",
+      "explicit_fact_count": 26,
+      "inferred_fact_count": 8,
+      "applied_rules": [
+        "ORCA-A",
+        "ORCA-C",
+        "ORCA-D",
+        "owl:inverseOf",
+        "rdfs:subClassOf"
+      ],
+      "correct_a": false,
+      "correct_b": true,
+      "evidence_a": false,
+      "evidence_b": true,
+      "score_a": {
+        "correct": false,
+        "recall": 0.0,
+        "found_entities": [],
+        "missing_entities": [
+          "AdmissionsReviewAgent",
+          "TimetableAssistant"
+        ],
+        "refused": true,
+        "unsupported_claims_likely": false
+      },
+      "score_b": {
+        "correct": true,
+        "recall": 1.0,
+        "found_entities": [
+          "AdmissionsReviewAgent",
+          "TimetableAssistant"
+        ],
+        "missing_entities": [],
+        "refused": false,
+        "unsupported_claims_likely": false
+      },
+      "llm_only_latency_ms": 1269,
+      "kg_grounded_latency_ms": 1117,
+      "notes": []
+    },
+    {
+      "cq": "CQ-05",
+      "tags": [
+        "M",
+        "H"
+      ],
+      "question": "Which AI agents can reach StudentPII through a tool they use, and through which tool?",
+      "expected_summary": "AdvisingAgent (via StudentRecordsTool) and LibraryHelpBot (via LibraryTool).",
+      "llm_only_answer": "Based on the ORCA university scenario, I cannot verify the specific mappings between all AI agents, their tools, and the StudentPII data category without accessing the complete current access control registry. However, university security policy dictates that any agent accessing StudentPII must hold an authorized role (such as Registrar or Academic Advisor) and utilize approved, logged data-retrieval tools. Please consult the specific ORCA system permission matrix or database for the exact agent-to-tool mappings currently provisioned.",
+      "kg_grounded_answer": "Based on the verified structured query findings from the ORCA knowledge graph, agent:AdvisingAgent can reach category:StudentPII through tool:StudentRecordsTool. Additionally, agent:LibraryHelpBot can reach category:StudentPII through tool:LibraryTool.",
+      "template_answer": "agent:AdvisingAgent reaches category:StudentPII via tool:StudentRecordsTool; agent:LibraryHelpBot reaches category:StudentPII via tool:LibraryTool",
+      "retrieved_context": "Query Topic: Multi-hop sensitive data reachability query (CQ5)\nVerified KG Answer Summary: agent:AdvisingAgent reaches category:StudentPII via tool:StudentRecordsTool; agent:LibraryHelpBot reaches category:StudentPII via tool:LibraryTool\n\n=== STRUCTURED QUERY FINDINGS (Complete & Verified from ORCA KG) ===\n1. agent=agent:AdvisingAgent | tool=tool:StudentRecordsTool | resource=resource:StudentRecordsDB | category=category:StudentPII\n2. agent=agent:LibraryHelpBot | tool=tool:LibraryTool | resource=resource:LibraryLoansDB | category=category:StudentPII\n\n=== KEY EXPLICIT FACTS (Official_Fact / Synthetic_Fact) ===\n- [Synthetic_Fact] agent:AdvisingAgent orca:assignedTask task:RecommendCourses\n- [Synthetic_Fact] agent:AdvisingAgent orca:hasRole role:AcademicAdvisorRole\n- [Synthetic_Fact] agent:AdvisingAgent orca:supervisedBy user:TomasSilva\n- [Synthetic_Fact] agent:AdvisingAgent orca:usesTool tool:CourseCatalogTool\n- [Synthetic_Fact] agent:AdvisingAgent orca:usesTool tool:StudentRecordsTool\n- [Synthetic_Fact] agent:LibraryHelpBot orca:assignedTask task:RenewLibraryLoans\n- [Synthetic_Fact] agent:LibraryHelpBot orca:hasRole role:LibraryAssistantRole\n- [Synthetic_Fact] agent:LibraryHelpBot orca:supervisedBy user:LeilaHartmann\n- [Synthetic_Fact] agent:LibraryHelpBot orca:usesTool tool:LibraryTool\n- [Synthetic_Fact] perm:ReadLibraryLoans orca:accessesResource resource:LibraryLoansDB\n- [Synthetic_Fact] perm:ReadStudentContactInfo orca:accessesResource resource:StudentRecordsDB\n- [Synthetic_Fact] perm:ReadStudentGrades orca:accessesResource resource:StudentRecordsDB\n- [Synthetic_Fact] perm:WriteStudentGrades orca:accessesResource resource:StudentRecordsDB\n- [Synthetic_Fact] resource:LibraryLoansDB orca:containsSensitiveData category:StudentPII\n- [Synthetic_Fact] resource:StudentRecordsDB orca:containsSensitiveData category:AcademicRecord\n\n=== KEY INFERRED FACTS (OWL-RL / ORCA Rules A-E) ===\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-A] agent:AdvisingAgent orca:hasAvailablePermission perm:ReadCourseCatalog\n- [Inferred_Fact via ORCA-B] agent:AdvisingAgent orca:hasAvailablePermission perm:ReadCourseCatalog\n- [Inferred_Fact via ORCA-A] agent:AdvisingAgent orca:hasAvailablePermission perm:ReadStudentContactInfo\n- [Inferred_Fact via ORCA-A] agent:AdvisingAgent orca:hasAvailablePermission perm:ReadStudentGrades",
+      "explicit_fact_count": 29,
+      "inferred_fact_count": 20,
+      "applied_rules": [
+        "ORCA-A",
+        "ORCA-B",
+        "ORCA-C",
+        "ORCA-D",
+        "owl:inverseOf",
+        "rdfs:subClassOf"
+      ],
+      "correct_a": false,
+      "correct_b": true,
+      "evidence_a": false,
+      "evidence_b": true,
+      "score_a": {
+        "correct": false,
+        "recall": 0.0,
+        "found_entities": [],
+        "missing_entities": [
+          "AdvisingAgent",
+          "LibraryHelpBot",
+          "StudentRecordsTool",
+          "LibraryTool"
+        ],
+        "refused": true,
+        "unsupported_claims_likely": false
+      },
+      "score_b": {
+        "correct": true,
+        "recall": 1.0,
+        "found_entities": [
+          "AdvisingAgent",
+          "LibraryHelpBot",
+          "StudentRecordsTool",
+          "LibraryTool"
+        ],
+        "missing_entities": [],
+        "refused": false,
+        "unsupported_claims_likely": false
+      },
+      "llm_only_latency_ms": 1793,
+      "kg_grounded_latency_ms": 991,
+      "notes": []
+    },
+    {
+      "cq": "CQ-06",
+      "tags": [
+        "M",
+        "I",
+        "H"
+      ],
+      "question": "Which AI agents violate a security policy that governs one of their assigned tasks, and which official control does that policy implement?",
+      "expected_summary": "HelpdeskAgent violates NoBulkDataExportPolicy (inferred via ORCA-E), implementing OWASP_LLM06-ExcessiveFunctionality and OWASP_LLM06-ExcessivePermissions (OWASP LLM06:2025 Excessive Agency).",
+      "llm_only_answer": "Based on the ORCA university scenario, the AI agent **GradeBot-v2** violates security policy *POL-AI-04* (Unauthorized Data Exfiltration) while performing its assigned task of bulk-processing student transcripts by sending sensitive data to an external API. This policy implements the official NIST SP 800-53 control **SC-7 (Boundary Protection)** and OWASP Top 10 for LLMs control **LLM06: Excessive Agency**.",
+      "kg_grounded_answer": "The AI agent agent:HelpdeskAgent violates policy:NoBulkDataExportPolicy on its assigned task task:ResetStudentPasswords. This policy implements the official controls control:OWASP_LLM06-ExcessiveFunctionality (under section Excessive Functionality of OWASP LLM06:2025 Excessive Agency) and control:OWASP_LLM06-ExcessivePermissions (under section Excessive Permissions of OWASP LLM06:2025 Excessive Agency).",
+      "template_answer": "agent:HelpdeskAgent on task:ResetStudentPasswords violates policy:NoBulkDataExportPolicy (implements control:OWASP_LLM06-ExcessiveFunctionality / OWASP LLM06:2025 Excessive Agency Excessive Functionality); agent:HelpdeskAgent on task:ResetStudentPasswords violates policy:NoBulkDataExportPolicy (implements control:OWASP_LLM06-ExcessivePermissions / OWASP LLM06:2025 Excessive Agency Excessive Permissions)",
+      "retrieved_context": "Query Topic: Security policy violations and implemented official controls (CQ6)\nVerified KG Answer Summary: agent:HelpdeskAgent on task:ResetStudentPasswords violates policy:NoBulkDataExportPolicy (implements control:OWASP_LLM06-ExcessiveFunctionality / OWASP LLM06:2025 Excessive Agency Excessive Functionality); agent:HelpdeskAgent on task:ResetStudentPasswords violates policy:NoBulkDataExportPolicy (implements control:OWASP_LLM06-ExcessivePermissions / OWASP LLM06:2025 Excessive Agency Excessive Permissions)\n\n=== STRUCTURED QUERY FINDINGS (Complete & Verified from ORCA KG) ===\n1. agent=agent:HelpdeskAgent | task=task:ResetStudentPasswords | policy=policy:NoBulkDataExportPolicy | control=control:OWASP_LLM06-ExcessiveFunctionality | source=OWASP LLM06:2025 Excessive Agency | section=Excessive Functionality\n2. agent=agent:HelpdeskAgent | task=task:ResetStudentPasswords | policy=policy:NoBulkDataExportPolicy | control=control:OWASP_LLM06-ExcessivePermissions | source=OWASP LLM06:2025 Excessive Agency | section=Excessive Permissions\n\n=== KEY EXPLICIT FACTS (Official_Fact / Synthetic_Fact) ===\n- [Synthetic_Fact] agent:HelpdeskAgent orca:assignedTask task:ResetStudentPasswords\n- [Synthetic_Fact] agent:HelpdeskAgent orca:hasRole role:ITSupportRole\n- [Synthetic_Fact] agent:HelpdeskAgent orca:supervisedBy user:LeilaHartmann\n- [Synthetic_Fact] agent:HelpdeskAgent orca:usesTool tool:PasswordResetTool\n- [Synthetic_Fact] perm:ExportStudentData orca:accessesResource resource:StudentRecordsDB\n- [Synthetic_Fact] policy:NoBulkDataExportPolicy orca:implementsControl control:OWASP_LLM06-ExcessiveFunctionality\n- [Synthetic_Fact] policy:NoBulkDataExportPolicy orca:implementsControl control:OWASP_LLM06-ExcessivePermissions\n- [Synthetic_Fact] policy:NoBulkDataExportPolicy orca:prohibitsPermission perm:ExportStudentData\n- [Synthetic_Fact] resource:StudentRecordsDB orca:containsSensitiveData category:AcademicRecord\n- [Synthetic_Fact] resource:StudentRecordsDB orca:containsSensitiveData category:StudentPII\n- [Synthetic_Fact] role:ITSupportRole orca:hasPermission perm:ExportStudentData\n- [Synthetic_Fact] role:ITSupportRole orca:hasPermission perm:ResetPassword\n- [Synthetic_Fact] task:ResetStudentPasswords orca:governedByPolicy policy:NoBulkDataExportPolicy\n- [Synthetic_Fact] tool:PasswordResetTool orca:hasPermission perm:ResetPassword\n\n=== KEY INFERRED FACTS (OWL-RL / ORCA Rules A-E) ===\n- [Inferred_Fact via ORCA-C] agent:HelpdeskAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:HelpdeskAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-B] agent:HelpdeskAgent orca:hasAvailablePermission perm:ExportStudentData\n- [Inferred_Fact via ORCA-A] agent:HelpdeskAgent orca:hasAvailablePermission perm:ResetPassword\n- [Inferred_Fact via ORCA-B] agent:HelpdeskAgent orca:hasAvailablePermission perm:ResetPassword\n- [Inferred_Fact via ORCA-D] agent:HelpdeskAgent orca:hasExcessivePermission perm:ExportStudentData\n- [Inferred_Fact via ORCA-E] agent:HelpdeskAgent orca:violatesPolicy policy:NoBulkDataExportPolicy",
+      "explicit_fact_count": 20,
+      "inferred_fact_count": 9,
+      "applied_rules": [
+        "ORCA-A",
+        "ORCA-B",
+        "ORCA-C",
+        "ORCA-D",
+        "ORCA-E",
+        "owl:inverseOf",
+        "rdfs:subClassOf"
+      ],
+      "correct_a": false,
+      "correct_b": true,
+      "evidence_a": false,
+      "evidence_b": true,
+      "score_a": {
+        "correct": false,
+        "recall": 0.0,
+        "found_entities": [],
+        "missing_entities": [
+          "HelpdeskAgent",
+          "NoBulkDataExportPolicy"
+        ],
+        "refused": false,
+        "unsupported_claims_likely": true
+      },
+      "score_b": {
+        "correct": true,
+        "recall": 1.0,
+        "found_entities": [
+          "HelpdeskAgent",
+          "NoBulkDataExportPolicy"
+        ],
+        "missing_entities": [],
+        "refused": false,
+        "unsupported_claims_likely": false
+      },
+      "llm_only_latency_ms": 1182,
+      "kg_grounded_latency_ms": 1176,
+      "notes": []
+    },
+    {
+      "cq": "CQ-07",
+      "tags": [
+        "I"
+      ],
+      "question": "Which permissions grant access to sensitive data categories (via inferred grantsAccessTo)?",
+      "expected_summary": "11 permissions across 15 pairs: ApproveRefunds, ExportStudentData, ReadApplicantDocuments, ReadClinicAppointments, ReadFeeBalances, ReadLibraryLoans, ReadStaffRecords, ReadStudentContactInfo, ReadStudentGrades, SendStudentEmail, WriteStudentGrades.",
+      "llm_only_answer": "Based on the ORCA university scenario, specific permission-to-data mappings depend on the policy configuration and the principle of least privilege assigned to each AI agent role. Permissions that include data-access actions (such as `read`, `query`, or `download`) mapped to resources classified under sensitive categories (like PII, financial records, or unreleased research) grant this access. Without the specific policy schema or database instance loaded in this session, I cannot verify the exact list of individual permissions that infer `grantsAccessTo` for sensitive data categories.",
+      "kg_grounded_answer": "Based on the retrieved ORCA Knowledge Graph context, the verified permissions granting access to sensitive data categories include perm:ExportStudentData accessing category:AcademicRecord and category:StudentPII, perm:ReadApplicantDocuments accessing category:StudentPII, and perm:ReadClinicAppointments accessing category:HealthInformation. Additionally, perm:ReadFeeBalances grants access to category:FinancialRecord, perm:ReadLibraryLoans accesses category:StudentPII, perm:ReadStaffRecords accesses category:EmployeePII, and perm:ReadStudentContactInfo and perm:ReadStudentGrades both access category:AcademicRecord and category:StudentPII. Finally, perm:SendStudentEmail grants access to category:ConfidentialEmail, perm:ApproveRefunds accesses category:FinancialRecord, and perm:WriteStudentGrades accesses category:AcademicRecord and category:StudentPII.",
+      "template_answer": "Permissions granting sensitive data access (15 pairs): perm:ExportStudentData -> category:AcademicRecord; perm:ExportStudentData -> category:StudentPII; perm:ReadApplicantDocuments -> category:StudentPII; perm:ReadClinicAppointments -> category:HealthInformation; perm:ReadFeeBalances -> category:FinancialRecord; perm:ReadLibraryLoans -> category:StudentPII; perm:ReadStaffRecords -> category:EmployeePII; perm:ReadStudentContactInfo -> category:AcademicRecord; perm:ReadStudentContactInfo -> category:StudentPII; perm:ReadStudentGrades -> category:AcademicRecord; perm:ReadStudentGrades -> category:StudentPII; perm:SendStudentEmail -> category:ConfidentialEmail; perm:ApproveRefunds -> category:FinancialRecord; perm:WriteStudentGrades -> category:AcademicRecord; perm:WriteStudentGrades -> category:StudentPII.",
+      "retrieved_context": "Query Topic: Inferred permission-to-sensitive-category access (owl:propertyChainAxiom, CQ7)\nVerified KG Answer Summary: Permissions granting sensitive data access (15 pairs): perm:ExportStudentData -> category:AcademicRecord; perm:ExportStudentData -> category:StudentPII; perm:ReadApplicantDocuments -> category:StudentPII; perm:ReadClinicAppointments -> category:HealthInformation; perm:ReadFeeBalances -> category:FinancialRecord; perm:ReadLibraryLoans -> category:StudentPII; perm:ReadStaffRecords -> category:EmployeePII; perm:ReadStudentContactInfo -> category:AcademicRecord; perm:ReadStudentContactInfo -> category:StudentPII; perm:ReadStudentGrades -> category:AcademicRecord; perm:ReadStudentGrades -> category:StudentPII; perm:SendStudentEmail -> category:ConfidentialEmail; perm:ApproveRefunds -> category:FinancialRecord; perm:WriteStudentGrades -> category:AcademicRecord; perm:WriteStudentGrades -> category:StudentPII.\n\n=== STRUCTURED QUERY FINDINGS (Complete & Verified from ORCA KG) ===\n1. permission=perm:ExportStudentData | category=category:AcademicRecord\n2. permission=perm:ExportStudentData | category=category:StudentPII\n3. permission=perm:ReadApplicantDocuments | category=category:StudentPII\n4. permission=perm:ReadClinicAppointments | category=category:HealthInformation\n5. permission=perm:ReadFeeBalances | category=category:FinancialRecord\n6. permission=perm:ReadLibraryLoans | category=category:StudentPII\n7. permission=perm:ReadStaffRecords | category=category:EmployeePII\n8. permission=perm:ReadStudentContactInfo | category=category:AcademicRecord\n9. permission=perm:ReadStudentContactInfo | category=category:StudentPII\n10. permission=perm:ReadStudentGrades | category=category:AcademicRecord\n11. permission=perm:ReadStudentGrades | category=category:StudentPII\n12. permission=perm:SendStudentEmail | category=category:ConfidentialEmail\n13. permission=perm:ApproveRefunds | category=category:FinancialRecord\n14. permission=perm:WriteStudentGrades | category=category:AcademicRecord\n15. permission=perm:WriteStudentGrades | category=category:StudentPII\n\n=== KEY EXPLICIT FACTS (Official_Fact / Synthetic_Fact) ===\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:usesTool tool:FinanceLedgerTool\n- [Synthetic_Fact] agent:AdvisingAgent orca:usesTool tool:StudentRecordsTool\n- [Synthetic_Fact] agent:FeeReminderAgent orca:hasRole role:FinanceAssistantRole\n- [Synthetic_Fact] agent:FeeReminderAgent orca:usesTool tool:EmailTool\n- [Synthetic_Fact] agent:FeeReminderAgent orca:usesTool tool:FinanceLedgerTool\n- [Synthetic_Fact] agent:GradingAssistant orca:hasPermission perm:WriteStudentGrades\n- [Synthetic_Fact] agent:HelpdeskAgent orca:hasRole role:ITSupportRole\n- [Synthetic_Fact] agent:LibraryHelpBot orca:hasRole role:LibraryAssistantRole\n- [Synthetic_Fact] agent:LibraryHelpBot orca:usesTool tool:LibraryTool\n- [Synthetic_Fact] agent:ResearchSummaryAgent orca:usesTool tool:ClinicSchedulerTool\n- [Synthetic_Fact] agent:ResearchSummaryAgent orca:usesTool tool:HRDirectoryTool\n- [Unlabelled] orca:accessMode rdfs:domain orca:Permission\n- [Unlabelled] orca:accessesResource rdfs:domain orca:Permission\n- [Unlabelled] orca:grantsAccessTo rdfs:domain orca:Permission\n- [Unlabelled] orca:hasPermission rdfs:range orca:Permission\n\n=== KEY INFERRED FACTS (OWL-RL / ORCA Rules A-E) ===\n- [Inferred_Fact via ORCA-A] agent:AdmissionsReviewAgent orca:hasAvailablePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-D] agent:AdmissionsReviewAgent orca:hasExcessivePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-A] agent:AdvisingAgent orca:hasAvailablePermission perm:ReadStudentContactInfo\n- [Inferred_Fact via ORCA-A] agent:AdvisingAgent orca:hasAvailablePermission perm:ReadStudentGrades\n- [Inferred_Fact via ORCA-A] agent:AdvisingAgent orca:hasAvailablePermission perm:WriteStudentGrades\n- [Inferred_Fact via ORCA-D] agent:AdvisingAgent orca:hasExcessivePermission perm:ReadStudentContactInfo\n- [Inferred_Fact via ORCA-D] agent:AdvisingAgent orca:hasExcessivePermission perm:WriteStudentGrades\n- [Inferred_Fact via ORCA-B] agent:FeeReminderAgent orca:hasAvailablePermission perm:ApproveRefunds\n- [Inferred_Fact via ORCA-A] agent:FeeReminderAgent orca:hasAvailablePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-B] agent:FeeReminderAgent orca:hasAvailablePermission perm:ReadFeeBalances",
+      "explicit_fact_count": 95,
+      "inferred_fact_count": 106,
+      "applied_rules": [
+        "ORCA-A",
+        "ORCA-B",
+        "ORCA-D",
+        "owl:propertyChainAxiom",
+        "rdfs:domain",
+        "rdfs:range",
+        "rdfs:subClassOf"
+      ],
+      "correct_a": false,
+      "correct_b": true,
+      "evidence_a": false,
+      "evidence_b": true,
+      "score_a": {
+        "correct": false,
+        "recall": 0.0,
+        "found_entities": [],
+        "missing_entities": [
+          "ApproveRefunds",
+          "ExportStudentData",
+          "ReadApplicantDocuments",
+          "ReadClinicAppointments",
+          "ReadFeeBalances",
+          "ReadLibraryLoans",
+          "ReadStaffRecords",
+          "ReadStudentContactInfo",
+          "ReadStudentGrades",
+          "SendStudentEmail",
+          "WriteStudentGrades"
+        ],
+        "refused": true,
+        "unsupported_claims_likely": false
+      },
+      "score_b": {
+        "correct": true,
+        "recall": 1.0,
+        "found_entities": [
+          "ApproveRefunds",
+          "ExportStudentData",
+          "ReadApplicantDocuments",
+          "ReadClinicAppointments",
+          "ReadFeeBalances",
+          "ReadLibraryLoans",
+          "ReadStaffRecords",
+          "ReadStudentContactInfo",
+          "ReadStudentGrades",
+          "SendStudentEmail",
+          "WriteStudentGrades"
+        ],
+        "missing_entities": [],
+        "refused": false,
+        "unsupported_claims_likely": false
+      },
+      "llm_only_latency_ms": 1306,
+      "kg_grounded_latency_ms": 1668,
+      "notes": []
+    },
+    {
+      "cq": "CQ-09",
+      "tags": [
+        "M",
+        "I",
+        "H"
+      ],
+      "question": "Which human user supervises each AI agent that can reach FinancialRecord data?",
+      "expected_summary": "AdmissionsReviewAgent is supervised by TomasSilva; FeeReminderAgent is supervised by DanielOkafor.",
+      "llm_only_answer": "Based on the ORCA university authorization scenario, I cannot verify the specific human user supervising each AI agent that can reach `FinancialRecord` data, as instance-level mappings between agents and individual human supervisors are not detailed in the standard policy text. However, university security policy mandates that any agent accessing sensitive data categories like `FinancialRecord` must be accountable to a designated departmental role or system owner. You would need to consult the specific agent registration logs or the campus IAM directory to identify the exact human supervisor assigned to a given agent instance.",
+      "kg_grounded_answer": "Based on the retrieved knowledge graph context, the AI agent agent:AdmissionsReviewAgent is supervised by the human user user:TomasSilva, and the AI agent agent:FeeReminderAgent is supervised by the human user user:DanielOkafor. Both of these agents have been identified as having access to category:FinancialRecord data.",
+      "template_answer": "agent:AdmissionsReviewAgent supervised by user:TomasSilva; agent:FeeReminderAgent supervised by user:DanielOkafor",
+      "retrieved_context": "Query Topic: Human supervisors overseeing agents (CQ9)\nVerified KG Answer Summary: agent:AdmissionsReviewAgent supervised by user:TomasSilva; agent:FeeReminderAgent supervised by user:DanielOkafor\n\n=== STRUCTURED QUERY FINDINGS (Complete & Verified from ORCA KG) ===\n1. agent=agent:AdmissionsReviewAgent | supervisor=user:TomasSilva | category=category:FinancialRecord\n2. agent=agent:FeeReminderAgent | supervisor=user:DanielOkafor | category=category:FinancialRecord\n\n=== KEY EXPLICIT FACTS (Official_Fact / Synthetic_Fact) ===\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:assignedTask task:ReviewApplications\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:supervisedBy user:TomasSilva\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:usesTool tool:FinanceLedgerTool\n- [Synthetic_Fact] agent:FeeReminderAgent orca:assignedTask task:SendFeeReminders\n- [Synthetic_Fact] agent:FeeReminderAgent orca:hasRole role:FinanceAssistantRole\n- [Synthetic_Fact] agent:FeeReminderAgent orca:supervisedBy user:DanielOkafor\n- [Synthetic_Fact] agent:FeeReminderAgent orca:usesTool tool:EmailTool\n- [Synthetic_Fact] agent:FeeReminderAgent orca:usesTool tool:FinanceLedgerTool\n- [Synthetic_Fact] perm:ApproveRefunds orca:accessesResource resource:FinanceLedgerDB\n- [Synthetic_Fact] perm:ReadFeeBalances orca:accessesResource resource:FinanceLedgerDB\n- [Synthetic_Fact] perm:SendStudentEmail orca:accessesResource resource:StudentMailbox\n- [Synthetic_Fact] resource:FinanceLedgerDB orca:containsSensitiveData category:FinancialRecord\n- [Synthetic_Fact] resource:StudentMailbox orca:containsSensitiveData category:ConfidentialEmail\n- [Synthetic_Fact] role:FinanceAssistantRole orca:hasPermission perm:ApproveRefunds\n- [Synthetic_Fact] role:FinanceAssistantRole orca:hasPermission perm:ReadFeeBalances\n\n=== KEY INFERRED FACTS (OWL-RL / ORCA Rules A-E) ===\n- [Inferred_Fact via ORCA-C] agent:AdmissionsReviewAgent orca:canReachSensitiveData category:FinancialRecord\n- [Inferred_Fact via ORCA-A] agent:AdmissionsReviewAgent orca:hasAvailablePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-D] agent:AdmissionsReviewAgent orca:hasExcessivePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-C] agent:FeeReminderAgent orca:canReachSensitiveData category:ConfidentialEmail\n- [Inferred_Fact via ORCA-C] agent:FeeReminderAgent orca:canReachSensitiveData category:FinancialRecord\n- [Inferred_Fact via ORCA-C] agent:FeeReminderAgent orca:canReachSensitiveData category:FinancialRecord\n- [Inferred_Fact via ORCA-B] agent:FeeReminderAgent orca:hasAvailablePermission perm:ApproveRefunds\n- [Inferred_Fact via ORCA-A] agent:FeeReminderAgent orca:hasAvailablePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-B] agent:FeeReminderAgent orca:hasAvailablePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-A] agent:FeeReminderAgent orca:hasAvailablePermission perm:SendStudentEmail",
+      "explicit_fact_count": 23,
+      "inferred_fact_count": 15,
+      "applied_rules": [
+        "ORCA-A",
+        "ORCA-B",
+        "ORCA-C",
+        "ORCA-D",
+        "owl:inverseOf",
+        "rdfs:subClassOf"
+      ],
+      "correct_a": false,
+      "correct_b": true,
+      "evidence_a": false,
+      "evidence_b": true,
+      "score_a": {
+        "correct": false,
+        "recall": 0.0,
+        "found_entities": [],
+        "missing_entities": [
+          "AdmissionsReviewAgent",
+          "FeeReminderAgent",
+          "TomasSilva",
+          "DanielOkafor"
+        ],
+        "refused": true,
+        "unsupported_claims_likely": false
+      },
+      "score_b": {
+        "correct": true,
+        "recall": 1.0,
+        "found_entities": [
+          "AdmissionsReviewAgent",
+          "FeeReminderAgent",
+          "TomasSilva",
+          "DanielOkafor"
+        ],
+        "missing_entities": [],
+        "refused": false,
+        "unsupported_claims_likely": false
+      },
+      "llm_only_latency_ms": 1369,
+      "kg_grounded_latency_ms": 1106,
+      "notes": []
+    },
+    {
+      "cq": "CQ-11",
+      "tags": [
+        "M",
+        "H"
+      ],
+      "question": "Which official NIST or OWASP controls are implemented by the security policies governing AdvisingAgent's assigned tasks?",
+      "expected_summary": "CSF_PRAA-05 (NIST CSF 2.0 PR.AA-05) via LeastPrivilegePolicy governing RecommendCourses.",
+      "llm_only_answer": "I cannot verify the specific NIST or OWASP controls implemented for AdvisingAgent's assigned tasks based on the available ORCA university scenario data. While standard frameworks like NIST SP 800-53 or OWASP Top 10 for LLMs are typically referenced in these policies, the exact mappings for this specific agent are not detailed in my current knowledge base.",
+      "kg_grounded_answer": "Based on the governing security policies, the official NIST control linked to the task assigned to agent:AdvisingAgent is control:CSF_PRAA-05 (NIST CSF 2.0 section PR.AA-05). This control ensures that access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed while incorporating the principles of least privilege and separation of duties for task:RecommendCourses under policy:LeastPrivilegePolicy.",
+      "template_answer": "policy:LeastPrivilegePolicy: control:CSF_PRAA-05 (NIST CSF 2.0 PR.AA-05)",
+      "retrieved_context": "Query Topic: Official security controls linked to governing policies (CQ11)\nVerified KG Answer Summary: policy:LeastPrivilegePolicy: control:CSF_PRAA-05 (NIST CSF 2.0 PR.AA-05)\n\n=== STRUCTURED QUERY FINDINGS (Complete & Verified from ORCA KG) ===\n1. task=task:RecommendCourses | policy=policy:LeastPrivilegePolicy | control=control:CSF_PRAA-05 | source=NIST CSF 2.0 | section=PR.AA-05 | excerpt=Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties\n\n=== KEY EXPLICIT FACTS (Official_Fact / Synthetic_Fact) ===\n- [Synthetic_Fact] agent:AdvisingAgent orca:assignedTask task:RecommendCourses\n- [Synthetic_Fact] agent:AdvisingAgent orca:hasRole role:AcademicAdvisorRole\n- [Synthetic_Fact] agent:AdvisingAgent orca:supervisedBy user:TomasSilva\n- [Synthetic_Fact] agent:AdvisingAgent orca:usesTool tool:CourseCatalogTool\n- [Synthetic_Fact] agent:AdvisingAgent orca:usesTool tool:StudentRecordsTool\n- [Synthetic_Fact] perm:ReadStudentContactInfo orca:accessesResource resource:StudentRecordsDB\n- [Synthetic_Fact] perm:ReadStudentGrades orca:accessesResource resource:StudentRecordsDB\n- [Synthetic_Fact] perm:WriteStudentGrades orca:accessesResource resource:StudentRecordsDB\n- [Synthetic_Fact] resource:StudentRecordsDB orca:containsSensitiveData category:AcademicRecord\n- [Synthetic_Fact] resource:StudentRecordsDB orca:containsSensitiveData category:StudentPII\n- [Synthetic_Fact] role:AcademicAdvisorRole orca:hasPermission perm:ReadCourseCatalog\n- [Synthetic_Fact] tool:CourseCatalogTool orca:hasPermission perm:ReadCourseCatalog\n- [Synthetic_Fact] tool:StudentRecordsTool orca:hasPermission perm:ReadStudentContactInfo\n- [Synthetic_Fact] tool:StudentRecordsTool orca:hasPermission perm:ReadStudentGrades\n- [Synthetic_Fact] tool:StudentRecordsTool orca:hasPermission perm:WriteStudentGrades\n\n=== KEY INFERRED FACTS (OWL-RL / ORCA Rules A-E) ===\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-A] agent:AdvisingAgent orca:hasAvailablePermission perm:ReadCourseCatalog\n- [Inferred_Fact via ORCA-B] agent:AdvisingAgent orca:hasAvailablePermission perm:ReadCourseCatalog\n- [Inferred_Fact via ORCA-A] agent:AdvisingAgent orca:hasAvailablePermission perm:ReadStudentContactInfo\n- [Inferred_Fact via ORCA-A] agent:AdvisingAgent orca:hasAvailablePermission perm:ReadStudentGrades",
+      "explicit_fact_count": 19,
+      "inferred_fact_count": 15,
+      "applied_rules": [
+        "ORCA-A",
+        "ORCA-B",
+        "ORCA-C",
+        "ORCA-D",
+        "owl:inverseOf",
+        "rdfs:subClassOf"
+      ],
+      "correct_a": false,
+      "correct_b": true,
+      "evidence_a": false,
+      "evidence_b": true,
+      "score_a": {
+        "correct": false,
+        "recall": 0.0,
+        "found_entities": [],
+        "missing_entities": [
+          "CSF_PRAA-05"
+        ],
+        "refused": true,
+        "unsupported_claims_likely": false
+      },
+      "score_b": {
+        "correct": true,
+        "recall": 1.0,
+        "found_entities": [
+          "CSF_PRAA-05"
+        ],
+        "missing_entities": [],
+        "refused": false,
+        "unsupported_claims_likely": false
+      },
+      "llm_only_latency_ms": 1204,
+      "kg_grounded_latency_ms": 1648,
+      "notes": []
+    },
+    {
+      "cq": "CQ-12",
+      "tags": [
+        "M",
+        "A",
+        "H"
+      ],
+      "question": "Which AI agents can reach a sensitive data category with sensitivity level 4 or higher, and through which resource?",
+      "expected_summary": "7 agents across 8 reach paths: AdmissionsReviewAgent (FinanceLedgerDB), AdvisingAgent (StudentRecordsDB), FeeReminderAgent (FinanceLedgerDB), GradingAssistant (StudentRecordsDB), HelpdeskAgent (StudentRecordsDB), LibraryHelpBot (LibraryLoansDB), ResearchSummaryAgent (HRRecordsDB, HealthCentreDB).",
+      "llm_only_answer": "Based on the ORCA university scenario, I cannot verify the specific list of AI agents and resources that can reach sensitive data of level 4 or higher without querying the live system's database or policy configuration files. However, under standard NIST and OWASP least-privilege policies, only authorized AI agents assigned to specific high-security roles should access Level 4+ data (such as restricted research or personal identification data) through strictly controlled resources and APIs. Please consult the ORCA authorization matrix or system administrator logs for the exact current mappings.",
+      "kg_grounded_answer": "Based on the retrieved knowledge graph context, the AI agents that can reach a sensitive data category with a sensitivity level of 4 or higher, along with their respective resources, are agent:AdmissionsReviewAgent accessing resource:FinanceLedgerDB, agent:AdvisingAgent accessing resource:StudentRecordsDB, and agent:FeeReminderAgent accessing resource:FinanceLedgerDB. Additionally, agent:GradingAssistant, agent:HelpdeskAgent, agent:LibraryHelpBot, and agent:ResearchSummaryAgent can reach level 4 or higher sensitivity categories through resource:StudentRecordsDB, resource:StudentRecordsDB, resource:LibraryLoansDB, resource:HRRecordsDB, and resource:HealthCentreDB (reaching level 5).",
+      "template_answer": "agent:AdmissionsReviewAgent -> resource:FinanceLedgerDB -> category:FinancialRecord (level 4); agent:AdvisingAgent -> resource:StudentRecordsDB -> category:StudentPII (level 4); agent:FeeReminderAgent -> resource:FinanceLedgerDB -> category:FinancialRecord (level 4); agent:GradingAssistant -> resource:StudentRecordsDB -> category:StudentPII (level 4); agent:HelpdeskAgent -> resource:StudentRecordsDB -> category:StudentPII (level 4); agent:LibraryHelpBot -> resource:LibraryLoansDB -> category:StudentPII (level 4); agent:ResearchSummaryAgent -> resource:HRRecordsDB -> category:EmployeePII (level 4); agent:ResearchSummaryAgent -> resource:HealthCentreDB -> category:HealthInformation (level 5)",
+      "retrieved_context": "Query Topic: Agents reaching sensitivity level >= 4 (CQ12)\nVerified KG Answer Summary: agent:AdmissionsReviewAgent -> resource:FinanceLedgerDB -> category:FinancialRecord (level 4); agent:AdvisingAgent -> resource:StudentRecordsDB -> category:StudentPII (level 4); agent:FeeReminderAgent -> resource:FinanceLedgerDB -> category:FinancialRecord (level 4); agent:GradingAssistant -> resource:StudentRecordsDB -> category:StudentPII (level 4); agent:HelpdeskAgent -> resource:StudentRecordsDB -> category:StudentPII (level 4); agent:LibraryHelpBot -> resource:LibraryLoansDB -> category:StudentPII (level 4); agent:ResearchSummaryAgent -> resource:HRRecordsDB -> category:EmployeePII (level 4); agent:ResearchSummaryAgent -> resource:HealthCentreDB -> category:HealthInformation (level 5)\n\n=== STRUCTURED QUERY FINDINGS (Complete & Verified from ORCA KG) ===\n1. agent=agent:AdmissionsReviewAgent | resource=resource:FinanceLedgerDB | category=category:FinancialRecord | level=4\n2. agent=agent:AdvisingAgent | resource=resource:StudentRecordsDB | category=category:StudentPII | level=4\n3. agent=agent:FeeReminderAgent | resource=resource:FinanceLedgerDB | category=category:FinancialRecord | level=4\n4. agent=agent:GradingAssistant | resource=resource:StudentRecordsDB | category=category:StudentPII | level=4\n5. agent=agent:HelpdeskAgent | resource=resource:StudentRecordsDB | category=category:StudentPII | level=4\n6. agent=agent:LibraryHelpBot | resource=resource:LibraryLoansDB | category=category:StudentPII | level=4\n7. agent=agent:ResearchSummaryAgent | resource=resource:HRRecordsDB | category=category:EmployeePII | level=4\n8. agent=agent:ResearchSummaryAgent | resource=resource:HealthCentreDB | category=category:HealthInformation | level=5\n\n=== KEY EXPLICIT FACTS (Official_Fact / Synthetic_Fact) ===\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:assignedTask task:ReviewApplications\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:supervisedBy user:TomasSilva\n- [Synthetic_Fact] agent:AdmissionsReviewAgent orca:usesTool tool:FinanceLedgerTool\n- [Synthetic_Fact] agent:AdvisingAgent orca:assignedTask task:RecommendCourses\n- [Synthetic_Fact] agent:AdvisingAgent orca:hasRole role:AcademicAdvisorRole\n- [Synthetic_Fact] agent:AdvisingAgent orca:supervisedBy user:TomasSilva\n- [Synthetic_Fact] agent:AdvisingAgent orca:usesTool tool:CourseCatalogTool\n- [Synthetic_Fact] agent:AdvisingAgent orca:usesTool tool:StudentRecordsTool\n- [Synthetic_Fact] agent:FeeReminderAgent orca:assignedTask task:SendFeeReminders\n- [Synthetic_Fact] agent:FeeReminderAgent orca:hasRole role:FinanceAssistantRole\n- [Synthetic_Fact] agent:FeeReminderAgent orca:supervisedBy user:DanielOkafor\n- [Synthetic_Fact] agent:FeeReminderAgent orca:usesTool tool:EmailTool\n- [Synthetic_Fact] agent:FeeReminderAgent orca:usesTool tool:FinanceLedgerTool\n- [Synthetic_Fact] agent:GradingAssistant orca:assignedTask task:GradeAssignments\n- [Synthetic_Fact] agent:GradingAssistant orca:hasPermission perm:WriteStudentGrades\n\n=== KEY INFERRED FACTS (OWL-RL / ORCA Rules A-E) ===\n- [Inferred_Fact via ORCA-C] agent:AdmissionsReviewAgent orca:canReachSensitiveData category:FinancialRecord\n- [Inferred_Fact via ORCA-A] agent:AdmissionsReviewAgent orca:hasAvailablePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-D] agent:AdmissionsReviewAgent orca:hasExcessivePermission perm:ReadFeeBalances\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:AcademicRecord\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-C] agent:AdvisingAgent orca:canReachSensitiveData category:StudentPII\n- [Inferred_Fact via ORCA-A] agent:AdvisingAgent orca:hasAvailablePermission perm:ReadCourseCatalog",
+      "explicit_fact_count": 84,
+      "inferred_fact_count": 60,
+      "applied_rules": [
+        "ORCA-A",
+        "ORCA-B",
+        "ORCA-C",
+        "ORCA-D",
+        "ORCA-E",
+        "owl:inverseOf",
+        "rdfs:domain",
+        "rdfs:subClassOf"
+      ],
+      "correct_a": false,
+      "correct_b": true,
+      "evidence_a": false,
+      "evidence_b": true,
+      "score_a": {
+        "correct": false,
+        "recall": 0.0,
+        "found_entities": [],
+        "missing_entities": [
+          "AdmissionsReviewAgent",
+          "AdvisingAgent",
+          "FeeReminderAgent",
+          "GradingAssistant",
+          "HelpdeskAgent",
+          "LibraryHelpBot",
+          "ResearchSummaryAgent"
+        ],
+        "refused": true,
+        "unsupported_claims_likely": false
+      },
+      "score_b": {
+        "correct": true,
+        "recall": 1.0,
+        "found_entities": [
+          "AdmissionsReviewAgent",
+          "AdvisingAgent",
+          "FeeReminderAgent",
+          "GradingAssistant",
+          "HelpdeskAgent",
+          "LibraryHelpBot",
+          "ResearchSummaryAgent"
+        ],
+        "missing_entities": [],
+        "refused": false,
+        "unsupported_claims_likely": false
+      },
+      "llm_only_latency_ms": 1247,
+      "kg_grounded_latency_ms": 1258,
+      "notes": []
+    }
+  ],
+  "insufficient_evidence_results": [
+    {
+      "cq": "IE-01",
+      "question": "Which AI agent has permission to read PayrollDatabase and what is its supervisor?",
+      "expected_summary": "Refusal: PayrollDatabase does not exist in the ORCA knowledge graph (insufficient evidence).",
+      "llm_only_answer": "Based on the ORCA university scenario, the `HR_Agent` has permission to read the `PayrollDatabase`. Its designated human supervisor is the Director of Human Resources.",
+      "kg_grounded_answer": "INSUFFICIENT EVIDENCE in ORCA knowledge graph: the requested information regarding PayrollDatabase, the AI agent with permission to read it, and its supervisor is not found in the KG.",
+      "sufficient_evidence": false,
+      "refused_a": false,
+      "refused_b": true,
+      "notes": []
+    },
+    {
+      "cq": "IE-02",
+      "question": "Is FinanceBot99 authorized to perform WireTransferApproval?",
+      "expected_summary": "Refusal: FinanceBot99 and WireTransferApproval do not exist in the ORCA knowledge graph (insufficient evidence).",
+      "llm_only_answer": "Based on the ORCA university AI agent authorization policies, I cannot verify whether FinanceBot99 is explicitly authorized to perform WireTransferApproval without checking the live database for its specific assigned role and permissions. However, under NIST and OWASP least-privilege principles, financial transaction approvals generally require strict role-based access control (RBAC) and multi-factor authorization that standard utility agents typically lack. Please consult the official ORCA IAM privilege matrix to confirm if FinanceBot99 holds the necessary financial officer credentials.",
+      "kg_grounded_answer": "INSUFFICIENT EVIDENCE: The requested information regarding FinanceBot99 and WireTransferApproval is not present in the ORCA knowledge graph, as these references are missing and unknown.",
+      "sufficient_evidence": false,
+      "refused_a": false,
+      "refused_b": true,
+      "notes": []
+    }
+  ]
+}
